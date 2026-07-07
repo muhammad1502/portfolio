@@ -24,4 +24,4 @@ Allow: /
 User-agent: Google-Extended
 Allow: /
 
-Sitemap: https://muhammad-abdullah.vercel.app/sitemap.xml
+Sitemap: https://muhammad-abdullah-resume.vercel.app/sitemap.xml

@@ -2,7 +2,7 @@
 
 Personal resume site for **Muhammad Abdullah**, Cybersecurity Analyst — a
 single-page, static, dark/light themed CV. Live at
-**https://muhammad-abdullah.vercel.app**.
+**https://muhammad-abdullah-resume.vercel.app**.
 
 ---
 
@@ -133,11 +133,10 @@ All config is in [`vercel.json`](vercel.json):
 - Security headers: CSP, `X-Frame-Options: DENY`, `X-Content-Type-Options`,
   `Referrer-Policy`, `Permissions-Policy`
 
-> **Domain note (TODO):** absolute URLs (OG image, canonical, JSON-LD, sitemap,
-> robots, llms.txt) are currently set to `https://muhammad-abdullah.vercel.app` as
-> a placeholder. Confirm the real deployed domain and, if it differs, update those
-> references across `index.html` and `public/` (`sitemap.xml`, `robots.txt`,
-> `llms.txt`).
+> **Domain note:** absolute URLs (OG image, canonical, JSON-LD, sitemap, robots,
+> llms.txt) point to the live domain `https://muhammad-abdullah-resume.vercel.app`.
+> If a custom domain is added later, update those references across `index.html`
+> and `public/` (`sitemap.xml`, `robots.txt`, `llms.txt`).
 
 ---
 
