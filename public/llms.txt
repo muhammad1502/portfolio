@@ -1,0 +1,37 @@
+# Muhammad Abdullah
+
+> Cybersecurity Analyst in the Greater Ottawa area, working remotely with a Canadian cybersecurity firm serving North American enterprise clients. Two years across SOC, incident response, and IT operations: alert triage and threat hunting in Elastic SIEM and Microsoft 365 Defender, active ransomware containment, email-threat analysis, and Python/Pandas log automation. Completing a B.S. in Remote Sensing & GIS; studying for CompTIA Security+.
+
+## Contact
+- Email: muhammaddabddullah@outlook.com
+- LinkedIn: https://www.linkedin.com/in/mabddullah
+- GitHub: https://github.com/muhammad1502
+
+## Current role — Cybersecurity Analyst, Ninpo Inc. (2024 — Present, Ottawa, Canada · remote)
+Remote SOC analyst for a Canadian cybersecurity firm serving North American enterprise clients — threat detection, incident response, and IT operations across multiple client environments.
+
+- Incident Response: Provided tactical support during an active, threat actor-led ransomware engagement, isolating compromised domain controllers and ESXi hosts before large-scale encryption.
+- Threat Hunting & Triage: Investigate 100+ alerts weekly in Elastic SIEM and classify phishing in Perception Point with 95%+ accuracy, surfacing access vectors from compromised VPN credentials to unauthorized RDP lateral movement.
+- Detection Engineering: Tuned SIEM detection rules alongside engineering, cutting false positives 20% through baseline behavior analysis and log correlation.
+- Endpoint Hardening: Audited Elastic EDR health across hybrid environments, remediating hosts with disabled anti-tampering protection to reach 100% telemetry coverage.
+- IT Operations & M365: Administer Microsoft 365 tenants through Pax8, configure VPNs and firewall updates, resolve client support tickets, and provision endpoints for new hires.
+- Reporting: Built incident metrics mapped to MITRE ATT&CK, giving leadership actionable data on adversary TTPs.
+
+## Other experience
+- GIS Intern, PCRWR (Jul — Sep 2025, Islamabad): Summer research internship in geospatial data automation — Python scripts to automate ingestion of spatial datasets for government resource planning, plus statistical analysis of pattern anomalies, transferable to security log analysis.
+
+## Skills
+- Security Operations: Elastic Security (SIEM), incident response, alert triage, phishing analysis with Perception Point, IOC hunting, OSINT
+- Threat Detection: MITRE ATT&CK mapping, TTP analysis, Sysmon, Osquery, anomaly detection, Cyber Kill Chain
+- Infrastructure & Admin: Microsoft 365 Defender and Admin via Pax8, SonicWall and WatchGuard firewall & VPN, RDP/SSH forensics, VMware ESXi, Windows and Linux
+- Data & Programming: Python (Pandas, NumPy, OOP), Bash scripting, SQL, Regex, Jupyter, Matplotlib
+
+## Certifications
+- Google Cybersecurity Professional Certificate
+- Blue Team Junior Analyst — Security Blue Team (BTL1)
+- IBM Introduction to Cybersecurity Essentials
+- CompTIA Security+ (in progress)
+- Identity Security Sales Certification — WatchGuard (Exp. 2026)
+
+## Education
+- B.S., Remote Sensing & GIS — COMSATS University Islamabad, Islamabad (2023 — 2027, expected Jul 2027)

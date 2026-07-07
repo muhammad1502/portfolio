@@ -1,0 +1,107 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Muhammad Abdullah — Cybersecurity Analyst</title>
+    <meta
+      name="description"
+      content="Muhammad Abdullah — Cybersecurity Analyst in the Ottawa area. Remote SOC, threat hunting, and incident response for North American clients using Elastic SIEM and Microsoft 365 Defender, with Python-driven log automation."
+    />
+    <meta name="author" content="Muhammad Abdullah" />
+    <meta name="theme-color" content="#fbfbfa" media="(prefers-color-scheme: light)" />
+    <meta name="theme-color" content="#121211" media="(prefers-color-scheme: dark)" />
+
+    <!-- Favicon (drop files in /public) -->
+    <link rel="icon" type="image/png" href="/favicon.png" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+
+    <!-- Open Graph / social share -->
+    <!-- TODO: confirm the deployed domain and update every absolute URL below
+         (og:url, og:image, canonical, JSON-LD url/image, sitemap.xml, robots.txt,
+         llms.txt) if it differs from muhammad-abdullah.vercel.app. -->
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Muhammad Abdullah" />
+    <meta property="og:locale" content="en_US" />
+    <meta property="og:title" content="Muhammad Abdullah — Cybersecurity Analyst" />
+    <meta
+      property="og:description"
+      content="Remote SOC, threat hunting, and incident response for North American clients using Elastic SIEM and Microsoft 365 Defender."
+    />
+    <meta property="og:url" content="https://muhammad-abdullah.vercel.app" />
+    <meta property="og:image" content="https://muhammad-abdullah.vercel.app/og.png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="Muhammad Abdullah — Cybersecurity Analyst" />
+
+    <!-- Twitter / X -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Muhammad Abdullah — Cybersecurity Analyst" />
+    <meta
+      name="twitter:description"
+      content="Remote SOC, threat hunting, and incident response for North American clients using Elastic SIEM and Microsoft 365 Defender."
+    />
+    <meta name="twitter:image" content="https://muhammad-abdullah.vercel.app/og.png" />
+
+    <link rel="canonical" href="https://muhammad-abdullah.vercel.app" />
+
+    <!-- Structured data: lets search engines and AI crawlers read who this is,
+         the current role/employer, and verified social profiles. -->
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "Person",
+        "name": "Muhammad Abdullah",
+        "url": "https://muhammad-abdullah.vercel.app",
+        "image": "https://muhammad-abdullah.vercel.app/og.png",
+        "jobTitle": "Cybersecurity Analyst",
+        "description": "Cybersecurity analyst running remote SOC, threat hunting, and incident response for North American clients.",
+        "worksFor": { "@type": "Organization", "name": "Ninpo Inc.", "url": "https://ninpo.com" },
+        "address": {
+          "@type": "PostalAddress",
+          "addressLocality": "Ottawa",
+          "addressRegion": "ON",
+          "addressCountry": "CA"
+        },
+        "alumniOf": {
+          "@type": "CollegeOrUniversity",
+          "name": "COMSATS University Islamabad"
+        },
+        "knowsAbout": [
+          "Security Operations",
+          "Incident Response",
+          "SIEM",
+          "Threat Hunting",
+          "Digital Forensics",
+          "OSINT",
+          "Microsoft 365 Defender",
+          "MITRE ATT&CK"
+        ],
+        "email": "mailto:muhammaddabddullah@outlook.com",
+        "sameAs": [
+          "https://www.linkedin.com/in/mabddullah",
+          "https://github.com/muhammad1502"
+        ]
+      }
+    </script>
+
+    <!-- Pre-paint theme: set the page background before React mounts so dark-mode
+         users don't see a light flash (FOUC). Mirrors App.tsx palette + storage key. -->
+    <script>
+      (function () {
+        try {
+          var stored = localStorage.getItem('theme-mode');
+          var dark =
+            stored === 'dark' ||
+            (stored !== 'light' &&
+              window.matchMedia('(prefers-color-scheme: dark)').matches);
+          document.documentElement.style.backgroundColor = dark ? '#121211' : '#fbfbfa';
+        } catch (e) {}
+      })();
+    </script>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>
