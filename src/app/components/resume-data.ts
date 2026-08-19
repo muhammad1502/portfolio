@@ -61,6 +61,54 @@ export const contacts: LabeledLink[] = [
 
 export const experience: ResumeEntry[] = [
   {
+    id: 'afterdesk',
+    period: 'Jul — Aug 2026',
+    title: 'Product Growth & Strategy',
+    subtitle: 'AfterDesk · Independent Product',
+    href: 'https://github.com/muhammad1502/AfterDesk',
+    meta: 'Remote',
+    description:
+      'Developed the product and growth foundation for an evidence-first after-sales case manager serving small online sellers.',
+    sections: [
+      {
+        label: 'Product Strategy',
+        text: 'Defined the core case workflow around customer reports, evidence, deadlines, resolution, third-party recovery, and final financial outcomes.',
+      },
+      {
+        label: 'Acquisition & Activation',
+        text: 'Built a public acquisition site with transparent pilot pricing, an interactive product demo, and a protected pilot workspace designed to move prospects from discovery to product evaluation.',
+      },
+      {
+        label: 'Trust & Readiness',
+        text: 'Created **37** linked product, architecture, security, API, and ethics notes; documented privacy and terms, evidence-security boundaries, and pilot release risks.',
+      },
+    ],
+  },
+  {
+    id: 'fitsmart-growth',
+    period: 'Jul 2026',
+    title: 'Product Growth Auditor',
+    subtitle: 'FitSmart AI · Project Contribution',
+    href: 'https://github.com/SyedSaribSultan/fitsmart',
+    meta: 'Remote',
+    description:
+      'Delivered an evidence-based UX and growth review for an AI fitness and nutrition product, translating product risks into an implementation-ready remediation plan.',
+    sections: [
+      {
+        label: 'Growth & Monetization',
+        text: 'Audited nine product areas and designed clearer quota visibility, plan-aware paywalls, pricing guardrails, retention flows, and a measured path toward token/credit economics.',
+      },
+      {
+        label: 'Conversion & Trust',
+        text: 'Improved upgrade context and payment safety, removed misleading unlimited-use language, preserved blocked user intent, and aligned product claims with real system behavior.',
+      },
+      {
+        label: 'Product Quality',
+        text: 'Specified and validated accessibility, data-integrity, AI-routing, and usage-observability improvements, including coverage of **37** audited icon controls and **18/18** passing Worker tests.',
+      },
+    ],
+  },
+  {
     id: 'ninpo',
     period: '2024 — Present',
     title: 'Cybersecurity Analyst',
