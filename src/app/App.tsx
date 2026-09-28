@@ -9,6 +9,7 @@ import { profile, contacts, experience, projects, skills, certifications } from 
 import type { ResumeEntry } from './components/resume-data';
 import { renderMetrics, splitList } from './lib/metrics';
 import { useThemeMode } from './lib/useThemeMode';
+import { useSpotlight } from './lib/motion';
 import { RESUME_FILENAME, RESUME_URL } from './lib/sections';
 
 const contactIcons: Record<string, typeof Mail> = { email: Mail, linkedin: Linkedin, github: Github };
@@ -16,6 +17,7 @@ const contactIcons: Record<string, typeof Mail> = { email: Mail, linkedin: Linke
 export default function App() {
   const { mode, toggle } = useThemeMode();
   const [openEntry, setOpenEntry] = useState<ResumeEntry | null>(null);
+  useSpotlight();
 
   return (
     <>
