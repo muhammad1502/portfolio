@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { ArrowDownToLine } from 'lucide-react';
+import { ArrowDownToLine, Mail } from 'lucide-react';
 import { profile } from './resume-data';
 import { RESUME_FILENAME, RESUME_URL } from '../lib/sections';
 import profilePhoto from '../../imports/muhammad-abdullah.jpg';
@@ -47,6 +47,7 @@ export function Hero() {
             Download CV
           </a>
           <a className="button button-secondary" href="#contact">
+            <Mail size={17} strokeWidth={2} aria-hidden="true" />
             Contact
           </a>
         </div>

@@ -82,8 +82,8 @@ export default function App() {
                       rel="noopener noreferrer"
                       aria-label={`View ${p.name} on GitHub (opens in a new tab)`}
                     >
+                      <Github size={17} strokeWidth={2} aria-hidden="true" />
                       View on GitHub
-                      <ArrowUpRight size={17} strokeWidth={2} aria-hidden="true" />
                     </a>
                   </div>
                 </article>

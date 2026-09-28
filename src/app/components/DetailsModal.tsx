@@ -1,9 +1,9 @@
 import { useEffect, useRef, useState } from 'react';
-import { ArrowUpRight, X } from 'lucide-react';
+import { X } from 'lucide-react';
 import type { ResumeEntry } from './resume-data';
 import { renderMetrics } from '../lib/metrics';
 import { prefersReducedMotion } from '../lib/motion';
-import { linkLabel } from './links';
+import { linkIcon, linkLabel } from './links';
 
 interface DetailsModalProps {
   entry: ResumeEntry | null;
@@ -121,8 +121,11 @@ export function DetailsModal({ entry, onClose }: DetailsModalProps) {
                   rel="noopener noreferrer"
                   aria-label={`${linkLabel(entry.href)}: ${entry.subtitle ?? entry.title} (opens in a new tab)`}
                 >
+                  {(() => {
+                    const LinkIcon = linkIcon(entry.href);
+                    return <LinkIcon size={17} strokeWidth={2} aria-hidden="true" />;
+                  })()}
                   {linkLabel(entry.href)}
-                  <ArrowUpRight size={17} strokeWidth={2} aria-hidden="true" />
                 </a>
               </div>
             )}

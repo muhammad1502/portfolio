@@ -7,8 +7,8 @@
     <title>Page not found | Muhammad Abdullah</title>
     <link rel="icon" type="image/png" href="/favicon.png" />
     <style>
-      :root { color-scheme: light dark; --bg: #fff; --text: #1d1d1f; --text-2: #6e6e73; }
-      @media (prefers-color-scheme: dark) { :root { --bg: #000; --text: #f5f5f7; --text-2: #a1a1a6; } }
+      :root { color-scheme: light dark; --bg: #fff; --text: #1d1d1f; --text-2: #6e6e73; --btn-bg: #0071e3; --btn-hover: #0076df; --btn-text: #fff; --focus: #0071e3; }
+      @media (prefers-color-scheme: dark) { :root { --bg: #000; --text: #f5f5f7; --text-2: #a1a1a6; --btn-bg: #f5f5f7; --btn-hover: #fff; --btn-text: #1d1d1f; --focus: #2997ff; } }
       body {
         margin: 0; min-height: 100vh; display: grid; place-items: center; text-align: center;
         background: var(--bg); color: var(--text); padding: 0 24px;
@@ -18,10 +18,10 @@
       p { margin: 12px 0 28px; color: var(--text-2); font-size: 19px; }
       a {
         display: inline-flex; align-items: center; justify-content: center; height: 44px; padding: 0 21px;
-        border-radius: 980px; background: #0071e3; color: #fff; font-size: 17px; text-decoration: none;
+        border-radius: 980px; background: var(--btn-bg); color: var(--btn-text); font-size: 17px; text-decoration: none;
       }
-      a:hover { background: #0076df; }
-      a:focus-visible { outline: 2px solid #0071e3; outline-offset: 2px; }
+      a:hover { background: var(--btn-hover); }
+      a:focus-visible { outline: 2px solid var(--focus); outline-offset: 2px; }
     </style>
   </head>
   <body>
