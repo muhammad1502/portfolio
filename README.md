@@ -19,7 +19,8 @@ themes and subtle scroll animations. Live at
 | Font     | SF Pro via the system stack on Apple devices; self-hosted Inter elsewhere (`@fontsource-variable/inter`) |
 | Hosting  | Vercel (Git-connected, auto-deploy on push to `main`)            |
 
-There is no router and no backend: it's a static SPA. All content is data-driven
+There is no router and no backend: it's a static single page, pre-rendered to
+HTML at build time and hydrated in the browser. All content is data-driven
 from a single TypeScript file.
 
 ---
@@ -37,7 +38,8 @@ from a single TypeScript file.
 │   ├── sitemap.xml
 │   └── llms.txt              # Plain-text profile for LLM crawlers (AI readability)
 ├── src/
-│   ├── main.tsx              # Entry; injects site.css (live site only) and mounts <App>
+│   ├── main.tsx              # Entry; hydrates the pre-rendered <App> (or renders /?print)
+│   ├── entry-server.tsx      # Build-time render of <App> to HTML
 │   ├── app/
 │   │   ├── App.tsx           # Page composition: hero, about, experience, projects, skills, certs, contact
 │   │   ├── lib/
@@ -61,8 +63,6 @@ from a single TypeScript file.
 │   │       └── PrintResume.tsx     # Optional print layout at /?print (data-driven)
 │   ├── styles/
 │   │   ├── site.css                # All site styles + light/dark tokens
-│   │   ├── fonts.css               # @font-face for Google Sans Flex (print layout)
-│   │   └── *.woff2                 # The font files
 │   └── imports/
 │       └── muhammad-abdullah.jpg   # Profile photo (EXIF-stripped, 384px)
 ├── vercel.json               # Framework, build, cache + security headers
@@ -106,7 +106,8 @@ npm run dev        # http://localhost:5173
 ## Build
 
 ```bash
-npm run build      # tsc -b && vite build  ->  dist/
+npm run build      # type-check, client build, server build, then scripts/prerender.mjs
+                   # bakes the page HTML (and an Inter preload) into dist/index.html
 npm run preview    # serve the production build locally
 ```
 

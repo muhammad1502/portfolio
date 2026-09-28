@@ -133,7 +133,6 @@ export default function App() {
                       className="contact-card"
                       href={c.href}
                       {...(external ? { target: '_blank', rel: 'noopener noreferrer' } : {})}
-                      aria-label={`${c.label}: ${c.value}${external ? ' (opens in a new tab)' : ''}`}
                     >
                       <Icon className="contact-card-icon" size={28} strokeWidth={1.5} aria-hidden="true" />
                       <span className="contact-card-label">{c.label}</span>
@@ -141,6 +140,7 @@ export default function App() {
                         {c.value}
                         <ArrowUpRight size={17} strokeWidth={2} aria-hidden="true" />
                       </span>
+                      {external && <span className="visually-hidden">, opens in a new tab</span>}
                     </a>
                   </li>
                 );

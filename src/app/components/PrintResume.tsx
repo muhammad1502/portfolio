@@ -1,5 +1,23 @@
 import type { CSSProperties, ReactNode } from 'react';
 import { profile, contacts, experience, projects, skills, certifications, type ResumeEntry } from './resume-data';
+import interLatin from '@fontsource-variable/inter/files/inter-latin-wght-normal.woff2?url';
+
+// The print route removes the site's stylesheets (see main.tsx), so the CV
+// carries its own font and page setup: white US Letter, even margins.
+const PRINT_CSS = `
+@font-face {
+  font-family: 'Inter Variable';
+  font-style: normal;
+  font-weight: 100 900;
+  font-display: block;
+  src: url(${interLatin}) format('woff2');
+}
+html, body { margin: 0; padding: 0; background: #fff; }
+@page { size: letter; margin: 0.5in 0.6in; }
+@media print {
+  body { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+}
+`;
 
 /**
  * The downloadable CV (public/resume.pdf), rendered at `/?print` and saved to
@@ -84,6 +102,7 @@ export function PrintResume() {
 
   return (
     <div style={{ background: '#fff', color: INK, fontFamily: SANS, WebkitFontSmoothing: 'antialiased' }}>
+      <style>{PRINT_CSS}</style>
       <header>
         <h1 style={{ margin: 0, fontSize: 22, fontWeight: 600, letterSpacing: '-0.01em' }}>{profile.name}</h1>
         <div style={{ fontSize: 11.5, color: MUTED, marginTop: 2 }}>

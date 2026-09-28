@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from 'react';
 import { prefersReducedMotion } from '../lib/motion';
+import { useIsomorphicLayoutEffect } from '../lib/useThemeMode';
 
 const DURATION_MS = 1400;
 
@@ -15,9 +16,16 @@ export function CountUp({ value }: { value: string }) {
   const suffix = match ? match[2] : '';
 
   const ref = useRef<HTMLSpanElement>(null);
-  const [current, setCurrent] = useState<number | null>(() =>
-    target === null || typeof IntersectionObserver === 'undefined' || prefersReducedMotion() ? target : 0,
-  );
+  // Starts at the final value (what the pre-rendered HTML shows), then resets
+  // to 0 before the first paint when the count-up will actually run.
+  const [current, setCurrent] = useState<number | null>(target);
+  const [armed, setArmed] = useState(false);
+  useIsomorphicLayoutEffect(() => {
+    if (target !== null && typeof IntersectionObserver !== 'undefined' && !prefersReducedMotion()) {
+      setCurrent(0);
+      setArmed(true);
+    }
+  }, []);
 
   // Desktop delight: hovering a number replays its count-up.
   const rafRef = useRef(0);
@@ -38,8 +46,9 @@ export function CountUp({ value }: { value: string }) {
     animate();
   };
 
+  // Once armed (reset to 0), count up the first time it scrolls into view.
   useEffect(() => {
-    if (target === null || current === target) return;
+    if (target === null || !armed) return;
     const el = ref.current;
     if (!el) return;
 
@@ -64,9 +73,7 @@ export function CountUp({ value }: { value: string }) {
       observer.disconnect();
       cancelAnimationFrame(raf);
     };
-    // Run once per mount; `current` is intentionally not a dependency.
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [target]);
+  }, [target, armed]);
 
   return (
     <span ref={ref} className="stat-value" onMouseEnter={replay}>
