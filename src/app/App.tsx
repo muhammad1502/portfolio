@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { ArrowDownToLine, ArrowUpRight, Github, Linkedin, Mail } from 'lucide-react';
 import { GlobalNav } from './components/GlobalNav';
 import { Hero } from './components/Hero';
@@ -7,6 +7,8 @@ import { DetailsModal } from './components/DetailsModal';
 import { Footer } from './components/Footer';
 import { BackToTop } from './components/BackToTop';
 import { Projects } from './components/Projects';
+import { CommandPalette } from './components/CommandPalette';
+import { Toaster } from './components/Toast';
 import { profile, contacts, experience, skills, certifications } from './components/resume-data';
 import type { ResumeEntry } from './components/resume-data';
 import { renderMetrics, splitList } from './lib/metrics';
@@ -19,14 +21,27 @@ const contactIcons: Record<string, typeof Mail> = { email: Mail, linkedin: Linke
 export default function App() {
   const { mode, toggle } = useThemeMode();
   const [openEntry, setOpenEntry] = useState<ResumeEntry | null>(null);
+  const [paletteOpen, setPaletteOpen] = useState(false);
   useSpotlight();
+
+  // ⌘K (Mac) / Ctrl+K (others) opens the quick-actions palette from anywhere.
+  useEffect(() => {
+    const onKey = (e: KeyboardEvent) => {
+      if ((e.metaKey || e.ctrlKey) && !e.altKey && !e.shiftKey && e.key.toLowerCase() === 'k') {
+        e.preventDefault();
+        setPaletteOpen((o) => !o);
+      }
+    };
+    window.addEventListener('keydown', onKey);
+    return () => window.removeEventListener('keydown', onKey);
+  }, []);
 
   return (
     <>
       <a className="skip-link" href="#main">
         Skip to main content
       </a>
-      <GlobalNav mode={mode} onToggleTheme={toggle} />
+      <GlobalNav mode={mode} onToggleTheme={toggle} onOpenPalette={() => setPaletteOpen(true)} />
 
       <main id="main" tabIndex={-1}>
         <Hero />
@@ -142,6 +157,8 @@ export default function App() {
 
       <Footer />
       <BackToTop />
+      <CommandPalette open={paletteOpen} onClose={() => setPaletteOpen(false)} mode={mode} onToggleTheme={toggle} />
+      <Toaster />
       <DetailsModal entry={openEntry} onClose={() => setOpenEntry(null)} />
     </>
   );

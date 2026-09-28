@@ -19,6 +19,25 @@ export function CountUp({ value }: { value: string }) {
     target === null || typeof IntersectionObserver === 'undefined' || prefersReducedMotion() ? target : 0,
   );
 
+  // Desktop delight: hovering a number replays its count-up.
+  const rafRef = useRef(0);
+  useEffect(() => () => cancelAnimationFrame(rafRef.current), []);
+  const animate = () => {
+    if (target === null) return;
+    const start = performance.now();
+    const tick = (now: number) => {
+      const t = Math.min(1, (now - start) / DURATION_MS);
+      setCurrent(Math.round((1 - Math.pow(1 - t, 3)) * target));
+      if (t < 1) rafRef.current = requestAnimationFrame(tick);
+    };
+    cancelAnimationFrame(rafRef.current);
+    rafRef.current = requestAnimationFrame(tick);
+  };
+  const replay = () => {
+    if (!window.matchMedia('(hover: hover) and (pointer: fine)').matches || prefersReducedMotion()) return;
+    animate();
+  };
+
   useEffect(() => {
     if (target === null || current === target) return;
     const el = ref.current;
@@ -50,7 +69,7 @@ export function CountUp({ value }: { value: string }) {
   }, [target]);
 
   return (
-    <span ref={ref} className="stat-value">
+    <span ref={ref} className="stat-value" onMouseEnter={replay}>
       <span className="visually-hidden">{value}</span>
       <span className="stat-value-ghost" aria-hidden="true">
         {value}

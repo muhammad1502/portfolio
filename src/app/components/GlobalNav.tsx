@@ -10,7 +10,11 @@ import { haptic, scrollToTop } from '../lib/motion';
 interface GlobalNavProps {
   mode: ThemeMode;
   onToggleTheme: () => void;
+  onOpenPalette: () => void;
 }
+
+// Show the platform's own shortcut: ⌘K on Apple devices, Ctrl K elsewhere.
+const IS_APPLE = typeof navigator !== 'undefined' && /Mac|iPhone|iPad/.test(navigator.userAgent);
 
 const MOBILE_QUERY = '(max-width: 833px)';
 
@@ -19,7 +23,7 @@ const MOBILE_QUERY = '(max-width: 833px)';
  * ≤833px the links collapse into a full-screen flyout behind a two-line menu
  * glyph that morphs into a close "X".
  */
-export function GlobalNav({ mode, onToggleTheme }: GlobalNavProps) {
+export function GlobalNav({ mode, onToggleTheme, onOpenPalette }: GlobalNavProps) {
   const [open, setOpen] = useState(false);
   const [active, setActive] = useState<string | null>(null);
   const [indicator, setIndicator] = useState<{ x: number; w: number } | null>(null);
@@ -165,6 +169,16 @@ export function GlobalNav({ mode, onToggleTheme }: GlobalNavProps) {
         </ul>
 
         <div className="globalnav-actions">
+          <button
+            type="button"
+            className="globalnav-icon globalnav-kbd"
+            onClick={onOpenPalette}
+            aria-label="Quick actions"
+            aria-keyshortcuts="Control+K Meta+K"
+            title={`Quick actions (${IS_APPLE ? '⌘K' : 'Ctrl+K'})`}
+          >
+            <kbd>{IS_APPLE ? '⌘K' : 'Ctrl K'}</kbd>
+          </button>
           <button
             type="button"
             className="globalnav-icon"
