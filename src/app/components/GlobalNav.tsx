@@ -8,7 +8,7 @@ import { prefersReducedMotion } from '../lib/motion';
 
 interface GlobalNavProps {
   mode: ThemeMode;
-  onToggleTheme: () => void;
+  onToggleTheme: (origin?: { x: number; y: number }) => void;
 }
 
 const MOBILE_QUERY = '(max-width: 833px)';
@@ -20,8 +20,71 @@ const MOBILE_QUERY = '(max-width: 833px)';
  */
 export function GlobalNav({ mode, onToggleTheme }: GlobalNavProps) {
   const [open, setOpen] = useState(false);
+  const [active, setActive] = useState<string | null>(null);
+  const [indicator, setIndicator] = useState<{ x: number; w: number } | null>(null);
+  const [spinIcon, setSpinIcon] = useState(false);
   const flyoutRef = useRef<HTMLDivElement>(null);
+  const listRef = useRef<HTMLUListElement>(null);
+  const progressRef = useRef<HTMLDivElement>(null);
   const isDark = mode === 'dark';
+
+  // Reading progress: a 2px bar under the nav, scaled with scroll position.
+  // Written straight to the DOM (once per frame) so scrolling never re-renders.
+  useEffect(() => {
+    let frame = 0;
+    const update = () => {
+      frame = 0;
+      const max = document.documentElement.scrollHeight - window.innerHeight;
+      const ratio = max > 0 ? Math.min(1, Math.max(0, window.scrollY / max)) : 0;
+      progressRef.current?.style.setProperty('transform', `scaleX(${ratio})`);
+    };
+    const onScroll = () => {
+      if (!frame) frame = requestAnimationFrame(update);
+    };
+    update();
+    window.addEventListener('scroll', onScroll, { passive: true });
+    window.addEventListener('resize', onScroll);
+    return () => {
+      cancelAnimationFrame(frame);
+      window.removeEventListener('scroll', onScroll);
+      window.removeEventListener('resize', onScroll);
+    };
+  }, []);
+
+  // Scrollspy: the section crossing the middle band of the viewport is
+  // "current". Its nav link gets aria-current and the sliding underline.
+  useEffect(() => {
+    const els = sections.map((s) => document.getElementById(s.id)).filter((el): el is HTMLElement => !!el);
+    const visible = new Map<string, boolean>();
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((e) => visible.set(e.target.id, e.isIntersecting));
+        const current = sections.find((s) => visible.get(s.id));
+        setActive(current ? current.id : null);
+      },
+      { rootMargin: '-45% 0px -50% 0px' },
+    );
+    els.forEach((el) => observer.observe(el));
+    return () => observer.disconnect();
+  }, []);
+
+  // Position the underline under the active link (and keep it there on resize).
+  useEffect(() => {
+    const place = () => {
+      const list = listRef.current;
+      const link = active ? list?.querySelector<HTMLElement>(`a[href="#${active}"]`) : null;
+      if (!list || !link || !link.offsetParent) {
+        setIndicator(null);
+        return;
+      }
+      const lr = list.getBoundingClientRect();
+      const r = link.getBoundingClientRect();
+      setIndicator({ x: r.left - lr.left + 8, w: r.width - 16 });
+    };
+    place();
+    window.addEventListener('resize', place);
+    return () => window.removeEventListener('resize', place);
+  }, [active]);
 
   // Keep the closed flyout out of the tab order and accessibility tree. Set
   // directly because React 18 doesn't forward the `inert` attribute.
@@ -82,25 +145,47 @@ export function GlobalNav({ mode, onToggleTheme }: GlobalNavProps) {
           {profile.name}
         </a>
 
-        <ul className="globalnav-list">
+        <ul className="globalnav-list" ref={listRef}>
           {sections.map((s) => (
             <li key={s.id}>
-              <a className="globalnav-link" href={`#${s.id}`}>
+              <a
+                className={`globalnav-link${active === s.id ? ' is-current' : ''}`}
+                href={`#${s.id}`}
+                aria-current={active === s.id ? 'location' : undefined}
+              >
                 {s.label}
               </a>
             </li>
           ))}
+          <li
+            className="globalnav-indicator"
+            aria-hidden="true"
+            style={
+              indicator
+                ? { opacity: 1, transform: `translateX(${indicator.x}px)`, width: indicator.w }
+                : { opacity: 0 }
+            }
+          />
         </ul>
 
         <div className="globalnav-actions">
           <button
             type="button"
             className="globalnav-icon"
-            onClick={onToggleTheme}
+            onClick={(e) => {
+              const r = e.currentTarget.getBoundingClientRect();
+              setSpinIcon(true);
+              onToggleTheme({ x: r.left + r.width / 2, y: r.top + r.height / 2 });
+            }}
             aria-label={isDark ? 'Switch to light mode' : 'Switch to dark mode'}
             title={isDark ? 'Light mode' : 'Dark mode'}
           >
-            {isDark ? <Moon size={17} strokeWidth={1.75} /> : <Sun size={17} strokeWidth={1.75} />}
+            {/* Keyed by mode so the new icon mounts and spins in, but only after a click. */}
+            {isDark ? (
+              <Moon key="moon" className={spinIcon ? 'icon-spin-in' : undefined} size={17} strokeWidth={1.75} />
+            ) : (
+              <Sun key="sun" className={spinIcon ? 'icon-spin-in' : undefined} size={17} strokeWidth={1.75} />
+            )}
           </button>
           <a
             className="globalnav-icon"
@@ -126,6 +211,8 @@ export function GlobalNav({ mode, onToggleTheme }: GlobalNavProps) {
           </button>
         </div>
       </div>
+
+      <div className="globalnav-progress" ref={progressRef} aria-hidden="true" />
 
       <div id="globalnav-flyout" ref={flyoutRef} className="globalnav-flyout">
         <ul>

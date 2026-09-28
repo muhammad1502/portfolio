@@ -120,9 +120,12 @@ Requires **Node 20+** (pinned via `engines` in `package.json`).
   OS `prefers-color-scheme`.
 - An inline script in `index.html` sets `data-theme` and the background **before
   React mounts**, so dark-mode users never see a light flash (FOUC).
-- All content renders immediately (no fade-in or scroll-reveal). Motion is
-  limited to count-up numbers and interaction feedback (hover, menu and modal
-  transitions), all disabled under `prefers-reduced-motion`.
+- All content renders immediately (no fade-in or scroll-reveal). Motion only
+  decorates what is already on screen: count-up stats, a reading-progress bar
+  and a sliding current-section underline in the nav, a cursor spotlight and
+  lift on cards (hover pointers only), a circular theme reveal (View
+  Transitions API), and small button and menu transitions. All of it is off
+  under `prefers-reduced-motion`.
 
 ---
 

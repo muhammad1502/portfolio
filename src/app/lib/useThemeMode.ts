@@ -1,4 +1,6 @@
-import { useCallback, useEffect, useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
+import { flushSync } from 'react-dom';
+import { prefersReducedMotion } from './motion';
 
 export type ThemeMode = 'light' | 'dark';
 
@@ -27,10 +29,11 @@ export function useThemeMode() {
   const [mode, setMode] = useState<ThemeMode>(() => readStored() ?? systemMode());
   const [overridden, setOverridden] = useState(() => readStored() !== null);
 
+  const modeRef = useRef(mode);
+  modeRef.current = mode;
+
   useEffect(() => {
-    document.documentElement.dataset.theme = mode;
-    const meta = document.querySelector('meta[name="theme-color"]:not([media])');
-    meta?.setAttribute('content', mode === 'dark' ? '#161617' : '#fafafc');
+    applyToDocument(mode);
   }, [mode]);
 
   useEffect(() => {
@@ -41,18 +44,46 @@ export function useThemeMode() {
     return () => mq.removeEventListener('change', onChange);
   }, [overridden]);
 
-  const toggle = useCallback(() => {
+  /**
+   * Switch theme. Given the click position, the new theme is revealed as a
+   * circle growing from that point (View Transitions API); browsers without
+   * it, or visitors who prefer reduced motion, get an instant switch.
+   */
+  const toggle = useCallback((origin?: { x: number; y: number }) => {
+    const next: ThemeMode = modeRef.current === 'light' ? 'dark' : 'light';
     setOverridden(true);
-    setMode((m) => {
-      const next = m === 'light' ? 'dark' : 'light';
-      try {
-        window.localStorage.setItem(THEME_KEY, next);
-      } catch {
-        /* storage blocked, the choice still applies for this visit */
-      }
-      return next;
-    });
+    try {
+      window.localStorage.setItem(THEME_KEY, next);
+    } catch {
+      /* storage blocked, the choice still applies for this visit */
+    }
+
+    const commit = () => {
+      flushSync(() => setMode(next));
+      applyToDocument(next); // the transition snapshots the DOM right after this
+    };
+
+    const doc = document as Document & { startViewTransition?: (cb: () => void) => unknown };
+    if (!origin || !doc.startViewTransition || prefersReducedMotion()) {
+      commit();
+      return;
+    }
+    const root = document.documentElement;
+    const radius = Math.hypot(
+      Math.max(origin.x, window.innerWidth - origin.x),
+      Math.max(origin.y, window.innerHeight - origin.y),
+    );
+    root.style.setProperty('--reveal-x', `${origin.x}px`);
+    root.style.setProperty('--reveal-y', `${origin.y}px`);
+    root.style.setProperty('--reveal-r', `${radius}px`);
+    doc.startViewTransition(commit);
   }, []);
 
   return { mode, toggle };
+}
+
+function applyToDocument(mode: ThemeMode) {
+  document.documentElement.dataset.theme = mode;
+  const meta = document.querySelector('meta[name="theme-color"]:not([media])');
+  meta?.setAttribute('content', mode === 'dark' ? '#161617' : '#fafafc');
 }
