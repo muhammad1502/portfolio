@@ -8,7 +8,7 @@ export type ThemeMode = 'light' | 'dark';
 export const THEME_KEY = 'theme-mode';
 
 // Matches the fallback .theme-fading transition in site.css.
-const FADE_MS = 450;
+const FADE_MS = 800;
 
 function readStored(): ThemeMode | null {
   try {
