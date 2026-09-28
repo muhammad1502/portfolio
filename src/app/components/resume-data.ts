@@ -60,6 +60,17 @@ export interface Project {
   writeup?: ResumeEntry;
 }
 
+/** An anonymized write-up of a real investigation: no client, host, user or IP details. */
+export interface CaseStudy {
+  id: string;
+  /** Type of work and main tool, e.g. "False positive · Elastic Defend". */
+  kind: string;
+  title: string;
+  summary: string;
+  tools: string;
+  writeup: ResumeEntry;
+}
+
 export interface Certification {
   id: string;
   name: string;
@@ -274,6 +285,138 @@ export const projects: Project[] = [
     ],
     tech: 'Android 6.0 or later',
     href: 'https://github.com/muhammad1502/vt-checker-android',
+  },
+];
+
+// Real Ninpo investigations, anonymized: no client names, hostnames, users or IPs.
+export const caseStudies: CaseStudy[] = [
+  {
+    id: 'case-aspnet',
+    kind: 'False positive · Elastic Defend',
+    title: 'A malware alert that was really a compiler',
+    summary:
+      "Elastic's machine-learning model flagged a new DLL on a client's web server. Tracing the process chain showed it was ASP.NET compiling its own pages.",
+    tools: 'Elastic Defend · Kibana · Windows process telemetry',
+    writeup: {
+      id: 'writeup-case-aspnet',
+      period: 'Case study',
+      title: 'A malware alert that was really a compiler',
+      subtitle: 'False positive investigation',
+      meta: 'Client details removed',
+      description: 'How I worked out that a machine-learning malware alert on an IIS web server was normal ASP.NET behavior.',
+      sections: [
+        {
+          label: 'The alert',
+          text: "Elastic Defend's machine-learning malware model flagged a newly written DLL (App_Web_*.dll) on a Windows web server running IIS. Its score, about 0.62, was only just above the 0.58 detection threshold.",
+        },
+        {
+          label: 'What I checked',
+          text: 'Instead of treating the file as malicious by default, I traced where it came from. The IIS worker process (w3wp.exe) had started the C# compiler (csc.exe), which then ran cvtres.exe, all under the IIS application pool identity. The DLL was written to the ASP.NET Temporary Files folder, and I reviewed the compiler command line as well.',
+        },
+        {
+          label: 'Why it was benign',
+          text: 'That chain is how ASP.NET dynamic compilation works: IIS compiles site code into DLLs in that folder when pages are requested. Nothing in the chain pointed to malicious activity.',
+        },
+        {
+          label: 'The outcome',
+          text: 'I closed the alert as a false positive, based on the process evidence rather than the model score.',
+        },
+      ],
+    },
+  },
+  {
+    id: 'case-missing-mail',
+    kind: 'Email investigation · Microsoft 365',
+    title: 'Bank security codes that "never arrived"',
+    summary:
+      "A client said a bank's security-code emails weren't reaching two mailboxes. The logs showed they had been delivered, then deleted.",
+    tools: 'Exchange Online · Message Trace · Mailbox audit logs · Perception Point',
+    writeup: {
+      id: 'writeup-case-missing-mail',
+      period: 'Case study',
+      title: 'Bank security codes that "never arrived"',
+      subtitle: 'Email investigation',
+      meta: 'Client details removed',
+      description: 'How I traced "missing" emails to activity that happened after they were delivered.',
+      sections: [
+        {
+          label: 'The report',
+          text: 'A client reported that security-code emails from their bank were missing from two mailboxes.',
+        },
+        {
+          label: 'Ruling out delivery',
+          text: 'Message Trace in Exchange Online showed the messages had been delivered. The email security gateway, Perception Point, had classified them as clean, and I checked the mail routing and connectors as well.',
+        },
+        {
+          label: 'Finding the emails',
+          text: 'The messages were in Deleted Items. Mailbox audit logs showed **five** of them moved from the Inbox to Deleted Items within about three minutes, all from the same signed-in session in Outlook on the web.',
+        },
+        {
+          label: 'The outcome',
+          text: 'That turned the question from "why is email not being delivered" into "what deleted these messages after delivery", which is a different investigation.',
+        },
+      ],
+    },
+  },
+  {
+    id: 'case-usb',
+    kind: 'Malware analysis · Endpoint',
+    title: 'Unpacking a malicious USB drive',
+    summary:
+      'A suspicious USB drive carried a script chain that tried to drop a DLL. Elastic blocked it, and I got the payload out for analysis when the usual route failed.',
+    tools: 'Elastic Defend · Elastic Fleet · Isolated endpoint',
+    writeup: {
+      id: 'writeup-case-usb',
+      period: 'Case study',
+      title: 'Unpacking a malicious USB drive',
+      subtitle: 'Malware analysis',
+      meta: 'Client details removed',
+      description: 'How I examined a suspicious USB drive safely and recovered its payload.',
+      sections: [
+        {
+          label: 'The situation',
+          text: 'A USB drive suspected of carrying malware needed to be examined. I worked on an isolated endpoint so nothing could spread.',
+        },
+        {
+          label: 'The chain',
+          text: 'I reconstructed what the drive did: a VBScript launched a batch file, which then tried to drop a DLL. Elastic blocked the DLL drop.',
+        },
+        {
+          label: 'Getting the sample out',
+          text: "Elastic's Fleet Server failed, so I couldn't retrieve the file the usual way. I encoded the payload as base64 text and moved it out through Zoho WorkDrive so it could be analyzed.",
+        },
+      ],
+    },
+  },
+  {
+    id: 'case-device-code',
+    kind: 'Phishing analysis · Sandbox',
+    title: 'A phishing link that asked for a device code',
+    summary:
+      'A suspicious link turned out to be an adversary-in-the-middle device code phishing chain running through Cloudflare Workers.',
+    tools: 'Elastic (KQL) · ANY.RUN · Microsoft Entra ID sign-in logs',
+    writeup: {
+      id: 'writeup-case-device-code',
+      period: 'Case study',
+      title: 'A phishing link that asked for a device code',
+      subtitle: 'Phishing analysis',
+      meta: 'Client details removed',
+      description: 'How I worked out what a suspicious link really did, then checked whether it had worked.',
+      sections: [
+        {
+          label: 'Triage',
+          text: 'A suspicious link came in for analysis. I started by searching Elastic with KQL for related activity.',
+        },
+        {
+          label: 'The sandbox',
+          text: 'I ran the link in an ANY.RUN sandbox. It revealed an adversary-in-the-middle device code phishing chain running through Cloudflare Workers. Device code phishing gets a victim to enter a code on a real Microsoft sign-in page, which signs the attacker in to their account.',
+        },
+        {
+          label: 'Follow-up',
+          text: 'I then checked the Microsoft Entra ID sign-in logs for signs that anyone had completed the flow.',
+        },
+      ],
+    },
   },
 ];
 
