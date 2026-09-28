@@ -56,6 +56,8 @@ export interface Project {
   points: string[];
   tech: string;
   href: string;
+  /** Optional long-form write-up, shown in the details modal. */
+  writeup?: ResumeEntry;
 }
 
 export interface Certification {
@@ -210,6 +212,39 @@ export const projects: Project[] = [
     ],
     tech: 'JavaScript · Chrome, Brave, Edge and Kiwi on Android',
     href: 'https://github.com/muhammad1502/gitlab-automator',
+    // Written only from the project's README; no invented metrics or claims.
+    writeup: {
+      id: 'writeup-gitlab-triage',
+      period: 'Write-up · 2026',
+      title: 'Taking the repetitive clicks out of GitLab triage',
+      subtitle: 'GitLab Triage Accelerator',
+      meta: 'Browser extension',
+      href: 'https://github.com/muhammad1502/gitlab-automator',
+      description:
+        'Why I built a browser extension for security analysts who triage in GitLab, and how it works.',
+      sections: [
+        {
+          label: 'The problem',
+          text: 'High-volume security triage involves the same manual steps on issue after issue: entering common findings, assigning a lead and closing the issue. Doing that by hand slows the response down and makes mistakes more likely.',
+        },
+        {
+          label: 'Who it is for',
+          text: 'L1 and L2 cybersecurity analysts who work through security findings as GitLab issues.',
+        },
+        {
+          label: 'The approach',
+          text: 'Rather than changing GitLab itself, the extension adds a customizable automation layer on top of the GitLab page, so a multi-step triage response runs from a single click or keyboard shortcut.',
+        },
+        {
+          label: 'How it works',
+          text: "Analysts define their own quick actions, each a triage category and the slash commands behind it, on the extension's options page, and give each one an Alt + key shortcut. On a GitLab issue, a floating action bar keeps those actions in reach while scrolling. GitLab is a single-page app that swaps content without full page loads, so the extension watches for page changes with MutationObservers and the actions keep working as you move between issues.",
+        },
+        {
+          label: 'Where it runs',
+          text: 'Chrome, Brave and Edge on desktop, and Kiwi Browser on Android, installed as an unpacked extension.',
+        },
+      ],
+    },
   },
   {
     id: 'vt-extension',

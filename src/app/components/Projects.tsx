@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
-import { Github } from 'lucide-react';
+import { BookOpen, Github } from 'lucide-react';
 import { projects } from './resume-data';
+import type { ResumeEntry } from './resume-data';
 import { haptic, prefersReducedMotion } from '../lib/motion';
 
 /**
@@ -8,7 +9,7 @@ import { haptic, prefersReducedMotion } from '../lib/motion';
  * snapping carousel that peeks the next card, with page dots below. The
  * active dot stretches into a pill; tapping a dot jumps to that card.
  */
-export function Projects() {
+export function Projects({ onOpenWriteup }: { onOpenWriteup: (entry: ResumeEntry) => void }) {
   const trackRef = useRef<HTMLDivElement>(null);
   const [active, setActive] = useState(0);
 
@@ -75,6 +76,18 @@ export function Projects() {
               </ul>
               <p className="project-tech">{p.tech}</p>
               <div className="button-group">
+                {p.writeup && (
+                  <button
+                    type="button"
+                    className="button"
+                    aria-haspopup="dialog"
+                    onClick={() => onOpenWriteup(p.writeup!)}
+                  >
+                    <BookOpen size={17} strokeWidth={2} aria-hidden="true" />
+                    Read write-up
+                    <span className="visually-hidden">: {p.name}</span>
+                  </button>
+                )}
                 <a
                   className="button button-secondary"
                   href={p.href}
