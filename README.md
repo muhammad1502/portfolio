@@ -39,7 +39,7 @@ from a single TypeScript file.
 ├── src/
 │   ├── main.tsx              # Entry; injects site.css (live site only) and mounts <App>
 │   ├── app/
-│   │   ├── App.tsx           # Page composition: hero, about, experience, skills, certs, education, contact
+│   │   ├── App.tsx           # Page composition: hero, about, experience, projects, skills, certs, contact
 │   │   ├── lib/
 │   │   │   ├── sections.ts       # In-page nav items + resume PDF path (nav + footer)
 │   │   │   ├── metrics.tsx       # **metric** emphasis renderer, skills list splitter
@@ -71,7 +71,7 @@ from a single TypeScript file.
 
 **All resume content lives in
 [`src/app/components/resume-data.ts`](src/app/components/resume-data.ts)**:
-profile, contacts, experience, skills, certifications, education. The React app
+profile, contacts, experience, projects, skills and certifications. The React app
 imports and renders it; the components are generic and never hardcode copy.
 
 Edit `resume-data.ts` directly. The types (`ResumeEntry`, `Role`, `SkillGroup`,
@@ -79,7 +79,7 @@ Edit `resume-data.ts` directly. The types (`ResumeEntry`, `Role`, `SkillGroup`,
 structure of each entry: TypeScript will flag a malformed entry at build time
 (`npm run build`).
 
-Each experience/education entry supports optional `bullets` (string list),
+Each experience entry supports optional `bullets` (string list),
 `sections` (labeled paragraphs), `roles` (sub-positions), `href` (adds a
 "View on GitHub" / "Visit website" button) and `stats` (big animated numbers on
 the tile). Entries with `sections`, `bullets` or `roles` get a **Learn more**
@@ -173,7 +173,7 @@ All config is in [`vercel.json`](vercel.json):
 
 - **Meta**: title, description, Open Graph + Twitter cards, canonical, theme-color.
 - **JSON-LD `Person` schema** in `index.html`: gives search engines and AI
-  crawlers structured facts (name, role, employer, education, skills, socials).
+  crawlers structured facts (name, role, employer, skills, socials).
 - **`robots.txt`** explicitly allows search and AI crawlers (GPTBot, ClaudeBot,
   PerplexityBot, Google-Extended) and points to the sitemap.
 - **`llms.txt`**: a plain-text profile summary for LLM crawlers, so AI answers

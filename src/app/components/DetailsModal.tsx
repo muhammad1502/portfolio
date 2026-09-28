@@ -70,7 +70,8 @@ export function DetailsModal({ entry, onClose }: DetailsModalProps) {
           <button type="button" className="modal-close" onClick={requestClose} aria-label="Close">
             <X size={18} strokeWidth={2.25} aria-hidden="true" />
           </button>
-          <div className="modal-scroll">
+          {/* Focusable so keyboard users can scroll it even when it holds no links. */}
+          <div className="modal-scroll" tabIndex={0} role="region" aria-labelledby={headingId}>
             <p className="tile-eyebrow">{entry.period}</p>
             <h2 id={headingId} className="modal-headline">
               {entry.title}

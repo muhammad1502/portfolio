@@ -1,6 +1,6 @@
 # Muhammad Abdullah
 
-> Cybersecurity analyst in Ottawa, working remotely as a SOC analyst for a Canadian cybersecurity firm that serves North American enterprise clients. Two years of alert triage, threat hunting and incident response in Elastic SIEM and Microsoft 365 Defender, including support during an active, threat actor-led ransomware attack, plus IT operations and Python/Pandas log automation. Also designs and builds accessible websites using AI-assisted development. Finishing a B.S. in Remote Sensing & GIS and studying for CompTIA Security+.
+> Cybersecurity analyst in Ottawa, working remotely as a SOC analyst for a Canadian cybersecurity firm that serves North American enterprise clients. Two years of alert triage, threat hunting and incident response in Elastic SIEM and Microsoft 365 Defender, including support during an active, threat actor-led ransomware attack, plus IT operations and Python/Pandas log automation. Also designs and builds accessible websites using AI-assisted development. Studying for CompTIA Security+.
 
 ## Contact
 - Email: muhammaddabddullah@outlook.com
@@ -21,6 +21,11 @@ SOC analyst for a Canadian cybersecurity firm, handling threat detection, incide
 - Product Growth & Strategy, AfterDesk (independent product, Jul 2026 to Aug 2026, remote): Built the product and growth groundwork for an after-sales case manager for small online sellers, including the case workflow, a public site with pilot pricing and a demo, and 37 linked product, architecture, security, API and ethics notes.
 - Product Growth Auditor, FitSmart AI (project contribution, Jul 2026, remote): Evidence-based UX and growth review of an AI fitness and nutrition app across nine product areas, with a remediation plan; covered 37 audited icon controls with 18/18 Worker tests passing.
 
+## Projects (github.com/muhammad1502)
+- GitLab Triage Accelerator (browser extension): speeds up high-volume security triage in GitLab for L1 and L2 analysts with custom quick actions, hotkeys and a floating action bar. https://github.com/muhammad1502/gitlab-automator
+- VT Extension (browser extension, Manifest V3): right-click a selected IP address, URL, file hash or domain to check it on VirusTotal. https://github.com/muhammad1502/vt-extension
+- VT Checker for Android: adds "Check on VirusTotal" to the Android text-selection menu for IP addresses, domains and URLs. https://github.com/muhammad1502/vt-checker-android
+
 ## Skills
 - Security operations: Elastic Security (SIEM), incident response, alert triage, phishing analysis with Perception Point, IOC hunting, OSINT
 - Threat detection: MITRE ATT&CK mapping, TTP analysis, Sysmon, Osquery, anomaly detection, Cyber Kill Chain
@@ -34,6 +39,3 @@ SOC analyst for a Canadian cybersecurity firm, handling threat detection, incide
 - Blue Team Junior Analyst (BTJA) (Security Blue Team, training pathway certificate)
 - Introduction to Cybersecurity Essentials (IBM, course certificate)
 - Identity Security Sales Certification (WatchGuard, sales certification, valid through Jul 2027)
-
-## Education
-- B.S., Remote Sensing & GIS, COMSATS University Islamabad, Islamabad (2023 to 2027, expected Jul 2027)
