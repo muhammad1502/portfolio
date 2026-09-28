@@ -62,7 +62,7 @@ export function BackToTop() {
           cy="24"
           r={R}
           fill="none"
-          stroke="var(--accent)"
+          stroke="var(--progress)"
           strokeWidth="2"
           strokeLinecap="round"
           strokeDasharray={CIRCUMFERENCE}
