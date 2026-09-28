@@ -15,10 +15,18 @@ const SPOTLIGHT_TARGETS = '.card, .contact-card';
  */
 export function useSpotlight() {
   useEffect(() => {
-    const setPoint = (card: HTMLElement, x: number, y: number) => {
+    const setPoint = (card: HTMLElement, x: number, y: number, tilt = false) => {
       const r = card.getBoundingClientRect();
       card.style.setProperty('--mx', `${x - r.left}px`);
       card.style.setProperty('--my', `${y - r.top}px`);
+      if (!tilt) return;
+      // Tilt toward the cursor. Max angle shrinks with card size, so a wide
+      // Experience card barely moves while a small contact card tilts ~2deg.
+      const max = Math.min(2, 600 / Math.max(r.width, 1));
+      const px = (x - r.left) / r.width - 0.5;
+      const py = (y - r.top) / r.height - 0.5;
+      card.style.setProperty('--ry', `${(px * 2 * max).toFixed(2)}deg`);
+      card.style.setProperty('--rx', `${(-py * 2 * max).toFixed(2)}deg`);
     };
     const cardOf = (e: Event) => (e.target as Element | null)?.closest?.<HTMLElement>(SPOTLIGHT_TARGETS) ?? null;
 
@@ -27,7 +35,7 @@ export function useSpotlight() {
     const paint = () => {
       frame = 0;
       const card = last && cardOf(last);
-      if (last && card) setPoint(card, last.clientX, last.clientY);
+      if (last && card) setPoint(card, last.clientX, last.clientY, !prefersReducedMotion());
     };
     const onMove = (e: PointerEvent) => {
       if (e.pointerType !== 'mouse') return;

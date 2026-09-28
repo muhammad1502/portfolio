@@ -55,6 +55,8 @@ from a single TypeScript file.
 │   │       ├── Projects.tsx        # Project cards (grid; swipe carousel on phones)
 │   │       ├── BackToTop.tsx       # Phone back-to-top button with progress ring
 │   │       ├── ThemeIcon.tsx       # Sun/moon morphing icon
+│   │       ├── CommandPalette.tsx  # ⌘K / Ctrl+K quick actions
+│   │       ├── Toast.tsx           # Confirmation toasts (aria-live)
 │   │       ├── Footer.tsx          # Directory columns + legal line
 │   │       └── PrintResume.tsx     # Optional print layout at /?print (data-driven)
 │   ├── styles/
@@ -124,7 +126,10 @@ Requires **Node 20+** (pinned via `engines` in `package.json`).
 - An inline script in `index.html` sets `data-theme` and the background **before
   React mounts**, so dark-mode users never see a light flash (FOUC).
 - All content renders immediately (no fade-in or scroll-reveal). Motion only
-  decorates what is already on screen: count-up stats, a reading-progress bar,
+  decorates what is already on screen. Desktop: a ⌘K / Ctrl+K quick-actions
+  palette (jump to a section, download the CV, copy email with a toast, open
+  LinkedIn/GitHub, switch theme), a slight cursor tilt on cards and hover to
+  replay a stat's count-up. Everywhere: count-up stats, a reading-progress bar,
   a current-section marker (sliding underline in the nav, a dot in the phone
   menu), a cursor spotlight and lift on cards, a tap ripple and press-in on
   touch screens, a phone bottom-sheet for details (swipe down to close), a
