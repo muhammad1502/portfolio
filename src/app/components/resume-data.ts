@@ -22,6 +22,14 @@ export interface ResumeEntry {
   roles?: Role[];
   href?: string;
   tag?: string;
+  /** Headline numbers for the tile. Each value + label restates a metric that
+   *  already appears in this entry's copy — never add a figure that isn't. */
+  stats?: Stat[];
+}
+
+export interface Stat {
+  value: string;
+  label: string;
 }
 
 export interface LabeledLink {
@@ -50,7 +58,7 @@ export const profile = {
   site: 'linkedin.com/in/mabddullah',
   siteHref: 'https://www.linkedin.com/in/mabddullah',
   about:
-    "Cybersecurity analyst with two years of remote SOC, incident response, and IT operations supporting North American enterprise clients. I investigate 100+ alerts a week in Elastic SIEM and Microsoft 365 Defender, hunt threats, and drive containment — including tactical support during an active, threat actor-led ransomware engagement, isolating compromised domain controllers and ESXi hosts before large-scale encryption. A foundation in Python and Pandas lets me automate log analysis for fast, high-volume triage, and I keep Canadian client environments running through Microsoft 365 tenant administration, firewall and VPN configuration, and endpoint provisioning. I'm finishing a B.S. in Remote Sensing & GIS and studying for CompTIA Security+.",
+    "Cybersecurity analyst with **two years of remote SOC, incident response, and IT operations** supporting North American enterprise clients. I investigate **100+ alerts a week** in Elastic SIEM and Microsoft 365 Defender, hunt threats, and drive containment — including **tactical support during an active, threat actor-led ransomware engagement**, isolating compromised domain controllers and ESXi hosts before large-scale encryption. A foundation in Python and Pandas lets me automate log analysis for fast, high-volume triage, and I keep Canadian client environments running through Microsoft 365 tenant administration, firewall and VPN configuration, and endpoint provisioning. I'm finishing a B.S. in Remote Sensing & GIS and studying for CompTIA Security+.",
 };
 
 export const contacts: LabeledLink[] = [
@@ -83,6 +91,7 @@ export const experience: ResumeEntry[] = [
         text: 'Created **37** linked product, architecture, security, API, and ethics notes; documented privacy and terms, evidence-security boundaries, and pilot release risks.',
       },
     ],
+    stats: [{ value: '37', label: 'linked product, architecture, security, API, and ethics notes' }],
   },
   {
     id: 'fitsmart-growth',
@@ -106,6 +115,11 @@ export const experience: ResumeEntry[] = [
         label: 'Product Quality',
         text: 'Specified and validated accessibility, data-integrity, AI-routing, and usage-observability improvements, including coverage of **37** audited icon controls and **18/18** passing Worker tests.',
       },
+    ],
+    stats: [
+      { value: '9', label: 'product areas audited' },
+      { value: '37', label: 'audited icon controls' },
+      { value: '18/18', label: 'passing Worker tests' },
     ],
   },
   {
@@ -142,6 +156,12 @@ export const experience: ResumeEntry[] = [
         label: 'Reporting',
         text: 'Built incident metrics mapped to MITRE ATT&CK, giving leadership actionable data on adversary TTPs.',
       },
+    ],
+    stats: [
+      { value: '100+', label: 'alerts investigated weekly in Elastic SIEM' },
+      { value: '95%+', label: 'phishing classification accuracy' },
+      { value: '20%', label: 'fewer false positives from tuned detection rules' },
+      { value: '100%', label: 'EDR telemetry coverage' },
     ],
   },
   {

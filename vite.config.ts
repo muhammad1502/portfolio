@@ -7,12 +7,10 @@ export default defineConfig({
   build: {
     rollupOptions: {
       output: {
-        // Split the vendor graph so React, MUI/emotion, and motion are
-        // cached independently of app code across deploys.
+        // Split React out so it stays cached independently of app code
+        // across deploys.
         manualChunks: {
           react: ['react', 'react-dom'],
-          mui: ['@mui/material', '@emotion/react', '@emotion/styled'],
-          motion: ['motion'],
         },
       },
     },

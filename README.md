@@ -1,7 +1,8 @@
 # Muhammad Abdullah — CV
 
-Personal resume site for **Muhammad Abdullah**, Cybersecurity Analyst — a
-single-page, static, dark/light themed CV. Live at
+Personal portfolio for **Muhammad Abdullah**, Cybersecurity Analyst — a
+single-page, static site designed in the style of apple.com, with light/dark
+themes and subtle scroll animations. Live at
 **https://muhammad-abdullah-resume.vercel.app**.
 
 ---
@@ -12,10 +13,10 @@ single-page, static, dark/light themed CV. Live at
 | -------- | ---------------------------------------------------------------- |
 | Build    | [Vite](https://vitejs.dev) 5                                      |
 | UI       | React 18 + TypeScript                                             |
-| Styling  | [MUI](https://mui.com) (`@mui/material` v6) + Emotion (CSS-in-JS) |
-| Motion   | [`motion`](https://motion.dev) — custom cursor + theme toggle    |
+| Styling  | One plain stylesheet, `src/styles/site.css` (CSS custom properties) |
+| Motion   | CSS transitions + IntersectionObserver (no animation library)     |
 | Icons    | [`lucide-react`](https://lucide.dev)                             |
-| Font     | Self-hosted Google Sans Flex (woff2)                              |
+| Font     | SF Pro via the system stack on Apple devices; self-hosted Inter elsewhere (`@fontsource-variable/inter`) |
 | Hosting  | Vercel (Git-connected, auto-deploy on push to `main`)            |
 
 There is no router and no backend — it's a static SPA. All content is data-driven
@@ -36,19 +37,26 @@ from a single TypeScript file.
 │   ├── sitemap.xml
 │   └── llms.txt              # Plain-text profile for LLM crawlers (AI readability)
 ├── src/
-│   ├── main.tsx              # React entry; mounts <App>, imports fonts.css
+│   ├── main.tsx              # Entry; injects site.css (live site only) and mounts <App>
 │   ├── app/
-│   │   ├── App.tsx           # Layout, theme/palette, header, all <Section>s
+│   │   ├── App.tsx           # Page composition: hero, about, experience, skills, certs, education, contact
+│   │   ├── lib/
+│   │   │   ├── sections.ts       # In-page nav items + resume PDF path (nav + footer)
+│   │   │   ├── metrics.tsx       # **metric** emphasis renderer, skills list splitter
+│   │   │   ├── useThemeMode.ts   # Light/dark: follows OS until toggled, then stored
+│   │   │   └── useReveal.ts      # Scroll-reveal for [data-reveal] elements
 │   │   └── components/
 │   │       ├── resume-data.ts      # ⭐ ALL content + types (edit here)
-│   │       ├── Section.tsx         # Section heading + spacing wrapper
-│   │       ├── EntryRow.tsx        # One experience/education entry
-│   │       ├── PrintResume.tsx     # Optional print layout at /?print (data-driven)
-│   │       ├── ThemeToggle.tsx     # Top-right light/dark toggle
-│   │       ├── CustomCursor.tsx    # Dot + lagging ring (fine pointers only)
-│   │       └── AppThemeProvider.tsx# MUI ThemeProvider wrapper
+│   │       ├── GlobalNav.tsx       # Sticky translucent nav; full-screen menu ≤833px
+│   │       ├── Hero.tsx            # Photo, name, title, Download CV / Contact
+│   │       ├── ExperienceTile.tsx  # Full-width Apple-style tile per role
+│   │       ├── CountUp.tsx         # Animated stat numbers
+│   │       ├── DetailsModal.tsx    # "Learn more" overlay (native <dialog>)
+│   │       ├── Footer.tsx          # Directory columns + legal line
+│   │       └── PrintResume.tsx     # Optional print layout at /?print (data-driven)
 │   ├── styles/
-│   │   ├── fonts.css               # @font-face for Google Sans Flex
+│   │   ├── site.css                # All site styles + light/dark tokens
+│   │   ├── fonts.css               # @font-face for Google Sans Flex (print layout)
 │   │   └── *.woff2                 # The font files
 │   └── imports/
 │       └── muhammad-abdullah.jpg   # Profile photo (EXIF-stripped, 384px)
@@ -72,9 +80,14 @@ structure of each entry — TypeScript will flag a malformed entry at build time
 (`npm run build`).
 
 Each experience/education entry supports optional `bullets` (string list),
-`sections` (labeled paragraphs), `roles` (sub-positions with their own timeline),
-and `href` (makes the title a link). Numbers wrapped in `**double asterisks**` in
-any body string render as emphasized metrics on both the live site and the PDF.
+`sections` (labeled paragraphs), `roles` (sub-positions), `href` (adds a
+"View on GitHub" / "Visit website" button) and `stats` (big animated numbers on
+the tile). Entries with `sections`, `bullets` or `roles` get a **Learn more**
+button that opens the full detail in a modal. Text wrapped in
+`**double asterisks**` in any body string (including `profile.about`) renders
+emphasized.
+
+> `stats` should only restate figures that already appear in that entry's copy.
 
 ---
 
@@ -96,24 +109,29 @@ Requires **Node 20+** (pinned via `engines` in `package.json`).
 
 ---
 
-## Theming
+## Design & theming
 
-- Light/dark palettes are defined in [`App.tsx`](src/app/components/../App.tsx)
-  (`palettes`). Text colors meet **WCAG AA 4.5:1** contrast on their backgrounds.
-- The user's choice is stored in `localStorage` (`theme-mode`) and otherwise
-  follows the OS `prefers-color-scheme`.
-- An inline script in `index.html` paints the correct background **before React
-  mounts**, so dark-mode users never see a light flash (FOUC).
+- Modelled on apple.com: values (type scale, colours, 44px blurred nav, pill
+  buttons, breakpoints 734 / 833 / 1068px) are taken from apple.com's own
+  stylesheets and documented at the top of [`site.css`](src/styles/site.css).
+- Every CTA uses one button size (44px tall); buttons in a pair are equal width.
+- Light/dark tokens live on `:root` / `:root[data-theme='dark']` in `site.css`.
+  The choice is stored in `localStorage` (`theme-mode`) and otherwise follows the
+  OS `prefers-color-scheme`.
+- An inline script in `index.html` sets `data-theme` and the background **before
+  React mounts**, so dark-mode users never see a light flash (FOUC).
+- Animations (hero fade-in, scroll reveals, count-up numbers, menu and modal
+  transitions) are all disabled under `prefers-reduced-motion`.
 
 ---
 
 ## Assets & images
 
 - The profile photo (`src/imports/muhammad-abdullah.jpg`) is **EXIF-stripped**
-  (GPS/device metadata removed) and resized to 384px — it displays at 96px in a
+  (GPS/device metadata removed) and resized to 384px — it displays at 144px in a
   circular avatar. To swap it, replace that file (keep it small; Vite hashes and
   emits it into `dist/assets/`). If the image is ever missing, the avatar falls
-  back to the `MA` initials monogram (see [`App.tsx`](src/app/App.tsx)).
+  back to the `MA` initials monogram (see [`Hero.tsx`](src/app/components/Hero.tsx)).
 - Favicon, apple-touch-icon, and the OG image live in `public/` (NOT `dist/` —
   `dist/` is wiped and rebuilt on every Vercel deploy).
 - `public/resume.pdf` is the downloadable CV served by the Download button. It is

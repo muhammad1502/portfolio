@@ -9,8 +9,8 @@
       content="Muhammad Abdullah — Cybersecurity Analyst in the Ottawa area. Remote SOC, threat hunting, and incident response for North American clients using Elastic SIEM and Microsoft 365 Defender, with Python-driven log automation."
     />
     <meta name="author" content="Muhammad Abdullah" />
-    <meta name="theme-color" content="#fbfbfa" media="(prefers-color-scheme: light)" />
-    <meta name="theme-color" content="#121211" media="(prefers-color-scheme: dark)" />
+    <meta name="theme-color" content="#fafafc" />
+    <meta name="color-scheme" content="light dark" />
 
     <!-- Favicon (drop files in /public) -->
     <link rel="icon" type="image/png" href="/favicon.png" />
@@ -85,17 +85,33 @@
       }
     </script>
 
-    <!-- Pre-paint theme: set the page background before React mounts so dark-mode
-         users don't see a light flash (FOUC). Mirrors App.tsx palette + storage key. -->
+    <!-- Pre-paint: resolve the theme and set <html data-theme> + background
+         before React mounts, so dark-mode users never see a light flash (FOUC).
+         Mirrors src/app/lib/useThemeMode.ts (same storage key). Also enables the
+         scroll-reveal styles only when they can work (IntersectionObserver, no
+         reduced-motion preference) — otherwise content is never hidden. -->
     <script>
       (function () {
+        var root = document.documentElement;
+        var dark = false;
         try {
           var stored = localStorage.getItem('theme-mode');
-          var dark =
+          dark =
             stored === 'dark' ||
-            (stored !== 'light' &&
-              window.matchMedia('(prefers-color-scheme: dark)').matches);
-          document.documentElement.style.backgroundColor = dark ? '#121211' : '#fbfbfa';
+            (stored !== 'light' && window.matchMedia('(prefers-color-scheme: dark)').matches);
+        } catch (e) {}
+        root.setAttribute('data-theme', dark ? 'dark' : 'light');
+        root.style.backgroundColor = dark ? '#000000' : '#ffffff';
+        var meta = document.querySelector('meta[name="theme-color"]');
+        if (meta) meta.setAttribute('content', dark ? '#161617' : '#fafafc');
+        try {
+          if (
+            'IntersectionObserver' in window &&
+            !window.matchMedia('(prefers-reduced-motion: reduce)').matches &&
+            !/[?&]print(=|&|$)/.test(location.search)
+          ) {
+            root.classList.add('reveal-ready');
+          }
         } catch (e) {}
       })();
     </script>
