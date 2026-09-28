@@ -87,25 +87,9 @@
       }
     </script>
 
-    <!-- Pre-paint: resolve the theme and set <html data-theme> + background
-         before React mounts, so dark-mode users never see a light flash (FOUC).
-         Mirrors src/app/lib/useThemeMode.ts (same storage key). -->
-    <script>
-      (function () {
-        var root = document.documentElement;
-        var dark = false;
-        try {
-          var stored = localStorage.getItem('theme-mode');
-          dark =
-            stored === 'dark' ||
-            (stored !== 'light' && window.matchMedia('(prefers-color-scheme: dark)').matches);
-        } catch (e) {}
-        root.setAttribute('data-theme', dark ? 'dark' : 'light');
-        root.style.backgroundColor = dark ? '#000000' : '#ffffff';
-        var meta = document.querySelector('meta[name="theme-color"]');
-        if (meta) meta.setAttribute('content', dark ? '#161617' : '#fafafc');
-      })();
-    </script>
+    <!-- Pre-paint theme (see public/theme-init.js). Render-blocking on purpose
+         so the right background is set before first paint. -->
+    <script src="/theme-init.js"></script>
   </head>
   <body>
     <div id="root"></div>

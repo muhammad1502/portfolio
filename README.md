@@ -49,7 +49,7 @@ from a single TypeScript file.
 │   │       ├── resume-data.ts      # ⭐ ALL content + types (edit here)
 │   │       ├── GlobalNav.tsx       # Sticky translucent nav; full-screen menu ≤833px
 │   │       ├── Hero.tsx            # Photo, name, title, Download CV / Contact
-│   │       ├── ExperienceTile.tsx  # Full-width Apple-style tile per role
+│   │       ├── ExperienceTile.tsx  # One card per role, with stats and buttons
 │   │       ├── CountUp.tsx         # Animated stat numbers
 │   │       ├── DetailsModal.tsx    # "Learn more" overlay (native <dialog>)
 │   │       ├── Footer.tsx          # Directory columns + legal line
@@ -151,10 +151,15 @@ Connected to this GitHub repo. **Every push to `main` triggers a production buil
 All config is in [`vercel.json`](vercel.json):
 
 - Framework `vite`, build `npm run build`, output `dist`
-- SPA rewrite that excludes `/assets/`
+- No rewrites: the site is a single page, so unknown paths return a real 404
+  (`public/404.html`)
 - `Cache-Control: immutable` (1 year) on hashed `/assets/*`
-- Security headers: CSP, `X-Frame-Options: DENY`, `X-Content-Type-Options`,
-  `Referrer-Policy`, `Permissions-Policy`
+- Security headers: a strict CSP (`script-src 'self'`, no inline scripts; the
+  pre-paint theme script lives in `public/theme-init.js`), `X-Frame-Options:
+  DENY`, `X-Content-Type-Options`, `Referrer-Policy`, `Permissions-Policy` and
+  `Cross-Origin-Opener-Policy`. Vercel adds HSTS and the HTTP to HTTPS redirect.
+- `public/.well-known/security.txt` (RFC 9116) lists the security contact. Update
+  its `Expires` date before 2027-09-28.
 
 > **Domain note:** absolute URLs (OG image, canonical, JSON-LD, sitemap, robots,
 > llms.txt) point to the live domain `https://muhammad-abdullah-resume.vercel.app`.
