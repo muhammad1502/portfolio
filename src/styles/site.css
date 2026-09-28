@@ -185,6 +185,12 @@ button {
   border: 0;
 }
 
+/* <main> takes focus only programmatically (skip link, name link); the page
+   itself shouldn't get a focus ring. */
+main:focus {
+  outline: none;
+}
+
 .skip-link {
   position: fixed;
   top: 8px;
