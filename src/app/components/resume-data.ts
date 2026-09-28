@@ -121,7 +121,7 @@ export const experience: ResumeEntry[] = [
     sections: [
       {
         label: 'Incident response',
-        text: 'Supported the response to an active **threat actor-led** ransomware attack by isolating compromised domain controllers and ESXi hosts before large-scale encryption.',
+        text: 'Supported the response to an active, **threat actor-led** ransomware attack by isolating compromised domain controllers and ESXi hosts before large-scale encryption.',
       },
       {
         label: 'Threat hunting and triage',
