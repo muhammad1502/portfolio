@@ -57,6 +57,7 @@ from a single TypeScript file.
 │   │       ├── Projects.tsx        # Project cards (grid; swipe carousel on phones)
 │   │       ├── BackToTop.tsx       # Back-to-top button with reading-progress ring
 │   │       ├── ThemeIcon.tsx       # Sun/moon morphing icon
+│   │       ├── SectionChips.tsx    # Phone sticky section chips
 │   │       ├── CommandPalette.tsx  # ⌘K / Ctrl+K quick actions
 │   │       ├── Toast.tsx           # Confirmation toasts (aria-live)
 │   │       ├── Footer.tsx          # Directory columns + legal line
@@ -134,7 +135,8 @@ Requires **Node 20+** (pinned via `engines` in `package.json`).
   headlines settle into place, the hero recedes, About text lights up word by
   word as you read), count-up stats, a back-to-top button with a
   reading-progress ring, a current-section marker (sliding underline in the
-  nav, a dot in the phone menu), a cursor spotlight and lift on cards, a tap ripple and press-in on
+  nav, a dot in the phone menu, sticky section chips on phones), a terminal-style
+  `whoami` line in About, a cursor spotlight and lift on cards, a tap ripple and press-in on
   touch screens, a phone bottom-sheet for details (swipe down to close), a
   swipeable Projects carousel with page dots on phones, light haptic ticks on
   Android, a crossfade between themes
@@ -177,7 +179,9 @@ All config is in [`vercel.json`](vercel.json):
   DENY`, `X-Content-Type-Options`, `Referrer-Policy`, `Permissions-Policy` and
   `Cross-Origin-Opener-Policy`. Vercel adds HSTS and the HTTP to HTTPS redirect.
 - `public/.well-known/security.txt` (RFC 9116) lists the security contact. Update
-  its `Expires` date before 2027-09-28.
+  its `Expires` date before 2027-09-28. `SECURITY.md` points GitHub's Security
+  tab to the same contact, and `.github/dependabot.yml` opens weekly grouped
+  dependency-update PRs.
 
 > **Domain note:** absolute URLs (OG image, canonical, JSON-LD, sitemap, robots,
 > llms.txt, security.txt, the CV) point to the live domain `https://mabddullah.vercel.app`.

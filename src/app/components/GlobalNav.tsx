@@ -6,6 +6,7 @@ import { profile } from './resume-data';
 import { sections, RESUME_FILENAME, RESUME_URL } from '../lib/sections';
 import type { ThemeMode } from '../lib/useThemeMode';
 import { haptic, scrollToTop } from '../lib/motion';
+import { useActiveSection } from '../lib/useActiveSection';
 
 interface GlobalNavProps {
   mode: ThemeMode;
@@ -24,7 +25,7 @@ const MOBILE_QUERY = '(max-width: 833px)';
  */
 export function GlobalNav({ mode, onToggleTheme, onOpenPalette }: GlobalNavProps) {
   const [open, setOpen] = useState(false);
-  const [active, setActive] = useState<string | null>(null);
+  const active = useActiveSection();
   const [indicator, setIndicator] = useState<{ x: number; w: number } | null>(null);
   const flyoutRef = useRef<HTMLDivElement>(null);
   const listRef = useRef<HTMLUListElement>(null);
@@ -34,22 +35,6 @@ export function GlobalNav({ mode, onToggleTheme, onOpenPalette }: GlobalNavProps
   const [isApple, setIsApple] = useState(false);
   useEffect(() => setIsApple(/Mac|iPhone|iPad/.test(navigator.userAgent)), []);
 
-  // Scrollspy: the section crossing the middle band of the viewport is
-  // "current". Its nav link gets aria-current and the sliding underline.
-  useEffect(() => {
-    const els = sections.map((s) => document.getElementById(s.id)).filter((el): el is HTMLElement => !!el);
-    const visible = new Map<string, boolean>();
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((e) => visible.set(e.target.id, e.isIntersecting));
-        const current = sections.find((s) => visible.get(s.id));
-        setActive(current ? current.id : null);
-      },
-      { rootMargin: '-45% 0px -50% 0px' },
-    );
-    els.forEach((el) => observer.observe(el));
-    return () => observer.disconnect();
-  }, []);
 
   // Position the underline under the active link (and keep it there on resize).
   useEffect(() => {
