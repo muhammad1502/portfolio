@@ -7,6 +7,7 @@ import { DetailsModal } from './components/DetailsModal';
 import { Footer } from './components/Footer';
 import { BackToTop } from './components/BackToTop';
 import { Projects } from './components/Projects';
+import { CaseStudies } from './components/CaseStudies';
 import { CommandPalette } from './components/CommandPalette';
 import { Toaster } from './components/Toast';
 import { SectionChips } from './components/SectionChips';
@@ -81,6 +82,8 @@ export default function App() {
             </div>
           </div>
         </section>
+
+        <CaseStudies onOpen={setOpenEntry} />
 
         <Projects onOpenWriteup={setOpenEntry} />
 

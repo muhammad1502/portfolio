@@ -664,6 +664,17 @@ main:focus {
   letter-spacing: -0.003em;
 }
 
+/* One-line lead under a section headline (Case studies). */
+.section-intro {
+  max-width: 880px;
+  margin: -16px 0 40px;
+  color: var(--text-2);
+  font-size: 21px;
+  line-height: 1.381002381;
+  letter-spacing: 0.011em;
+  text-wrap: pretty;
+}
+
 .about-copy {
   max-width: 880px;
   color: var(--text-2);
@@ -1571,6 +1582,13 @@ main:focus {
     font-size: 32px;
     line-height: 1.125;
     letter-spacing: 0.004em;
+  }
+
+  .section-intro {
+    margin: -12px 0 28px;
+    font-size: 17px;
+    line-height: 1.4705882353;
+    letter-spacing: -0.022em;
   }
 
   .about-copy {
