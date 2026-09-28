@@ -63,8 +63,8 @@ export const profile = {
     'I work in security operations for North American enterprise clients, from alert triage and threat hunting to ransomware containment.',
   // Shown on the downloadable CV only (it was on the original PDF).
   phone: '+92 320 5610211',
-  portfolio: 'muhammad-abdullah-resume.vercel.app',
-  portfolioHref: 'https://muhammad-abdullah-resume.vercel.app',
+  portfolio: 'mabddullah.vercel.app',
+  portfolioHref: 'https://mabddullah.vercel.app',
   // Third-person summary for the downloadable CV. Every claim is backed below.
   cvSummary:
     'Cybersecurity analyst with two years of SOC, incident response and IT operations work for North American enterprise clients. Investigates 100+ alerts a week in Elastic SIEM and Microsoft 365 Defender and supported the response to an active, threat actor-led ransomware attack. Also designs and builds accessible websites using AI-assisted development.',

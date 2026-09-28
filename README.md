@@ -3,7 +3,7 @@
 Personal portfolio for **Muhammad Abdullah**, Cybersecurity Analyst. It's a
 single-page, static site designed in the style of apple.com, with light/dark
 themes and subtle scroll animations. Live at
-**https://muhammad-abdullah-resume.vercel.app**.
+**https://mabddullah.vercel.app**.
 
 ---
 
@@ -162,7 +162,8 @@ All config is in [`vercel.json`](vercel.json):
   its `Expires` date before 2027-09-28.
 
 > **Domain note:** absolute URLs (OG image, canonical, JSON-LD, sitemap, robots,
-> llms.txt) point to the live domain `https://muhammad-abdullah-resume.vercel.app`.
+> llms.txt, security.txt, the CV) point to the live domain `https://mabddullah.vercel.app`.
+> The original `muhammad-abdullah-resume.vercel.app` permanently redirects (308) there.
 > If a custom domain is added later, update those references across `index.html`
 > and `public/` (`sitemap.xml`, `robots.txt`, `llms.txt`).
 
