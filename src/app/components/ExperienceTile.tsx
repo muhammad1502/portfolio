@@ -10,8 +10,8 @@ interface ExperienceTileProps {
 }
 
 /**
- * One full-width tile in the apple.com homepage style: centred headline,
- * subhead and callout, headline numbers, and a matched pair of CTAs.
+ * One role, as a card matching the rest of the site: period, title,
+ * company, location, headline numbers and a matched pair of buttons.
  * "Learn more" opens the entry's full detail in the modal.
  */
 export function ExperienceTile({ entry, onLearnMore }: ExperienceTileProps) {
@@ -19,10 +19,10 @@ export function ExperienceTile({ entry, onLearnMore }: ExperienceTileProps) {
   const headingId = `${entry.id}-title`;
 
   return (
-    <article className="tile" aria-labelledby={headingId}>
-      <div className="tile-inner">
+    <article className="card tile" aria-labelledby={headingId}>
+      <div>
         <p className="tile-eyebrow">{entry.period}</p>
-        <h3 id={headingId} className="tile-headline">
+        <h3 id={headingId} className="card-title">
           {entry.title}
         </h3>
         {entry.subtitle && <p className="tile-subhead">{entry.subtitle}</p>}

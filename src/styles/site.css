@@ -228,7 +228,7 @@ button {
   justify-content: center;
   gap: 6px;
   box-sizing: border-box;
-  min-width: 140px;
+  min-width: 188px; /* every button is the same size: fits the longest label */
   height: 44px;
   padding: 0 21px;
   border: 1px solid transparent;
@@ -287,7 +287,8 @@ button {
   justify-content: center;
 }
 
-@media (max-width: 419px) {
+/* Two 188px buttons stop fitting side by side inside a card below ~540px. */
+@media (max-width: 539px) {
   .button-group {
     grid-auto-flow: row;
     gap: 12px;
@@ -608,34 +609,14 @@ button {
   color: var(--text);
 }
 
-/* ---------- experience tiles ----------------------------------------------- */
-
-.experience {
-  padding-bottom: 12px;
-}
-
-.experience .section-headline {
-  margin-bottom: 40px;
-}
+/* ---------- experience ------------------------------------------------------
+ * Each role is a .card like every other section (same grey, radius, padding
+ * and left alignment); .tile only adds the role-specific pieces.
+ */
 
 .tiles {
   display: grid;
-  gap: 12px;
-}
-
-.tile {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  padding: 61px var(--gutter) 69px;
-  text-align: center;
-  background: var(--tile-bg);
-  color: var(--text);
-}
-
-.tile-inner {
-  width: 100%;
-  max-width: 780px;
+  gap: 20px;
 }
 
 .tile-eyebrow {
@@ -647,55 +628,41 @@ button {
   letter-spacing: -0.022em;
 }
 
-.tile-headline {
-  font-family: var(--font-display);
-  font-size: 56px;
-  line-height: 1.0714285714;
-  font-weight: 600;
-  letter-spacing: -0.005em;
-}
-
 .tile-subhead {
   margin-top: 6px;
-  font-family: var(--font-display);
-  font-size: 28px;
-  line-height: 1.1428571429;
-  font-weight: 400;
-  letter-spacing: 0.007em;
-}
-
-.tile-meta {
-  margin-top: 8px;
-  color: var(--text-2);
-  font-size: 17px;
-}
-
-.tile-description {
-  max-width: 680px;
-  margin: 20px auto 0;
-  color: var(--text-2);
   font-size: 19px;
   line-height: 1.4211026316;
   letter-spacing: 0.012em;
 }
 
+.tile-meta {
+  margin-top: 2px;
+  color: var(--text-2);
+  font-size: 17px;
+}
+
+.tile-description {
+  max-width: 760px;
+  margin-top: 16px;
+  color: var(--text-2);
+  font-size: 17px;
+}
+
 .tile .button-group {
-  margin-top: 32px;
+  margin-top: 28px;
 }
 
 .stats {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 32px 40px;
-  margin-top: 40px;
+  /* Same fixed column grid in every card, so numbers line up card to card. */
+  display: grid;
+  grid-template-columns: repeat(auto-fill, 190px);
+  gap: 24px 32px;
+  margin-top: 28px;
 }
 
 .stat {
   display: flex;
   flex-direction: column;
-  align-items: center;
-  width: 160px;
 }
 
 /* Label (dt) comes first in the DOM for valid <dl> markup; show it under the
@@ -707,8 +674,8 @@ button {
 .stat-value {
   display: inline-grid;
   font-family: var(--font-display);
-  font-size: 48px;
-  line-height: 1.0834933333;
+  font-size: 40px;
+  line-height: 1.1;
   font-weight: 600;
   letter-spacing: -0.003em;
   font-variant-numeric: tabular-nums;
@@ -1115,15 +1082,13 @@ button {
     padding: 64px 0 72px;
   }
 
-  .hero-headline,
-  .tile-headline {
+  .hero-headline {
     font-size: 48px;
     line-height: 1.0834933333;
     letter-spacing: -0.003em;
   }
 
-  .hero-subhead,
-  .tile-subhead {
+  .hero-subhead {
     font-size: 24px;
     line-height: 1.1666666667;
     letter-spacing: 0.009em;
@@ -1143,21 +1108,6 @@ button {
     font-size: 24px;
     line-height: 1.1666666667;
     letter-spacing: 0.009em;
-  }
-
-  .tile {
-    padding: 56px var(--gutter) 63px;
-  }
-
-  .tile-description {
-    font-size: 17px;
-    line-height: 1.4705882353;
-    letter-spacing: -0.022em;
-  }
-
-  .stat-value {
-    font-size: 40px;
-    line-height: 1.1;
   }
 
   .card-grid {
@@ -1197,8 +1147,7 @@ button {
     margin-bottom: 20px;
   }
 
-  .hero-headline,
-  .tile-headline {
+  .hero-headline {
     font-size: 32px;
     line-height: 1.125;
     letter-spacing: 0.004em;
@@ -1210,11 +1159,16 @@ button {
     letter-spacing: -0.022em;
   }
 
-  .hero-subhead,
-  .tile-subhead {
+  .hero-subhead {
     font-size: 19px;
     line-height: 1.2105263158;
     letter-spacing: 0.012em;
+  }
+
+  .tile-subhead {
+    font-size: 17px;
+    line-height: 1.4705882353;
+    letter-spacing: -0.022em;
   }
 
   .section {
@@ -1234,23 +1188,14 @@ button {
     letter-spacing: 0.012em;
   }
 
-  .tile {
-    padding: 48px var(--gutter) 56px;
-  }
-
   .tile-eyebrow {
     font-size: 14px;
     letter-spacing: -0.016em;
   }
 
   .stats {
-    gap: 28px 24px;
-    margin-top: 32px;
-  }
-
-  .stat {
-    width: calc(50% - 12px);
-    max-width: 160px;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 24px;
   }
 
   .stat-value {
@@ -1375,7 +1320,6 @@ button {
 .hero-headline,
 .hero-subhead,
 .section-headline,
-.tile-headline,
 .tile-subhead,
 .card-title,
 .modal-headline {
