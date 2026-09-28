@@ -29,31 +29,7 @@ export function GlobalNav({ mode, onToggleTheme, onOpenPalette }: GlobalNavProps
   const [indicator, setIndicator] = useState<{ x: number; w: number } | null>(null);
   const flyoutRef = useRef<HTMLDivElement>(null);
   const listRef = useRef<HTMLUListElement>(null);
-  const progressRef = useRef<HTMLDivElement>(null);
   const isDark = mode === 'dark';
-
-  // Reading progress: a 2px bar under the nav, scaled with scroll position.
-  // Written straight to the DOM (once per frame) so scrolling never re-renders.
-  useEffect(() => {
-    let frame = 0;
-    const update = () => {
-      frame = 0;
-      const max = document.documentElement.scrollHeight - window.innerHeight;
-      const ratio = max > 0 ? Math.min(1, Math.max(0, window.scrollY / max)) : 0;
-      progressRef.current?.style.setProperty('transform', `scaleX(${ratio})`);
-    };
-    const onScroll = () => {
-      if (!frame) frame = requestAnimationFrame(update);
-    };
-    update();
-    window.addEventListener('scroll', onScroll, { passive: true });
-    window.addEventListener('resize', onScroll);
-    return () => {
-      cancelAnimationFrame(frame);
-      window.removeEventListener('scroll', onScroll);
-      window.removeEventListener('resize', onScroll);
-    };
-  }, []);
 
   // Scrollspy: the section crossing the middle band of the viewport is
   // "current". Its nav link gets aria-current and the sliding underline.
@@ -218,8 +194,6 @@ export function GlobalNav({ mode, onToggleTheme, onOpenPalette }: GlobalNavProps
           </button>
         </div>
       </div>
-
-      <div className="globalnav-progress" ref={progressRef} aria-hidden="true" />
 
       <div id="globalnav-flyout" ref={flyoutRef} className="globalnav-flyout">
         <ul>

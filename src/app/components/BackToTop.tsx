@@ -6,7 +6,7 @@ const R = 21; // ring radius inside the 48px button
 const CIRCUMFERENCE = 2 * Math.PI * R;
 
 /**
- * Phones only (see site.css): a floating button that appears once you've
+ * A floating button (all screen sizes) that appears once you've
  * scrolled past the first screen. Its ring fills with reading progress; a
  * tap glides back to the top. Hidden, it's inert and out of the tab order.
  */

@@ -53,7 +53,7 @@ from a single TypeScript file.
 │   │       ├── CountUp.tsx         # Animated stat numbers
 │   │       ├── DetailsModal.tsx    # "Learn more" overlay (native <dialog>)
 │   │       ├── Projects.tsx        # Project cards (grid; swipe carousel on phones)
-│   │       ├── BackToTop.tsx       # Phone back-to-top button with progress ring
+│   │       ├── BackToTop.tsx       # Back-to-top button with reading-progress ring
 │   │       ├── ThemeIcon.tsx       # Sun/moon morphing icon
 │   │       ├── CommandPalette.tsx  # ⌘K / Ctrl+K quick actions
 │   │       ├── Toast.tsx           # Confirmation toasts (aria-live)
@@ -129,12 +129,14 @@ Requires **Node 20+** (pinned via `engines` in `package.json`).
   decorates what is already on screen. Desktop: a ⌘K / Ctrl+K quick-actions
   palette (jump to a section, download the CV, copy email with a toast, open
   LinkedIn/GitHub, switch theme), a slight cursor tilt on cards and hover to
-  replay a stat's count-up. Everywhere: count-up stats, a reading-progress bar,
-  a current-section marker (sliding underline in the nav, a dot in the phone
-  menu), a cursor spotlight and lift on cards, a tap ripple and press-in on
+  replay a stat's count-up. Everywhere: scroll-linked effects (cards and
+  headlines settle into place, the hero recedes, About text lights up word by
+  word as you read), count-up stats, a back-to-top button with a
+  reading-progress ring, a current-section marker (sliding underline in the
+  nav, a dot in the phone menu), a cursor spotlight and lift on cards, a tap ripple and press-in on
   touch screens, a phone bottom-sheet for details (swipe down to close), a
-  swipeable Projects carousel with page dots and a back-to-top button with a
-  progress ring on phones, light haptic ticks on Android, a crossfade between themes
+  swipeable Projects carousel with page dots on phones, light haptic ticks on
+  Android, a crossfade between themes
   (View Transitions, with a colour-fade fallback) with a sun-to-moon icon
   morph, and small button hover glows. Under `prefers-reduced-motion` all
   movement is off; the theme crossfade stays because a fade has no motion.

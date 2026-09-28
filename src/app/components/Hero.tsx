@@ -17,7 +17,7 @@ export function Hero() {
 
   return (
     <section id="top" className="hero" aria-labelledby="hero-headline">
-      <div className="viewport-content">
+      <div className="viewport-content hero-content" data-recede="">
         {photoFailed ? (
           <div className="hero-photo hero-initials" aria-hidden="true">
             {initials}
