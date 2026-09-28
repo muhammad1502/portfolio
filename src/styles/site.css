@@ -527,6 +527,23 @@ main:focus {
     text-decoration: none;
   }
 
+  .globalnav-flyout-link.is-current {
+    position: relative;
+    color: var(--nav-link-hover);
+  }
+
+  .globalnav-flyout-link.is-current::before {
+    content: '';
+    position: absolute;
+    left: -18px;
+    top: 50%;
+    width: 7px;
+    height: 7px;
+    margin-top: -3.5px;
+    border-radius: 50%;
+    background: var(--accent);
+  }
+
   .globalnav.is-open .globalnav-flyout-link {
     opacity: 1;
     transform: none;
@@ -953,6 +970,18 @@ main:focus {
   }
 }
 
+@keyframes sheet-in {
+  from {
+    transform: translateY(100%);
+  }
+}
+
+@keyframes sheet-out {
+  to {
+    transform: translateY(100%);
+  }
+}
+
 @keyframes backdrop-in {
   from {
     opacity: 0;
@@ -1268,6 +1297,15 @@ main:focus {
     border-radius: 0;
   }
 
+  /* Phones: the details sheet slides up from the bottom and back down. */
+  .modal[open] {
+    animation: sheet-in 0.5s var(--ease);
+  }
+
+  .modal.is-closing {
+    animation: sheet-out 0.25s var(--ease-nav) forwards;
+  }
+
   .modal-scroll {
     padding: 64px var(--gutter) 48px;
   }
@@ -1326,36 +1364,46 @@ main:focus {
   pointer-events: none;
 }
 
-/* Theme icon spins in after the toggle is clicked. */
-.icon-spin-in {
-  animation: icon-spin-in 0.5s var(--ease);
-}
-
-@keyframes icon-spin-in {
-  from {
-    opacity: 0;
-    transform: rotate(-120deg) scale(0.4);
-  }
-}
-
-/* Theme switch: the new theme grows as a circle from the toggle. */
+/* Theme switch: a crossfade. With View Transitions the browser fades a
+   snapshot of the old page into the new one; without it, .theme-fading
+   (set by useThemeMode for the same duration) fades every colour instead. */
+::view-transition-group(root),
 ::view-transition-old(root),
 ::view-transition-new(root) {
-  animation: none;
-  mix-blend-mode: normal;
+  animation-duration: 0.45s;
+  animation-timing-function: var(--ease-nav);
 }
 
-::view-transition-new(root) {
-  animation: theme-reveal 0.55s var(--ease);
+.theme-fading,
+.theme-fading *,
+.theme-fading *::before,
+.theme-fading *::after {
+  transition: background-color 0.45s var(--ease-nav), color 0.45s var(--ease-nav),
+    border-color 0.45s var(--ease-nav), fill 0.45s var(--ease-nav), stroke 0.45s var(--ease-nav),
+    box-shadow 0.45s var(--ease-nav), transform 0.5s var(--ease), opacity 0.3s var(--ease-nav) !important;
 }
 
-@keyframes theme-reveal {
-  from {
-    clip-path: circle(0 at var(--reveal-x, 50%) var(--reveal-y, 0));
-  }
-  to {
-    clip-path: circle(var(--reveal-r, 150%) at var(--reveal-x, 50%) var(--reveal-y, 0));
-  }
+/* Theme icon: sun (light) morphs into moon (dark). The rays spin away and
+   shrink, the disc grows, and the mask circle slides in to carve a crescent. */
+.theme-icon .theme-icon-core,
+.theme-icon .theme-icon-rays,
+.theme-icon .theme-icon-cut {
+  transform-box: fill-box;
+  transform-origin: center;
+  transition: transform 0.5s var(--ease), opacity 0.3s var(--ease-nav);
+}
+
+.theme-icon[data-mode='dark'] .theme-icon-core {
+  transform: scale(1.7);
+}
+
+.theme-icon[data-mode='dark'] .theme-icon-cut {
+  transform: translate(-7px, 3px);
+}
+
+.theme-icon[data-mode='dark'] .theme-icon-rays {
+  opacity: 0;
+  transform: rotate(90deg) scale(0.4);
 }
 
 /* Buttons: every button has one leading icon; on hover it gives a small pop.
@@ -1384,33 +1432,70 @@ main:focus {
   }
 }
 
-/* Cards: a soft glow follows the cursor (position from useSpotlight) and the
-   card lifts slightly. Real hover pointers only; touch screens skip it. */
-@media (hover: hover) and (pointer: fine) {
-  .card,
-  .contact-card {
-    position: relative;
-    isolation: isolate;
-    transition: transform 0.4s var(--ease), box-shadow 0.4s var(--ease);
-  }
+/* Cards: a soft glow. Mouse/trackpad: it follows the cursor and the card
+   lifts. Touch: a tap sends one ripple of it out from the tap point.
+   Position comes from useSpotlight (--mx / --my). */
+@property --glow {
+  syntax: '<length>';
+  inherits: false;
+  initial-value: 420px;
+}
 
-  .card::before,
-  .contact-card::before {
-    content: '';
-    position: absolute;
-    inset: 0;
-    z-index: -1;
-    border-radius: inherit;
-    background: radial-gradient(
-      420px circle at var(--mx, 50%) var(--my, 50%),
-      var(--spotlight),
-      transparent 70%
-    );
+.card,
+.contact-card {
+  position: relative;
+  isolation: isolate;
+  -webkit-tap-highlight-color: transparent;
+  transition: transform 0.4s var(--ease), box-shadow 0.4s var(--ease);
+}
+
+.card::before,
+.contact-card::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  border-radius: inherit;
+  background: radial-gradient(var(--glow) circle at var(--mx, 50%) var(--my, 50%), var(--spotlight), transparent 70%);
+  opacity: 0;
+  transition: opacity 0.35s var(--ease-nav);
+  pointer-events: none;
+}
+
+.card.is-tapped::before,
+.contact-card.is-tapped::before {
+  animation: tap-glow 0.7s var(--ease-nav);
+}
+
+@keyframes tap-glow {
+  0% {
+    --glow: 40px;
     opacity: 0;
-    transition: opacity 0.35s var(--ease-nav);
-    pointer-events: none;
   }
+  25% {
+    opacity: 1;
+  }
+  100% {
+    --glow: 560px;
+    opacity: 0;
+  }
+}
 
+/* Touch: cards press in slightly while held. */
+@media (hover: none) {
+  .card:active,
+  .contact-card:active {
+    transform: scale(0.985);
+    transition-duration: 0.15s;
+  }
+}
+
+a,
+button {
+  -webkit-tap-highlight-color: transparent;
+}
+
+@media (hover: hover) and (pointer: fine) {
   .card:hover::before,
   .contact-card:hover::before {
     opacity: 1;
