@@ -1,9 +1,10 @@
 import { useEffect, useRef, useState } from 'react';
-import type { CSSProperties } from 'react';
+import type { CSSProperties, MouseEvent } from 'react';
 import { ArrowDownToLine, Moon, Sun } from 'lucide-react';
 import { profile } from './resume-data';
 import { sections, RESUME_FILENAME, RESUME_URL } from '../lib/sections';
 import type { ThemeMode } from '../lib/useThemeMode';
+import { prefersReducedMotion } from '../lib/motion';
 
 interface GlobalNavProps {
   mode: ThemeMode;
@@ -54,10 +55,30 @@ export function GlobalNav({ mode, onToggleTheme }: GlobalNavProps) {
 
   const close = () => setOpen(false);
 
+  // Older shared links may still carry "#top"; drop it so the address stays clean.
+  useEffect(() => {
+    if (window.location.hash === '#top') {
+      window.history.replaceState(null, '', window.location.pathname + window.location.search);
+    }
+  }, []);
+
+  // The name link scrolls to the top without adding "#top" to the address, so
+  // a copied link is always the plain site URL. Focus moves to <main> so
+  // keyboard users continue from the top of the page.
+  const goToTop = (e: MouseEvent<HTMLAnchorElement>) => {
+    e.preventDefault();
+    close();
+    window.scrollTo({ top: 0, behavior: prefersReducedMotion() ? 'auto' : 'smooth' });
+    if (window.location.hash) {
+      window.history.replaceState(null, '', window.location.pathname + window.location.search);
+    }
+    document.getElementById('main')?.focus({ preventScroll: true });
+  };
+
   return (
     <nav className={`globalnav${open ? ' is-open' : ''}`} aria-label="Global">
       <div className="globalnav-content">
-        <a className="globalnav-brand" href="#top" onClick={close}>
+        <a className="globalnav-brand" href="/" onClick={goToTop}>
           {profile.name}
         </a>
 
