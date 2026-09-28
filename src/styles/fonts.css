@@ -12,12 +12,11 @@
     margin: 0 !important;
     padding: 0 !important;
   }
-  /* Comfortable top/bottom margins on EVERY page (incl. page-break edges) so
-     content never jams against the cut line. Left/right stay 0 so the page
-     colour still bleeds full-width; PrintResume owns the horizontal padding. */
+  /* US Letter with even margins on every page (the CV at /?print and any
+     print of the live site). */
   @page {
     size: letter;
-    margin: 0.3in 0;
+    margin: 0.5in 0.6in;
   }
   body {
     margin: 0 !important;

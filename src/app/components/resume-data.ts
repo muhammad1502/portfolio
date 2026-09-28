@@ -61,11 +61,19 @@ export const profile = {
   // One-line summary under the title. Every claim here is backed by an entry below.
   tagline:
     'I work in security operations for North American enterprise clients, from alert triage and threat hunting to ransomware containment.',
+  // Shown on the downloadable CV only (it was on the original PDF).
+  phone: '+92 320 5610211',
+  portfolio: 'muhammad-abdullah-resume.vercel.app',
+  portfolioHref: 'https://muhammad-abdullah-resume.vercel.app',
+  // Third-person summary for the downloadable CV. Every claim is backed below.
+  cvSummary:
+    'Cybersecurity analyst with two years of SOC, incident response and IT operations work for North American enterprise clients. Investigates 100+ alerts a week in Elastic SIEM and Microsoft 365 Defender and supported the response to an active, threat actor-led ransomware attack. Also designs and builds accessible websites using AI-assisted development.',
   site: 'linkedin.com/in/mabddullah',
   siteHref: 'https://www.linkedin.com/in/mabddullah',
   about: [
     "I'm a cybersecurity analyst at Ninpo Inc., working remotely as a SOC analyst for North American enterprise clients. For the past **two years** I've triaged alerts, hunted threats and helped contain incidents, including an **active, threat actor-led ransomware attack**, where I helped isolate compromised domain controllers and ESXi hosts before large-scale encryption.",
     "Each week I investigate **100+ alerts** in Elastic SIEM and Microsoft 365 Defender, and I use Python and Pandas to automate log analysis so triage stays fast. I also keep Canadian client environments running: Microsoft 365 tenant administration, firewall and VPN configuration, and endpoint provisioning.",
+    'I also design and build websites. I use AI coding tools for the build and put my own time into layout, accessibility and user experience. This site is one example.',
     "I'm finishing a B.S. in Remote Sensing & GIS and studying for CompTIA Security+.",
   ],
 };
@@ -122,7 +130,7 @@ export const experience: ResumeEntry[] = [
   },
   {
     id: 'afterdesk',
-    period: 'Jul to Aug 2026',
+    period: 'Jul 2026 to Aug 2026',
     title: 'Product Growth & Strategy',
     subtitle: 'AfterDesk · Independent Product',
     href: 'https://github.com/muhammad1502/AfterDesk',
@@ -174,15 +182,6 @@ export const experience: ResumeEntry[] = [
       { value: '18/18', label: 'Worker tests passing' },
     ],
   },
-  {
-    id: 'pcrwr',
-    period: 'Jul to Sep 2025',
-    title: 'GIS Intern',
-    subtitle: 'Pakistan Council of Research in Water Resources (PCRWR)',
-    meta: 'Islamabad, PK',
-    description:
-      'Summer research internship in geospatial data automation. I wrote Python scripts to automate loading spatial datasets for government resource planning and used statistical methods to spot unusual patterns. It was high-volume data work, the same kind I now do with security logs.',
-  },
 ];
 
 export const skills: SkillGroup[] = [
@@ -205,6 +204,11 @@ export const skills: SkillGroup[] = [
     id: 'data',
     label: 'Data and programming',
     value: 'Python (Pandas, NumPy, OOP), Bash scripting, SQL, Regex, Jupyter, Matplotlib',
+  },
+  {
+    id: 'web',
+    label: 'Web design and development',
+    value: 'Responsive and accessible web design (WCAG 2.2), AI-assisted development (React, TypeScript), UX and growth audits, Landing pages and interactive product demos',
   },
 ];
 

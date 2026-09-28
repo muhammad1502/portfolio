@@ -134,9 +134,13 @@ Requires **Node 20+** (pinned via `engines` in `package.json`).
   back to the `MA` initials monogram (see [`Hero.tsx`](src/app/components/Hero.tsx)).
 - Favicon, apple-touch-icon, and the OG image live in `public/` (NOT `dist/`,
   `dist/` is wiped and rebuilt on every Vercel deploy).
-- `public/resume.pdf` is the downloadable CV served by the Download button. It is
-  a hand-authored document, not generated from `/?print`: replace the file
-  directly to update the download.
+- `public/resume.pdf` is the downloadable CV. It is generated from the `/?print`
+  layout ([`PrintResume.tsx`](src/app/components/PrintResume.tsx)), which reads the
+  same `resume-data.ts` as the site, so the two never disagree. The layout is a
+  single column with standard headings so applicant tracking systems parse it
+  in order. To regenerate after editing content: `npm run build && npm run preview`,
+  open `http://localhost:4173/?print` in Chrome, Print, Save as PDF (paper size
+  Letter, margins Default, headers and footers off), and replace `public/resume.pdf`.
 
 ---
 

@@ -775,6 +775,10 @@ button {
   gap: 20px;
 }
 
+.card-grid > :last-child:nth-child(odd) {
+  grid-column: 1 / -1;
+}
+
 .card-title {
   font-family: var(--font-display);
   font-size: 28px;
