@@ -89,9 +89,7 @@
 
     <!-- Pre-paint: resolve the theme and set <html data-theme> + background
          before React mounts, so dark-mode users never see a light flash (FOUC).
-         Mirrors src/app/lib/useThemeMode.ts (same storage key). Also enables the
-         scroll-reveal styles only when they can work (IntersectionObserver, no
-         reduced-motion preference); otherwise content is never hidden. -->
+         Mirrors src/app/lib/useThemeMode.ts (same storage key). -->
     <script>
       (function () {
         var root = document.documentElement;
@@ -106,15 +104,6 @@
         root.style.backgroundColor = dark ? '#000000' : '#ffffff';
         var meta = document.querySelector('meta[name="theme-color"]');
         if (meta) meta.setAttribute('content', dark ? '#161617' : '#fafafc');
-        try {
-          if (
-            'IntersectionObserver' in window &&
-            !window.matchMedia('(prefers-reduced-motion: reduce)').matches &&
-            !/[?&]print(=|&|$)/.test(location.search)
-          ) {
-            root.classList.add('reveal-ready');
-          }
-        } catch (e) {}
       })();
     </script>
   </head>

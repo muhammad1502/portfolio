@@ -20,7 +20,7 @@ export function ExperienceTile({ entry, onLearnMore }: ExperienceTileProps) {
 
   return (
     <article className="tile" aria-labelledby={headingId}>
-      <div className="tile-inner" data-reveal>
+      <div className="tile-inner">
         <p className="tile-eyebrow">{entry.period}</p>
         <h3 id={headingId} className="tile-headline">
           {entry.title}

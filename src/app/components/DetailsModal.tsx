@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from 'react';
 import { ArrowUpRight, X } from 'lucide-react';
 import type { ResumeEntry } from './resume-data';
 import { renderMetrics } from '../lib/metrics';
-import { prefersReducedMotion } from '../lib/useReveal';
+import { prefersReducedMotion } from '../lib/motion';
 import { linkLabel } from './links';
 
 interface DetailsModalProps {
