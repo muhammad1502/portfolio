@@ -13,12 +13,27 @@
  * self-hosted Inter (closest open equivalent) is used.
  */
 
+/* ---------- fonts --------------------------------------------------------------
+ * Where Inter is used (non-Apple devices), text first renders in a local font
+ * resized to Inter's metrics, so nothing shifts when Inter arrives. Values are
+ * the standard Inter-over-Arial overrides; Liberation Sans is metric-identical
+ * to Arial on Linux.
+ */
+@font-face {
+  font-family: 'Inter Fallback';
+  src: local('Arial'), local('Liberation Sans');
+  ascent-override: 90.49%;
+  descent-override: 22.56%;
+  line-gap-override: 0%;
+  size-adjust: 107.06%;
+}
+
 /* ---------- tokens ---------------------------------------------------------- */
 
 :root {
-  --font-display: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Inter Variable', 'Helvetica Neue',
+  --font-display: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Inter Variable', 'Inter Fallback', 'Helvetica Neue',
     Helvetica, Arial, sans-serif;
-  --font-text: -apple-system, BlinkMacSystemFont, 'SF Pro Text', 'Inter Variable', 'Helvetica Neue', Helvetica,
+  --font-text: -apple-system, BlinkMacSystemFont, 'SF Pro Text', 'Inter Variable', 'Inter Fallback', 'Helvetica Neue', Helvetica,
     Arial, sans-serif;
 
   --ease: cubic-bezier(0.28, 0.11, 0.32, 1);
@@ -1739,15 +1754,15 @@ main:focus {
   transition: transform 0.6s var(--ease), opacity 0.4s var(--ease-nav);
 }
 
-.theme-icon[data-mode='dark'] .theme-icon-core {
+[data-theme='dark'] .theme-icon .theme-icon-core {
   transform: scale(1.7);
 }
 
-.theme-icon[data-mode='dark'] .theme-icon-cut {
+[data-theme='dark'] .theme-icon .theme-icon-cut {
   transform: translate(-7px, 3px);
 }
 
-.theme-icon[data-mode='dark'] .theme-icon-rays {
+[data-theme='dark'] .theme-icon .theme-icon-rays {
   opacity: 0;
   transform: rotate(90deg) scale(0.4);
 }

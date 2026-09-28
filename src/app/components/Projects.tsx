@@ -80,10 +80,11 @@ export function Projects() {
                   href={p.href}
                   target="_blank"
                   rel="noopener noreferrer"
-                  aria-label={`View ${p.name} on GitHub (opens in a new tab)`}
                 >
                   <Github size={17} strokeWidth={2} aria-hidden="true" />
                   View on GitHub
+                  {/* The name starts with the visible text (WCAG 2.5.3); context follows. */}
+                  <span className="visually-hidden">: {p.name}, opens in a new tab</span>
                 </a>
               </div>
             </article>

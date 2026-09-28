@@ -13,8 +13,7 @@ interface GlobalNavProps {
   onOpenPalette: () => void;
 }
 
-// Show the platform's own shortcut: ⌘K on Apple devices, Ctrl K elsewhere.
-const IS_APPLE = typeof navigator !== 'undefined' && /Mac|iPhone|iPad/.test(navigator.userAgent);
+
 
 const MOBILE_QUERY = '(max-width: 833px)';
 
@@ -30,6 +29,10 @@ export function GlobalNav({ mode, onToggleTheme, onOpenPalette }: GlobalNavProps
   const flyoutRef = useRef<HTMLDivElement>(null);
   const listRef = useRef<HTMLUListElement>(null);
   const isDark = mode === 'dark';
+  // The platform's own shortcut: ⌘K on Apple devices, Ctrl K elsewhere. Set
+  // after mount so the pre-rendered HTML and the first client render match.
+  const [isApple, setIsApple] = useState(false);
+  useEffect(() => setIsApple(/Mac|iPhone|iPad/.test(navigator.userAgent)), []);
 
   // Scrollspy: the section crossing the middle band of the viewport is
   // "current". Its nav link gets aria-current and the sliding underline.
@@ -151,9 +154,9 @@ export function GlobalNav({ mode, onToggleTheme, onOpenPalette }: GlobalNavProps
             onClick={onOpenPalette}
             aria-label="Quick actions"
             aria-keyshortcuts="Control+K Meta+K"
-            title={`Quick actions (${IS_APPLE ? '⌘K' : 'Ctrl+K'})`}
+            title={`Quick actions (${isApple ? '⌘K' : 'Ctrl+K'})`}
           >
-            <kbd>{IS_APPLE ? '⌘K' : 'Ctrl K'}</kbd>
+            <kbd>{isApple ? '⌘K' : 'Ctrl K'}</kbd>
           </button>
           <button
             type="button"

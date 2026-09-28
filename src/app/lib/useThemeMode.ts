@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useRef, useState } from 'react';
+import { useCallback, useEffect, useLayoutEffect, useRef, useState } from 'react';
 import { flushSync } from 'react-dom';
 
 export type ThemeMode = 'light' | 'dark';
@@ -28,20 +28,29 @@ function systemMode(): ThemeMode {
  * <html data-theme>, which the stylesheet's tokens key off.
  */
 export function useThemeMode() {
-  const [mode, setMode] = useState<ThemeMode>(() => readStored() ?? systemMode());
-  const [overridden, setOverridden] = useState(() => readStored() !== null);
+  // The page is pre-rendered, so the first render must match the server
+  // ('light'). The real mode (already applied to <html> by theme-init.js) is
+  // read before the first paint, so there's no flash and no hydration mismatch.
+  const [mode, setMode] = useState<ThemeMode>('light');
+  const [overridden, setOverridden] = useState(false);
+
+  useIsomorphicLayoutEffect(() => {
+    const attr = document.documentElement.dataset.theme;
+    setMode(attr === 'dark' || attr === 'light' ? attr : (readStored() ?? systemMode()));
+    setOverridden(readStored() !== null);
+  }, []);
 
   const modeRef = useRef(mode);
   modeRef.current = mode;
 
   useEffect(() => {
-    applyToDocument(mode);
-  }, [mode]);
-
-  useEffect(() => {
     if (overridden) return;
     const mq = window.matchMedia('(prefers-color-scheme: dark)');
-    const onChange = (e: MediaQueryListEvent) => setMode(e.matches ? 'dark' : 'light');
+    const onChange = (e: MediaQueryListEvent) => {
+      const next: ThemeMode = e.matches ? 'dark' : 'light';
+      setMode(next);
+      applyToDocument(next);
+    };
     mq.addEventListener('change', onChange);
     return () => mq.removeEventListener('change', onChange);
   }, [overridden]);
@@ -79,6 +88,10 @@ export function useThemeMode() {
 
   return { mode, toggle };
 }
+
+// useLayoutEffect in the browser, useEffect during server rendering (where it
+// never runs), which avoids React's server-side useLayoutEffect warning.
+export const useIsomorphicLayoutEffect = typeof window !== 'undefined' ? useLayoutEffect : useEffect;
 
 function applyToDocument(mode: ThemeMode) {
   document.documentElement.dataset.theme = mode;
