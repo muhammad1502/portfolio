@@ -1,6 +1,5 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
 import { flushSync } from 'react-dom';
-import { prefersReducedMotion } from './motion';
 
 export type ThemeMode = 'light' | 'dark';
 
@@ -50,7 +49,8 @@ export function useThemeMode() {
   /**
    * Switch theme with a crossfade. Browsers with the View Transitions API fade
    * a snapshot of the old page into the new one; others get a short colour
-   * transition on every element instead. Reduced motion: instant.
+   * transition on every element instead. A fade has no movement, so it stays
+   * on under prefers-reduced-motion (site.css drops the icon's spin/scale).
    */
   const toggle = useCallback(() => {
     const next: ThemeMode = modeRef.current === 'light' ? 'dark' : 'light';
@@ -66,10 +66,6 @@ export function useThemeMode() {
       applyToDocument(next); // the transition snapshots the DOM right after this
     };
 
-    if (prefersReducedMotion()) {
-      commit();
-      return;
-    }
     const doc = document as Document & { startViewTransition?: (cb: () => void) => unknown };
     if (doc.startViewTransition) {
       doc.startViewTransition(commit);

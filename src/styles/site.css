@@ -45,9 +45,10 @@
   /* Buttons. Light: Apple blue with white text. Dark: inverted to a light pill
      with dark text (white on the brighter dark-mode blue would fail WCAG AA). */
   --btn-bg: #0071e3;
-  --btn-bg-hover: #0076df;
-  --btn-bg-active: #006edb;
+  --btn-bg-hover: #0068d6;
+  --btn-bg-active: #005bb8;
   --btn-text: #ffffff;
+  --btn-glow: rgba(0, 113, 227, 0.28);
   --btn-outline: #0066cc;
   --focus: #0071e3;
   --accent: #0071e3;
@@ -85,6 +86,7 @@
   --btn-bg-hover: #ffffff;
   --btn-bg-active: #e8e8ed;
   --btn-text: #1d1d1f;
+  --btn-glow: rgba(245, 245, 247, 0.28);
   --btn-outline: #f5f5f7;
   --focus: #2997ff;
   --accent: #2997ff;
@@ -267,17 +269,26 @@ main:focus {
   white-space: nowrap;
   text-decoration: none;
   cursor: pointer;
-  transition: background-color 0.2s var(--ease-nav), color 0.2s var(--ease-nav), border-color 0.2s var(--ease-nav),
-    transform 0.2s var(--ease-nav);
+  transition: background-color 0.25s var(--ease-nav), color 0.25s var(--ease-nav), border-color 0.25s var(--ease-nav),
+    box-shadow 0.3s var(--ease), transform 0.3s var(--ease);
 }
 
+/* Hover, the same on every button: a glow ring in the theme accent plus a
+   1px lift. Filled buttons also brighten; outline buttons fill in. */
 .button:hover {
   background: var(--btn-bg-hover);
   text-decoration: none;
+  box-shadow: 0 0 0 4px var(--btn-glow), 0 6px 18px var(--btn-glow);
+  transform: translateY(-1px);
+}
+
+.button:focus-visible {
+  box-shadow: 0 0 0 4px var(--btn-glow);
 }
 
 .button:active {
   background: var(--btn-bg-active);
+  box-shadow: 0 0 0 2px var(--btn-glow);
   transform: scale(0.98);
 }
 
@@ -1538,8 +1549,21 @@ button {
 
   .card:hover,
   .contact-card:hover,
-  .hero-photo:hover {
+  .hero-photo:hover,
+  .button:hover {
     transform: none;
+  }
+
+  /* The theme crossfade stays (a fade has no movement), minus the icon's
+     spin and scale. The View Transition pseudo-elements aren't matched by the
+     * rule above, so they keep their fade duration. */
+  .theme-fading,
+  .theme-fading *,
+  .theme-fading *::before,
+  .theme-fading *::after {
+    transition: background-color var(--theme-fade) var(--ease-fade), color var(--theme-fade) var(--ease-fade),
+      border-color var(--theme-fade) var(--ease-fade), fill var(--theme-fade) var(--ease-fade),
+      stroke var(--theme-fade) var(--ease-fade), box-shadow var(--theme-fade) var(--ease-fade) !important;
   }
 }
 

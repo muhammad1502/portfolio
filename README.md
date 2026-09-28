@@ -126,8 +126,8 @@ Requires **Node 20+** (pinned via `engines` in `package.json`).
   menu), a cursor spotlight and lift on cards, a tap ripple and press-in on
   touch screens, a phone bottom-sheet for details, a crossfade between themes
   (View Transitions, with a colour-fade fallback) with a sun-to-moon icon
-  morph, and small button transitions. All of it is off under
-  `prefers-reduced-motion`.
+  morph, and small button hover glows. Under `prefers-reduced-motion` all
+  movement is off; the theme crossfade stays because a fade has no motion.
 
 ---
 
