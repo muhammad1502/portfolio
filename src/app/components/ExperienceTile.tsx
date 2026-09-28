@@ -20,7 +20,7 @@ export function ExperienceTile({ entry, onLearnMore }: ExperienceTileProps) {
   const LinkIcon = entry.href ? linkIcon(entry.href) : null;
 
   return (
-    <article className="card tile" aria-labelledby={headingId}>
+    <article className="card tile" data-settle="" aria-labelledby={headingId}>
       <div>
         <p className="tile-eyebrow">{entry.period}</p>
         <h3 id={headingId} className="card-title">

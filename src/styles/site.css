@@ -52,7 +52,7 @@
   --btn-outline: #0066cc;
   --focus: #0071e3;
   --accent: #0071e3;
-  /* Reading progress (nav bar + back-to-top ring) follows the button colour. */
+  /* Reading progress (back-to-top ring) follows the button colour. */
   --progress: #0071e3;
 
   --nav-bg: rgba(250, 250, 252, 0.8);
@@ -1107,7 +1107,8 @@ main:focus {
 
 .footer .viewport-content {
   padding-top: 17px;
-  padding-bottom: 21px;
+  /* Room at the bottom so the floating back-to-top button never covers text. */
+  padding-bottom: 96px;
 }
 
 .footer-directory {
@@ -1335,7 +1336,6 @@ main:focus {
  */
 
 .carousel-dots,
-.back-to-top,
 .sheet-grabber {
   display: none;
 }
@@ -1363,9 +1363,10 @@ main:focus {
 
 .back-to-top {
   position: fixed;
-  right: max(16px, env(safe-area-inset-right));
-  bottom: max(16px, env(safe-area-inset-bottom));
+  right: max(24px, env(safe-area-inset-right));
+  bottom: max(24px, env(safe-area-inset-bottom));
   z-index: 50;
+  display: inline-flex;
   align-items: center;
   justify-content: center;
   width: 48px;
@@ -1386,6 +1387,10 @@ main:focus {
   opacity: 1;
   transform: none;
   pointer-events: auto;
+}
+
+.back-to-top:hover {
+  box-shadow: 0 0 0 4px var(--btn-glow), 0 6px 18px var(--card-shadow);
 }
 
 .back-to-top:active {
@@ -1591,12 +1596,8 @@ main:focus {
   }
 
   .back-to-top {
-    display: inline-flex;
-  }
-
-  /* Room under the footer so the floating button never covers its text. */
-  .footer .viewport-content {
-    padding-bottom: 88px;
+    right: max(16px, env(safe-area-inset-right));
+    bottom: max(16px, env(safe-area-inset-bottom));
   }
 
   .sheet-grabber {
@@ -1650,6 +1651,41 @@ main:focus {
   }
 }
 
+/* ---------- scroll-linked effects (useScrollEffects) --------------------------
+ * Driven by scroll position, not time: nothing is hidden or delayed, it just
+ * moves with the page. Uses the individual translate/scale properties so it
+ * stacks with the hover transforms below instead of replacing them.
+ */
+
+/* Cards and headlines glide up a little and grow from 96% as they enter. */
+[data-settle] {
+  translate: 0 calc((1 - var(--settle, 1)) * 32px);
+  scale: calc(0.96 + var(--settle, 1) * 0.04);
+}
+
+/* The hero shrinks back, drifts down and dims slightly as you scroll past. */
+.hero-content {
+  transform-origin: 50% 0;
+  translate: 0 calc(var(--recede, 0) * 48px);
+  scale: calc(1 - var(--recede, 0) * 0.08);
+  opacity: calc(1 - var(--recede, 0) * 0.55);
+}
+
+/* About: words light up from secondary to primary as they pass the reading
+   line. Colour only, so it runs under reduced motion too. Without the script
+   (.scroll-fx missing) the text simply shows at full strength. */
+.scroll-fx .about-copy [data-word] {
+  color: var(--text-2);
+}
+
+.scroll-fx-ready .about-copy [data-word] {
+  transition: color 0.35s var(--ease-nav);
+}
+
+.scroll-fx .about-copy [data-word].is-lit {
+  color: var(--text);
+}
+
 /* ---------- motion -----------------------------------------------------------
  * Everything here decorates content that is already on screen: nothing starts
  * hidden or waits on an animation. Only transform, opacity and background
@@ -1671,19 +1707,6 @@ main:focus {
   color: var(--nav-link-hover);
   pointer-events: none;
   transition: transform 0.45s var(--ease), width 0.45s var(--ease), opacity 0.25s var(--ease-nav);
-}
-
-/* Reading progress along the bottom edge of the nav. */
-.globalnav-progress {
-  position: absolute;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  height: 2px;
-  background: var(--progress);
-  transform: scaleX(0);
-  transform-origin: left center;
-  pointer-events: none;
 }
 
 /* Theme switch: a crossfade. With View Transitions the browser fades a
@@ -1913,6 +1936,13 @@ button {
 /* ---------- print (live page) ---------------------------------------------- */
 
 @media print {
+  [data-settle],
+  .hero-content {
+    translate: none !important;
+    scale: none !important;
+    opacity: 1 !important;
+  }
+
   .globalnav,
   .skip-link,
   .button-group,

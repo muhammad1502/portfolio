@@ -11,9 +11,9 @@ import { CommandPalette } from './components/CommandPalette';
 import { Toaster } from './components/Toast';
 import { profile, contacts, experience, skills, certifications } from './components/resume-data';
 import type { ResumeEntry } from './components/resume-data';
-import { renderMetrics, splitList } from './lib/metrics';
+import { renderMetrics, renderWords, splitList } from './lib/metrics';
 import { useThemeMode } from './lib/useThemeMode';
-import { useSpotlight } from './lib/motion';
+import { useScrollEffects, useSpotlight } from './lib/motion';
 import { RESUME_FILENAME, RESUME_URL } from './lib/sections';
 
 const contactIcons: Record<string, typeof Mail> = { email: Mail, linkedin: Linkedin, github: Github };
@@ -23,6 +23,7 @@ export default function App() {
   const [openEntry, setOpenEntry] = useState<ResumeEntry | null>(null);
   const [paletteOpen, setPaletteOpen] = useState(false);
   useSpotlight();
+  useScrollEffects();
 
   // ⌘K (Mac) / Ctrl+K (others) opens the quick-actions palette from anywhere.
   useEffect(() => {
@@ -48,12 +49,12 @@ export default function App() {
 
         <section id="about" className="section" aria-labelledby="about-title">
           <div className="viewport-content">
-            <h2 id="about-title" className="section-headline">
+            <h2 id="about-title" className="section-headline" data-settle="">
               About
             </h2>
-            <div className="about-copy">
+            <div className="about-copy" data-words="">
               {profile.about.map((para) => (
-                <p key={para.slice(0, 24)}>{renderMetrics(para)}</p>
+                <p key={para.slice(0, 24)}>{renderWords(para)}</p>
               ))}
             </div>
           </div>
@@ -61,7 +62,7 @@ export default function App() {
 
         <section id="experience" className="section" aria-labelledby="experience-title">
           <div className="viewport-content">
-            <h2 id="experience-title" className="section-headline">
+            <h2 id="experience-title" className="section-headline" data-settle="">
               Experience
             </h2>
             <div className="tiles">
@@ -76,12 +77,12 @@ export default function App() {
 
         <section id="skills" className="section" aria-labelledby="skills-title">
           <div className="viewport-content">
-            <h2 id="skills-title" className="section-headline">
+            <h2 id="skills-title" className="section-headline" data-settle="">
               Skills and tools
             </h2>
             <div className="card-grid">
               {skills.map((s) => (
-                <article className="card" key={s.id} aria-labelledby={`${s.id}-title`}>
+                <article className="card" key={s.id} data-settle="" aria-labelledby={`${s.id}-title`}>
                   <h3 id={`${s.id}-title`} className="card-title">
                     {s.label}
                   </h3>
@@ -98,10 +99,10 @@ export default function App() {
 
         <section id="certifications" className="section" aria-labelledby="certifications-title">
           <div className="viewport-content">
-            <h2 id="certifications-title" className="section-headline">
+            <h2 id="certifications-title" className="section-headline" data-settle="">
               Certifications and training
             </h2>
-            <ul className="card cert-list">
+            <ul className="card cert-list" data-settle="">
               {certifications.map((c) => (
                 <li className="cert-row" key={c.id}>
                   <div>
@@ -119,7 +120,7 @@ export default function App() {
 
         <section id="contact" className="section" aria-labelledby="contact-title">
           <div className="viewport-content">
-            <h2 id="contact-title" className="section-headline">
+            <h2 id="contact-title" className="section-headline" data-settle="">
               Contact
             </h2>
             <ul className="contact-grid">
@@ -127,7 +128,7 @@ export default function App() {
                 const Icon = contactIcons[c.id] ?? Mail;
                 const external = !c.href?.startsWith('mailto:');
                 return (
-                  <li key={c.id}>
+                  <li key={c.id} data-settle="">
                     <a
                       className="contact-card"
                       href={c.href}

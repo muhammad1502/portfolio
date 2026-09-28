@@ -52,7 +52,7 @@ export function Projects() {
   return (
     <section id="projects" className="section" aria-labelledby="projects-title">
       <div className="viewport-content">
-        <h2 id="projects-title" className="section-headline">
+        <h2 id="projects-title" className="section-headline" data-settle="">
           Projects
         </h2>
         <div className="card-grid projects-track" ref={trackRef}>
@@ -60,6 +60,7 @@ export function Projects() {
             <article
               className="card project-card"
               key={p.id}
+              data-settle=""
               aria-labelledby={`${p.id}-title`}
             >
               <p className="tile-eyebrow">{p.kind}</p>

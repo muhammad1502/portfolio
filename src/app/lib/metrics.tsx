@@ -56,3 +56,36 @@ export function splitList(value: string): string[] {
   if (current.trim()) items.push(current.trim());
   return items;
 }
+
+/**
+ * Like renderMetrics, but every word is its own span ([data-word]) so the
+ * About text can light up word by word as you scroll. **Metric** runs keep
+ * their emphasis.
+ */
+export function renderWords(text: string): ReactNode {
+  const parts: { text: string; metric: boolean }[] = [];
+  let last = 0;
+  for (const m of text.matchAll(METRIC)) {
+    const start = m.index ?? 0;
+    if (start > last) parts.push({ text: text.slice(last, start), metric: false });
+    parts.push({ text: m[1], metric: true });
+    last = start + m[0].length;
+  }
+  if (last < text.length) parts.push({ text: text.slice(last), metric: false });
+
+  let key = 0;
+  return parts.flatMap((part) =>
+    part.text
+      .split(/(\s+)/)
+      .filter(Boolean)
+      .map((token) =>
+        /^\s+$/.test(token) ? (
+          token
+        ) : (
+          <span key={key++} data-word="" className={part.metric ? 'metric' : undefined}>
+            {token}
+          </span>
+        ),
+      ),
+  );
+}
