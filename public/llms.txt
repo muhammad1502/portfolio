@@ -1,6 +1,6 @@
 # Muhammad Abdullah
 
-> Cybersecurity analyst in Ottawa, working remotely as a SOC analyst for a Canadian cybersecurity firm that serves North American enterprise clients. Two years of alert triage, threat hunting and incident response in Elastic SIEM and Microsoft 365 Defender, including support during an active, threat actor-led ransomware attack, plus IT operations and Python/Pandas log automation. Also designs and builds accessible websites using AI-assisted development. Studying for CompTIA Security+.
+> Cybersecurity analyst based in Islamabad, Pakistan, working remotely as a SOC analyst for a Canadian cybersecurity firm that serves North American enterprise clients. Two years of alert triage, threat hunting and incident response in Elastic SIEM and Microsoft 365 Defender, including support during an active, threat actor-led ransomware attack, plus IT operations and Python/Pandas log automation. Also designs and builds accessible websites using AI-assisted development. Studying for CompTIA Security+.
 
 ## Contact
 - Email: muhammaddabddullah@outlook.com

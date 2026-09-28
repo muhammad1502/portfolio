@@ -70,12 +70,10 @@ export interface Certification {
 export const profile = {
   name: 'Muhammad Abdullah',
   title: 'Cybersecurity Analyst',
-  location: 'Ottawa, CA',
+  location: 'Islamabad, PK',
   // One-line summary under the title. Every claim here is backed by an entry below.
   tagline:
     'I work in security operations for North American enterprise clients, from alert triage and threat hunting to ransomware containment.',
-  // Shown on the downloadable CV only (it was on the original PDF).
-  phone: '+92 320 5610211',
   portfolio: 'mabddullah.vercel.app',
   portfolioHref: 'https://mabddullah.vercel.app',
   // Third-person summary for the downloadable CV. Every claim is backed below.

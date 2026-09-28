@@ -77,7 +77,6 @@ function Entry({ e }: { e: ResumeEntry }) {
 export function PrintResume() {
   const contactLine = [
     { text: contacts.find((c) => c.id === 'email')?.value, href: contacts.find((c) => c.id === 'email')?.href },
-    { text: profile.phone, href: `tel:${profile.phone.replace(/\s/g, '')}` },
     { text: 'linkedin.com/in/mabddullah', href: profile.siteHref },
     { text: 'github.com/muhammad1502', href: contacts.find((c) => c.id === 'github')?.href },
     { text: profile.portfolio, href: profile.portfolioHref },
