@@ -5,7 +5,7 @@ import { ThemeIcon } from './ThemeIcon';
 import { profile } from './resume-data';
 import { sections, RESUME_FILENAME, RESUME_URL } from '../lib/sections';
 import type { ThemeMode } from '../lib/useThemeMode';
-import { prefersReducedMotion } from '../lib/motion';
+import { haptic, scrollToTop } from '../lib/motion';
 
 interface GlobalNavProps {
   mode: ThemeMode;
@@ -131,11 +131,7 @@ export function GlobalNav({ mode, onToggleTheme }: GlobalNavProps) {
   const goToTop = (e: MouseEvent<HTMLAnchorElement>) => {
     e.preventDefault();
     close();
-    window.scrollTo({ top: 0, behavior: prefersReducedMotion() ? 'auto' : 'smooth' });
-    if (window.location.hash) {
-      window.history.replaceState(null, '', window.location.pathname + window.location.search);
-    }
-    document.getElementById('main')?.focus({ preventScroll: true });
+    scrollToTop();
   };
 
   return (
@@ -172,7 +168,10 @@ export function GlobalNav({ mode, onToggleTheme }: GlobalNavProps) {
           <button
             type="button"
             className="globalnav-icon"
-            onClick={onToggleTheme}
+            onClick={() => {
+              haptic();
+              onToggleTheme();
+            }}
             aria-label={isDark ? 'Switch to light mode' : 'Switch to dark mode'}
             title={isDark ? 'Light mode' : 'Dark mode'}
           >
@@ -190,7 +189,10 @@ export function GlobalNav({ mode, onToggleTheme }: GlobalNavProps) {
           <button
             type="button"
             className="globalnav-icon globalnav-menu-toggle"
-            onClick={() => setOpen((o) => !o)}
+            onClick={() => {
+              haptic();
+              setOpen((o) => !o);
+            }}
             aria-expanded={open}
             aria-controls="globalnav-flyout"
             aria-label={open ? 'Close menu' : 'Menu'}

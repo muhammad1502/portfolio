@@ -5,7 +5,9 @@ import { Hero } from './components/Hero';
 import { ExperienceTile } from './components/ExperienceTile';
 import { DetailsModal } from './components/DetailsModal';
 import { Footer } from './components/Footer';
-import { profile, contacts, experience, projects, skills, certifications } from './components/resume-data';
+import { BackToTop } from './components/BackToTop';
+import { Projects } from './components/Projects';
+import { profile, contacts, experience, skills, certifications } from './components/resume-data';
 import type { ResumeEntry } from './components/resume-data';
 import { renderMetrics, splitList } from './lib/metrics';
 import { useThemeMode } from './lib/useThemeMode';
@@ -55,42 +57,7 @@ export default function App() {
           </div>
         </section>
 
-        <section id="projects" className="section" aria-labelledby="projects-title">
-          <div className="viewport-content">
-            <h2 id="projects-title" className="section-headline">
-              Projects
-            </h2>
-            <div className="card-grid">
-              {projects.map((p) => (
-                <article className="card project-card" key={p.id} aria-labelledby={`${p.id}-title`}>
-                  <p className="tile-eyebrow">{p.kind}</p>
-                  <h3 id={`${p.id}-title`} className="card-title">
-                    {p.name}
-                  </h3>
-                  <p className="tile-description">{p.description}</p>
-                  <ul className="skill-list">
-                    {p.points.map((point) => (
-                      <li key={point}>{point}</li>
-                    ))}
-                  </ul>
-                  <p className="project-tech">{p.tech}</p>
-                  <div className="button-group">
-                    <a
-                      className="button button-secondary"
-                      href={p.href}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      aria-label={`View ${p.name} on GitHub (opens in a new tab)`}
-                    >
-                      <Github size={17} strokeWidth={2} aria-hidden="true" />
-                      View on GitHub
-                    </a>
-                  </div>
-                </article>
-              ))}
-            </div>
-          </div>
-        </section>
+        <Projects />
 
         <section id="skills" className="section" aria-labelledby="skills-title">
           <div className="viewport-content">
@@ -174,6 +141,7 @@ export default function App() {
       </main>
 
       <Footer />
+      <BackToTop />
       <DetailsModal entry={openEntry} onClose={() => setOpenEntry(null)} />
     </>
   );

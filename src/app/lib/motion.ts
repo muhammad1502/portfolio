@@ -59,3 +59,23 @@ export function useSpotlight() {
     };
   }, []);
 }
+
+/** A light haptic tick on phones that support it (Android). iOS Safari has no
+ *  Vibration API, so this quietly does nothing there. */
+export function haptic(ms = 8) {
+  try {
+    if (window.matchMedia('(pointer: coarse)').matches) navigator.vibrate?.(ms);
+  } catch {
+    /* unsupported */
+  }
+}
+
+/** Scroll to the top without leaving "#top" (or any hash) in the address, and
+ *  move focus to <main> so keyboard users continue from the top. */
+export function scrollToTop() {
+  window.scrollTo({ top: 0, behavior: prefersReducedMotion() ? 'auto' : 'smooth' });
+  if (window.location.hash) {
+    window.history.replaceState(null, '', window.location.pathname + window.location.search);
+  }
+  document.getElementById('main')?.focus({ preventScroll: true });
+}

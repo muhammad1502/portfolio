@@ -52,6 +52,9 @@ from a single TypeScript file.
 │   │       ├── ExperienceTile.tsx  # One card per role, with stats and buttons
 │   │       ├── CountUp.tsx         # Animated stat numbers
 │   │       ├── DetailsModal.tsx    # "Learn more" overlay (native <dialog>)
+│   │       ├── Projects.tsx        # Project cards (grid; swipe carousel on phones)
+│   │       ├── BackToTop.tsx       # Phone back-to-top button with progress ring
+│   │       ├── ThemeIcon.tsx       # Sun/moon morphing icon
 │   │       ├── Footer.tsx          # Directory columns + legal line
 │   │       └── PrintResume.tsx     # Optional print layout at /?print (data-driven)
 │   ├── styles/
@@ -124,7 +127,9 @@ Requires **Node 20+** (pinned via `engines` in `package.json`).
   decorates what is already on screen: count-up stats, a reading-progress bar,
   a current-section marker (sliding underline in the nav, a dot in the phone
   menu), a cursor spotlight and lift on cards, a tap ripple and press-in on
-  touch screens, a phone bottom-sheet for details, a crossfade between themes
+  touch screens, a phone bottom-sheet for details (swipe down to close), a
+  swipeable Projects carousel with page dots and a back-to-top button with a
+  progress ring on phones, light haptic ticks on Android, a crossfade between themes
   (View Transitions, with a colour-fade fallback) with a sun-to-moon icon
   morph, and small button hover glows. Under `prefers-reduced-motion` all
   movement is off; the theme crossfade stays because a fade has no motion.
