@@ -1,0 +1,15 @@
+# Dependabot: weekly dependency update PRs, grouped to keep noise low.
+# Security updates are separate and immediate once "Dependabot security
+# updates" is enabled in the repository's Settings > Code security.
+version: 2
+updates:
+  - package-ecosystem: npm
+    directory: /
+    schedule:
+      interval: weekly
+    open-pull-requests-limit: 5
+    groups:
+      production:
+        dependency-type: production
+      development:
+        dependency-type: development

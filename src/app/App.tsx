@@ -9,6 +9,7 @@ import { BackToTop } from './components/BackToTop';
 import { Projects } from './components/Projects';
 import { CommandPalette } from './components/CommandPalette';
 import { Toaster } from './components/Toast';
+import { SectionChips } from './components/SectionChips';
 import { profile, contacts, experience, skills, certifications } from './components/resume-data';
 import type { ResumeEntry } from './components/resume-data';
 import { renderMetrics, renderWords, splitList } from './lib/metrics';
@@ -43,6 +44,7 @@ export default function App() {
         Skip to main content
       </a>
       <GlobalNav mode={mode} onToggleTheme={toggle} onOpenPalette={() => setPaletteOpen(true)} />
+      <SectionChips />
 
       <main id="main" tabIndex={-1}>
         <Hero />
@@ -52,6 +54,13 @@ export default function App() {
             <h2 id="about-title" className="section-headline" data-settle="">
               About
             </h2>
+            <p className="whoami">
+              <span className="whoami-prompt" aria-hidden="true">
+                $ whoami
+              </span>
+              <span className="whoami-out">muhammad abdullah · soc analyst · islamabad, pk</span>
+              <span className="whoami-caret" aria-hidden="true" />
+            </p>
             <div className="about-copy" data-words="">
               {profile.about.map((para) => (
                 <p key={para.slice(0, 24)}>{renderWords(para)}</p>
