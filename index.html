@@ -3,14 +3,14 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Muhammad Abdullah — Cybersecurity Analyst</title>
+    <title>Muhammad Abdullah | Cybersecurity Analyst</title>
     <meta
       name="description"
-      content="Muhammad Abdullah — Cybersecurity Analyst in the Ottawa area. Remote SOC, threat hunting, and incident response for North American clients using Elastic SIEM and Microsoft 365 Defender, with Python-driven log automation."
+      content="Muhammad Abdullah is a cybersecurity analyst in Ottawa. SOC work, threat hunting and incident response for North American enterprise clients using Elastic SIEM and Microsoft 365 Defender, plus Python log automation."
     />
     <meta name="author" content="Muhammad Abdullah" />
-    <meta name="theme-color" content="#fbfbfa" media="(prefers-color-scheme: light)" />
-    <meta name="theme-color" content="#121211" media="(prefers-color-scheme: dark)" />
+    <meta name="theme-color" content="#fafafc" />
+    <meta name="color-scheme" content="light dark" />
 
     <!-- Favicon (drop files in /public) -->
     <link rel="icon" type="image/png" href="/favicon.png" />
@@ -23,23 +23,23 @@
     <meta property="og:type" content="website" />
     <meta property="og:site_name" content="Muhammad Abdullah" />
     <meta property="og:locale" content="en_US" />
-    <meta property="og:title" content="Muhammad Abdullah — Cybersecurity Analyst" />
+    <meta property="og:title" content="Muhammad Abdullah | Cybersecurity Analyst" />
     <meta
       property="og:description"
-      content="Remote SOC, threat hunting, and incident response for North American clients using Elastic SIEM and Microsoft 365 Defender."
+      content="SOC work, threat hunting and incident response for North American enterprise clients using Elastic SIEM and Microsoft 365 Defender."
     />
     <meta property="og:url" content="https://muhammad-abdullah-resume.vercel.app" />
     <meta property="og:image" content="https://muhammad-abdullah-resume.vercel.app/og.png" />
     <meta property="og:image:width" content="1200" />
     <meta property="og:image:height" content="630" />
-    <meta property="og:image:alt" content="Muhammad Abdullah — Cybersecurity Analyst" />
+    <meta property="og:image:alt" content="Muhammad Abdullah | Cybersecurity Analyst" />
 
     <!-- Twitter / X -->
     <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content="Muhammad Abdullah — Cybersecurity Analyst" />
+    <meta name="twitter:title" content="Muhammad Abdullah | Cybersecurity Analyst" />
     <meta
       name="twitter:description"
-      content="Remote SOC, threat hunting, and incident response for North American clients using Elastic SIEM and Microsoft 365 Defender."
+      content="SOC work, threat hunting and incident response for North American enterprise clients using Elastic SIEM and Microsoft 365 Defender."
     />
     <meta name="twitter:image" content="https://muhammad-abdullah-resume.vercel.app/og.png" />
 
@@ -75,7 +75,9 @@
           "Digital Forensics",
           "OSINT",
           "Microsoft 365 Defender",
-          "MITRE ATT&CK"
+          "MITRE ATT&CK",
+          "Web Design",
+          "Web Accessibility"
         ],
         "email": "mailto:muhammaddabddullah@outlook.com",
         "sameAs": [
@@ -85,17 +87,33 @@
       }
     </script>
 
-    <!-- Pre-paint theme: set the page background before React mounts so dark-mode
-         users don't see a light flash (FOUC). Mirrors App.tsx palette + storage key. -->
+    <!-- Pre-paint: resolve the theme and set <html data-theme> + background
+         before React mounts, so dark-mode users never see a light flash (FOUC).
+         Mirrors src/app/lib/useThemeMode.ts (same storage key). Also enables the
+         scroll-reveal styles only when they can work (IntersectionObserver, no
+         reduced-motion preference); otherwise content is never hidden. -->
     <script>
       (function () {
+        var root = document.documentElement;
+        var dark = false;
         try {
           var stored = localStorage.getItem('theme-mode');
-          var dark =
+          dark =
             stored === 'dark' ||
-            (stored !== 'light' &&
-              window.matchMedia('(prefers-color-scheme: dark)').matches);
-          document.documentElement.style.backgroundColor = dark ? '#121211' : '#fbfbfa';
+            (stored !== 'light' && window.matchMedia('(prefers-color-scheme: dark)').matches);
+        } catch (e) {}
+        root.setAttribute('data-theme', dark ? 'dark' : 'light');
+        root.style.backgroundColor = dark ? '#000000' : '#ffffff';
+        var meta = document.querySelector('meta[name="theme-color"]');
+        if (meta) meta.setAttribute('content', dark ? '#161617' : '#fafafc');
+        try {
+          if (
+            'IntersectionObserver' in window &&
+            !window.matchMedia('(prefers-reduced-motion: reduce)').matches &&
+            !/[?&]print(=|&|$)/.test(location.search)
+          ) {
+            root.classList.add('reveal-ready');
+          }
         } catch (e) {}
       })();
     </script>

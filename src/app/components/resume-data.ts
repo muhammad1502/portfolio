@@ -22,6 +22,14 @@ export interface ResumeEntry {
   roles?: Role[];
   href?: string;
   tag?: string;
+  /** Headline numbers for the tile. Each value + label restates a metric that
+   *  already appears in this entry's copy. Never add a figure that isn't. */
+  stats?: Stat[];
+}
+
+export interface Stat {
+  value: string;
+  label: string;
 }
 
 export interface LabeledLink {
@@ -40,6 +48,9 @@ export interface SkillGroup {
 export interface Certification {
   id: string;
   name: string;
+  issuer: string;
+  /** What kind of credential it is, e.g. "Certification" vs "Course certificate". */
+  kind: string;
   note?: string;
 }
 
@@ -47,10 +58,24 @@ export const profile = {
   name: 'Muhammad Abdullah',
   title: 'Cybersecurity Analyst',
   location: 'Ottawa, CA',
+  // One-line summary under the title. Every claim here is backed by an entry below.
+  tagline:
+    'I work in security operations for North American enterprise clients, from alert triage and threat hunting to ransomware containment.',
+  // Shown on the downloadable CV only (it was on the original PDF).
+  phone: '+92 320 5610211',
+  portfolio: 'muhammad-abdullah-resume.vercel.app',
+  portfolioHref: 'https://muhammad-abdullah-resume.vercel.app',
+  // Third-person summary for the downloadable CV. Every claim is backed below.
+  cvSummary:
+    'Cybersecurity analyst with two years of SOC, incident response and IT operations work for North American enterprise clients. Investigates 100+ alerts a week in Elastic SIEM and Microsoft 365 Defender and supported the response to an active, threat actor-led ransomware attack. Also designs and builds accessible websites using AI-assisted development.',
   site: 'linkedin.com/in/mabddullah',
   siteHref: 'https://www.linkedin.com/in/mabddullah',
-  about:
-    "Cybersecurity analyst with two years of remote SOC, incident response, and IT operations supporting North American enterprise clients. I investigate 100+ alerts a week in Elastic SIEM and Microsoft 365 Defender, hunt threats, and drive containment — including tactical support during an active, threat actor-led ransomware engagement, isolating compromised domain controllers and ESXi hosts before large-scale encryption. A foundation in Python and Pandas lets me automate log analysis for fast, high-volume triage, and I keep Canadian client environments running through Microsoft 365 tenant administration, firewall and VPN configuration, and endpoint provisioning. I'm finishing a B.S. in Remote Sensing & GIS and studying for CompTIA Security+.",
+  about: [
+    "I'm a cybersecurity analyst at Ninpo Inc., working remotely as a SOC analyst for North American enterprise clients. For the past **two years** I've triaged alerts, hunted threats and helped contain incidents, including an **active, threat actor-led ransomware attack**, where I helped isolate compromised domain controllers and ESXi hosts before large-scale encryption.",
+    "Each week I investigate **100+ alerts** in Elastic SIEM and Microsoft 365 Defender, and I use Python and Pandas to automate log analysis so triage stays fast. I also keep Canadian client environments running: Microsoft 365 tenant administration, firewall and VPN configuration, and endpoint provisioning.",
+    'I also design and build websites. I use AI coding tools for the build and put my own time into layout, accessibility and user experience. This site is one example.',
+    "I'm finishing a B.S. in Remote Sensing & GIS and studying for CompTIA Security+.",
+  ],
 };
 
 export const contacts: LabeledLink[] = [
@@ -59,30 +84,74 @@ export const contacts: LabeledLink[] = [
   { id: 'github', label: 'GitHub', value: 'muhammad1502', href: 'https://github.com/muhammad1502' },
 ];
 
+// Current role first, then the rest newest to oldest.
 export const experience: ResumeEntry[] = [
   {
+    id: 'ninpo',
+    period: 'Oct 2024 to present',
+    title: 'Cybersecurity Analyst',
+    subtitle: 'Ninpo Inc.',
+    href: 'https://ninpo.com',
+    meta: 'Ottawa, Canada · Remote',
+    description:
+      'SOC analyst for a Canadian cybersecurity firm. I handle threat detection, incident response and IT operations across several North American enterprise client environments.',
+    sections: [
+      {
+        label: 'Incident response',
+        text: 'Supported the response to an active **threat actor-led** ransomware attack by isolating compromised domain controllers and ESXi hosts before large-scale encryption.',
+      },
+      {
+        label: 'Threat hunting and triage',
+        text: 'Investigate **100+** alerts a week in Elastic SIEM and classify phishing in Perception Point with **95%+** accuracy. Findings have ranged from compromised VPN credentials to unauthorized RDP lateral movement.',
+      },
+      {
+        label: 'Detection engineering',
+        text: 'Worked with engineering to tune SIEM detection rules, cutting false positives by **20%** through baseline behavior analysis and log correlation.',
+      },
+      {
+        label: 'Endpoint hardening',
+        text: 'Audited Elastic EDR health across hybrid environments and fixed hosts where anti-tampering protection had been turned off, reaching **100%** telemetry coverage.',
+      },
+      {
+        label: 'IT operations and Microsoft 365',
+        text: 'Administer Microsoft 365 tenants through Pax8, configure VPNs and firewall updates, resolve client support tickets and provision endpoints for new hires.',
+      },
+      {
+        label: 'Reporting',
+        text: 'Built incident metrics mapped to MITRE ATT&CK, giving leadership clear data on adversary tactics, techniques and procedures (TTPs).',
+      },
+    ],
+    stats: [
+      { value: '100+', label: 'alerts investigated each week in Elastic SIEM' },
+      { value: '95%+', label: 'phishing classification accuracy' },
+      { value: '20%', label: 'fewer false positives after rule tuning' },
+      { value: '100%', label: 'EDR telemetry coverage' },
+    ],
+  },
+  {
     id: 'afterdesk',
-    period: 'Jul — Aug 2026',
+    period: 'Jul 2026 to Aug 2026',
     title: 'Product Growth & Strategy',
     subtitle: 'AfterDesk · Independent Product',
     href: 'https://github.com/muhammad1502/AfterDesk',
     meta: 'Remote',
     description:
-      'Developed the product and growth foundation for an evidence-first after-sales case manager serving small online sellers.',
+      'Built the product and growth groundwork for AfterDesk, an after-sales case manager for small online sellers that keeps the evidence with every case.',
     sections: [
       {
-        label: 'Product Strategy',
-        text: 'Defined the core case workflow around customer reports, evidence, deadlines, resolution, third-party recovery, and final financial outcomes.',
+        label: 'Product strategy',
+        text: 'Defined the core case workflow: the customer report, evidence, deadlines, resolution, third-party recovery and the final financial outcome.',
       },
       {
-        label: 'Acquisition & Activation',
-        text: 'Built a public acquisition site with transparent pilot pricing, an interactive product demo, and a protected pilot workspace designed to move prospects from discovery to product evaluation.',
+        label: 'Acquisition and activation',
+        text: 'Built a public site with transparent pilot pricing, an interactive product demo and a protected pilot workspace, so prospects can go from first visit to trying the product.',
       },
       {
-        label: 'Trust & Readiness',
-        text: 'Created **37** linked product, architecture, security, API, and ethics notes; documented privacy and terms, evidence-security boundaries, and pilot release risks.',
+        label: 'Trust and readiness',
+        text: 'Wrote **37** linked notes on product, architecture, security, API and ethics, and documented the privacy policy and terms, evidence-security boundaries and pilot release risks.',
       },
     ],
+    stats: [{ value: '37', label: 'linked notes on product, architecture, security, API and ethics' }],
   },
   {
     id: 'fitsmart-growth',
@@ -92,106 +161,94 @@ export const experience: ResumeEntry[] = [
     href: 'https://github.com/SyedSaribSultan/fitsmart',
     meta: 'Remote',
     description:
-      'Delivered an evidence-based UX and growth review for an AI fitness and nutrition product, translating product risks into an implementation-ready remediation plan.',
+      'Ran an evidence-based UX and growth review of an AI fitness and nutrition app, then turned the risks I found into a remediation plan the team could implement.',
     sections: [
       {
-        label: 'Growth & Monetization',
-        text: 'Audited nine product areas and designed clearer quota visibility, plan-aware paywalls, pricing guardrails, retention flows, and a measured path toward token/credit economics.',
+        label: 'Growth and monetization',
+        text: 'Audited nine product areas and designed clearer quota visibility, plan-aware paywalls, pricing guardrails and retention flows, plus a measured path toward token or credit pricing.',
       },
       {
-        label: 'Conversion & Trust',
-        text: 'Improved upgrade context and payment safety, removed misleading unlimited-use language, preserved blocked user intent, and aligned product claims with real system behavior.',
+        label: 'Conversion and trust',
+        text: 'Gave upgrade prompts more context, made payments safer and removed misleading "unlimited" language. Users who hit a limit keep what they were doing, and product claims now match how the system actually behaves.',
       },
       {
-        label: 'Product Quality',
-        text: 'Specified and validated accessibility, data-integrity, AI-routing, and usage-observability improvements, including coverage of **37** audited icon controls and **18/18** passing Worker tests.',
+        label: 'Product quality',
+        text: 'Specified and validated fixes for accessibility, data integrity, AI routing and usage observability, covering **37** audited icon controls with **18/18** Worker tests passing.',
       },
     ],
-  },
-  {
-    id: 'ninpo',
-    period: '2024 — Present',
-    title: 'Cybersecurity Analyst',
-    subtitle: 'Ninpo Inc.',
-    href: 'https://ninpo.com',
-    meta: 'Ottawa, Canada · Remote',
-    description:
-      'Remote SOC analyst for a Canadian cybersecurity firm serving North American enterprise clients — threat detection, incident response, and IT operations across multiple client environments.',
-    sections: [
-      {
-        label: 'Incident Response',
-        text: 'Provided tactical support during an active **threat actor-led** ransomware engagement, isolating compromised domain controllers and ESXi hosts before large-scale encryption.',
-      },
-      {
-        label: 'Threat Hunting & Triage',
-        text: 'Investigate **100+** alerts weekly in Elastic SIEM and classify phishing in Perception Point with **95%+** accuracy, surfacing access vectors from compromised VPN credentials to unauthorized RDP lateral movement.',
-      },
-      {
-        label: 'Detection Engineering',
-        text: 'Tuned SIEM detection rules alongside engineering, cutting false positives **20%** through baseline behavior analysis and log correlation.',
-      },
-      {
-        label: 'Endpoint Hardening',
-        text: 'Audited Elastic EDR health across hybrid environments, remediating hosts with disabled anti-tampering protection to reach **100%** telemetry coverage.',
-      },
-      {
-        label: 'IT Operations & M365',
-        text: 'Administer Microsoft 365 tenants through Pax8, configure VPNs and firewall updates, resolve client support tickets, and provision endpoints for new hires.',
-      },
-      {
-        label: 'Reporting',
-        text: 'Built incident metrics mapped to MITRE ATT&CK, giving leadership actionable data on adversary TTPs.',
-      },
+    stats: [
+      { value: '9', label: 'product areas audited' },
+      { value: '37', label: 'icon controls audited' },
+      { value: '18/18', label: 'Worker tests passing' },
     ],
-  },
-  {
-    id: 'pcrwr',
-    period: 'Jul — Sep 2025',
-    title: 'GIS Intern',
-    subtitle: 'PCRWR',
-    meta: 'Islamabad, PK',
-    description:
-      'Summer research internship in geospatial data automation. Built Python scripts to automate ingestion of spatial datasets for government resource planning, and applied statistical methods to surface pattern anomalies — high-volume data work that transfers directly to security log analysis.',
   },
 ];
 
 export const skills: SkillGroup[] = [
   {
     id: 'secops',
-    label: 'Security Operations',
-    value: 'Elastic Security (SIEM), incident response, alert triage, phishing analysis with Perception Point, IOC hunting, OSINT',
+    label: 'Security operations',
+    value: 'Elastic Security (SIEM), Incident response, Alert triage, Phishing analysis with Perception Point, IOC hunting, OSINT',
   },
   {
     id: 'detection',
-    label: 'Threat Detection',
-    value: 'MITRE ATT&CK mapping, TTP analysis, Sysmon, Osquery, anomaly detection, Cyber Kill Chain',
+    label: 'Threat detection',
+    value: 'MITRE ATT&CK mapping, TTP analysis, Sysmon, Osquery, Anomaly detection, Cyber Kill Chain',
   },
   {
     id: 'infra',
-    label: 'Infrastructure & Admin',
+    label: 'Infrastructure and admin',
     value: 'Microsoft 365 Defender and Admin via Pax8, SonicWall and WatchGuard firewall & VPN, RDP/SSH forensics, VMware ESXi, Windows and Linux',
   },
   {
     id: 'data',
-    label: 'Data & Programming',
+    label: 'Data and programming',
     value: 'Python (Pandas, NumPy, OOP), Bash scripting, SQL, Regex, Jupyter, Matplotlib',
+  },
+  {
+    id: 'web',
+    label: 'Web design and development',
+    value: 'Responsive and accessible web design (WCAG 2.2), AI-assisted development (React, TypeScript), UX and growth audits, Landing pages and interactive product demos',
   },
 ];
 
+// Named for what each credential actually is: an exam-based certification,
+// a multi-course professional certificate, or a course certificate.
 export const certifications: Certification[] = [
-  { id: 'google-cyber', name: 'Google Cybersecurity Professional Certificate' },
-  { id: 'blue-team', name: 'Blue Team Junior Analyst — Security Blue Team (BTL1)' },
-  { id: 'ibm-intro', name: 'IBM Introduction to Cybersecurity Essentials' },
-  { id: 'security-plus', name: 'CompTIA Security+', note: 'In progress' },
-  { id: 'watchguard', name: 'Identity Security Sales Certification — WatchGuard', note: 'Exp. 2026' },
+  {
+    id: 'google-cyber',
+    name: 'Google Cybersecurity Professional Certificate',
+    issuer: 'Google',
+    kind: 'Professional certificate',
+  },
+  { id: 'security-plus', name: 'CompTIA Security+', issuer: 'CompTIA', kind: 'Certification exam', note: 'In progress' },
+  {
+    id: 'blue-team',
+    name: 'Blue Team Junior Analyst (BTJA)',
+    issuer: 'Security Blue Team',
+    kind: 'Training pathway certificate',
+  },
+  {
+    id: 'ibm-intro',
+    name: 'Introduction to Cybersecurity Essentials',
+    issuer: 'IBM',
+    kind: 'Course certificate',
+  },
+  {
+    id: 'watchguard',
+    name: 'Identity Security Sales Certification',
+    issuer: 'WatchGuard',
+    kind: 'Sales certification',
+    note: 'Valid through Jul 2027',
+  },
 ];
 
 export const education: ResumeEntry[] = [
   {
     id: 'comsats',
-    period: '2023 — 2027',
-    title: 'BS, Remote Sensing & GIS',
+    period: '2023 to 2027',
+    title: 'B.S., Remote Sensing & GIS',
     subtitle: 'COMSATS University Islamabad',
-    meta: 'Islamabad, PK',
+    meta: 'Islamabad, PK · Expected Jul 2027',
   },
 ];
