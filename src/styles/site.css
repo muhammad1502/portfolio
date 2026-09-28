@@ -1147,6 +1147,73 @@ main:focus {
   border-top: 1px solid var(--divider);
 }
 
+/* ---------- phone extras ----------------------------------------------------
+ * Hidden on larger screens; switched on in the small-screen block below.
+ */
+
+.carousel-dots,
+.back-to-top,
+.sheet-grabber {
+  display: none;
+}
+
+.carousel-dot {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 44px;
+}
+
+.carousel-dot span {
+  width: 8px;
+  height: 8px;
+  border-radius: 4px;
+  background: var(--divider);
+  transition: width 0.35s var(--ease), background-color 0.35s var(--ease-nav);
+}
+
+.carousel-dot.is-active span {
+  width: 22px;
+  background: var(--text);
+}
+
+.back-to-top {
+  position: fixed;
+  right: max(16px, env(safe-area-inset-right));
+  bottom: max(16px, env(safe-area-inset-bottom));
+  z-index: 50;
+  align-items: center;
+  justify-content: center;
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  color: var(--text);
+  background: var(--nav-bg);
+  -webkit-backdrop-filter: saturate(180%) blur(20px);
+  backdrop-filter: saturate(180%) blur(20px);
+  box-shadow: 0 4px 16px var(--card-shadow);
+  opacity: 0;
+  transform: translateY(12px) scale(0.85);
+  pointer-events: none;
+  transition: opacity 0.3s var(--ease-nav), transform 0.4s var(--ease);
+}
+
+.back-to-top.is-shown {
+  opacity: 1;
+  transform: none;
+  pointer-events: auto;
+}
+
+.back-to-top:active {
+  transform: scale(0.92);
+}
+
+.back-to-top-ring {
+  position: absolute;
+  inset: 0;
+}
+
 /* ---------- responsive ----------------------------------------------------- */
 
 @media (max-width: 1068px) {
@@ -1309,6 +1376,64 @@ main:focus {
     max-height: 100%;
     height: 100%;
     border-radius: 0;
+  }
+
+  /* Phones: Projects become a swipeable carousel that peeks the next card. */
+  .projects-track {
+    position: relative; /* cards' offsetLeft is measured from the track */
+    display: flex;
+    gap: 16px;
+    margin-inline: calc(-1 * var(--gutter));
+    padding: 4px var(--gutter) 8px;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    scroll-padding-inline: var(--gutter);
+    overscroll-behavior-x: contain;
+    scrollbar-width: none;
+  }
+
+  .projects-track::-webkit-scrollbar {
+    display: none;
+  }
+
+  .projects-track > .project-card {
+    flex: 0 0 86%;
+    scroll-snap-align: center;
+  }
+
+  .carousel-dots {
+    display: flex;
+    justify-content: center;
+    margin-top: 4px;
+  }
+
+  .back-to-top {
+    display: inline-flex;
+  }
+
+  /* Room under the footer so the floating button never covers its text. */
+  .footer .viewport-content {
+    padding-bottom: 88px;
+  }
+
+  .sheet-grabber {
+    display: block;
+    position: absolute;
+    top: 8px;
+    left: 50%;
+    z-index: 1;
+    width: 36px;
+    height: 5px;
+    margin-left: -18px;
+    border-radius: 3px;
+    background: var(--divider);
+  }
+
+  /* A bigger invisible touch area around the visible bar. */
+  .sheet-grabber::before {
+    content: '';
+    position: absolute;
+    inset: -14px -32px;
   }
 
   /* Phones: the details sheet slides up from the bottom and back down. */
