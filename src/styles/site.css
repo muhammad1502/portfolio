@@ -39,10 +39,15 @@
   --fill-quiet: #e8e8ed;
   --accent-note: #b64400;
 
+  /* Buttons. Light: Apple blue with white text. Dark: inverted to a light pill
+     with dark text (white on the brighter dark-mode blue would fail WCAG AA). */
   --btn-bg: #0071e3;
   --btn-bg-hover: #0076df;
   --btn-bg-active: #006edb;
+  --btn-text: #ffffff;
   --btn-outline: #0066cc;
+  --focus: #0071e3;
+  --accent: #0071e3;
 
   --nav-bg: rgba(250, 250, 252, 0.8);
   --nav-bg-solid: #fafafc;
@@ -73,7 +78,13 @@
   --fill-quiet: #333336;
   --accent-note: #ff8a3d;
 
-  --btn-outline: #2997ff;
+  --btn-bg: #f5f5f7;
+  --btn-bg-hover: #ffffff;
+  --btn-bg-active: #e8e8ed;
+  --btn-text: #1d1d1f;
+  --btn-outline: #f5f5f7;
+  --focus: #2997ff;
+  --accent: #2997ff;
 
   --nav-bg: rgba(22, 22, 23, 0.8);
   --nav-bg-solid: #161617;
@@ -169,7 +180,7 @@ button {
 }
 
 :focus-visible {
-  outline: 2px solid #0071e3;
+  outline: 2px solid var(--focus);
   outline-offset: 2px;
 }
 
@@ -203,7 +214,7 @@ main:focus {
   padding: 8px 16px;
   border-radius: 980px;
   background: var(--btn-bg);
-  color: #fff;
+  color: var(--btn-text);
   font-size: 14px;
   transform: translateY(-200%);
   transition: transform 0.2s var(--ease);
@@ -244,7 +255,7 @@ main:focus {
   border: 1px solid transparent;
   border-radius: 980px;
   background: var(--btn-bg);
-  color: #ffffff;
+  color: var(--btn-text);
   font-family: var(--font-text);
   font-size: 17px;
   line-height: 1;
@@ -276,13 +287,13 @@ main:focus {
 .button-secondary:hover {
   background: var(--btn-bg-hover);
   border-color: var(--btn-bg-hover);
-  color: #ffffff;
+  color: var(--btn-text);
 }
 
 .button-secondary:active {
   background: var(--btn-bg-active);
   border-color: var(--btn-bg-active);
-  color: #ffffff;
+  color: var(--btn-text);
 }
 
 .button svg {
@@ -1309,7 +1320,7 @@ main:focus {
   right: 0;
   bottom: 0;
   height: 2px;
-  background: var(--btn-bg);
+  background: var(--accent);
   transform: scaleX(0);
   transform-origin: left center;
   pointer-events: none;
@@ -1347,16 +1358,22 @@ main:focus {
   }
 }
 
-/* Buttons: outbound arrows nudge toward where they point; download bounces. */
-.button .lucide-arrow-up-right {
+/* Buttons: every button has one leading icon; on hover it gives a small pop.
+   The nav download icon keeps its downward nudge. */
+.button svg {
   transition: transform 0.3s var(--ease);
 }
 
-.button:hover .lucide-arrow-up-right {
-  transform: translate(2px, -2px);
+.button:hover svg {
+  animation: icon-pop 0.45s var(--ease);
 }
 
-.button:hover .lucide-arrow-down-to-line,
+@keyframes icon-pop {
+  45% {
+    transform: scale(1.18);
+  }
+}
+
 .globalnav-icon:hover .lucide-arrow-down-to-line {
   animation: nudge-down 0.6s var(--ease);
 }
@@ -1410,7 +1427,7 @@ main:focus {
 
   .hero-photo:hover {
     transform: scale(1.04);
-    box-shadow: 0 0 0 4px var(--bg), 0 0 0 6px var(--btn-bg);
+    box-shadow: 0 0 0 4px var(--bg), 0 0 0 6px var(--accent);
   }
 }
 

@@ -1,8 +1,8 @@
-import { ArrowUpRight } from 'lucide-react';
+import { Info } from 'lucide-react';
 import type { ResumeEntry } from './resume-data';
 import { renderMetrics } from '../lib/metrics';
 import { CountUp } from './CountUp';
-import { linkLabel } from './links';
+import { linkIcon, linkLabel } from './links';
 
 interface ExperienceTileProps {
   entry: ResumeEntry;
@@ -17,6 +17,7 @@ interface ExperienceTileProps {
 export function ExperienceTile({ entry, onLearnMore }: ExperienceTileProps) {
   const hasDetails = Boolean(entry.sections?.length || entry.bullets?.length || entry.roles?.length);
   const headingId = `${entry.id}-title`;
+  const LinkIcon = entry.href ? linkIcon(entry.href) : null;
 
   return (
     <article className="card tile" aria-labelledby={headingId}>
@@ -52,10 +53,11 @@ export function ExperienceTile({ entry, onLearnMore }: ExperienceTileProps) {
                 aria-haspopup="dialog"
                 aria-label={`Learn more about ${entry.title}${entry.subtitle ? `, ${entry.subtitle}` : ''}`}
               >
+                <Info size={17} strokeWidth={2} aria-hidden="true" />
                 Learn more
               </button>
             )}
-            {entry.href && (
+            {entry.href && LinkIcon && (
               <a
                 className="button button-secondary"
                 href={entry.href}
@@ -63,8 +65,8 @@ export function ExperienceTile({ entry, onLearnMore }: ExperienceTileProps) {
                 rel="noopener noreferrer"
                 aria-label={`${linkLabel(entry.href)}: ${entry.subtitle ?? entry.title} (opens in a new tab)`}
               >
+                <LinkIcon size={17} strokeWidth={2} aria-hidden="true" />
                 {linkLabel(entry.href)}
-                <ArrowUpRight size={17} strokeWidth={2} aria-hidden="true" />
               </a>
             )}
           </div>
