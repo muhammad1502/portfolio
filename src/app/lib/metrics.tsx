@@ -37,7 +37,7 @@ export function plainText(text: string): string {
 
 /**
  * Splits a comma-separated skills string into items, ignoring commas inside
- * parentheses — "Python (Pandas, NumPy, OOP), Bash" -> ["Python (Pandas, NumPy, OOP)", "Bash"].
+ * parentheses, "Python (Pandas, NumPy, OOP), Bash" -> ["Python (Pandas, NumPy, OOP)", "Bash"].
  */
 export function splitList(value: string): string[] {
   const items: string[] = [];

@@ -6,7 +6,6 @@ import { linkLabel } from './links';
 
 interface ExperienceTileProps {
   entry: ResumeEntry;
-  dark: boolean;
   onLearnMore: (entry: ResumeEntry) => void;
 }
 
@@ -15,12 +14,12 @@ interface ExperienceTileProps {
  * subhead and callout, headline numbers, and a matched pair of CTAs.
  * "Learn more" opens the entry's full detail in the modal.
  */
-export function ExperienceTile({ entry, dark, onLearnMore }: ExperienceTileProps) {
+export function ExperienceTile({ entry, onLearnMore }: ExperienceTileProps) {
   const hasDetails = Boolean(entry.sections?.length || entry.bullets?.length || entry.roles?.length);
   const headingId = `${entry.id}-title`;
 
   return (
-    <article className={`tile${dark ? ' tile-theme-dark' : ''}`} aria-labelledby={headingId}>
+    <article className="tile" aria-labelledby={headingId}>
       <div className="tile-inner" data-reveal>
         <p className="tile-eyebrow">{entry.period}</p>
         <h3 id={headingId} className="tile-headline">

@@ -33,34 +33,36 @@ export default function App() {
       <main id="main" tabIndex={-1}>
         <Hero />
 
-        <section id="about" className="section section-alt" aria-labelledby="about-title">
+        <section id="about" className="section" aria-labelledby="about-title">
           <div className="viewport-content">
             <h2 id="about-title" className="section-headline" data-reveal>
               About
             </h2>
-            <p className="about-copy" data-reveal>
-              {renderMetrics(profile.about)}
-            </p>
+            <div className="about-copy" data-reveal>
+              {profile.about.map((para) => (
+                <p key={para.slice(0, 24)}>{renderMetrics(para)}</p>
+              ))}
+            </div>
           </div>
         </section>
 
         <section id="experience" className="section experience" aria-labelledby="experience-title">
           <div className="viewport-content">
             <h2 id="experience-title" className="section-headline" data-reveal>
-              Work Experience
+              Experience
             </h2>
           </div>
           <div className="tiles">
-            {experience.map((e, i) => (
-              <ExperienceTile key={e.id} entry={e} dark={i % 2 === 1} onLearnMore={setOpenEntry} />
+            {experience.map((e) => (
+              <ExperienceTile key={e.id} entry={e} onLearnMore={setOpenEntry} />
             ))}
           </div>
         </section>
 
-        <section id="skills" className="section section-alt" aria-labelledby="skills-title">
+        <section id="skills" className="section" aria-labelledby="skills-title">
           <div className="viewport-content">
             <h2 id="skills-title" className="section-headline" data-reveal>
-              Skills &amp; Tools
+              Skills and tools
             </h2>
             <div className="card-grid">
               {skills.map((s, i) => (
@@ -82,20 +84,25 @@ export default function App() {
         <section id="certifications" className="section" aria-labelledby="certifications-title">
           <div className="viewport-content">
             <h2 id="certifications-title" className="section-headline" data-reveal>
-              Certifications
+              Certifications and training
             </h2>
             <ul className="card cert-list" data-reveal>
               {certifications.map((c) => (
                 <li className="cert-row" key={c.id}>
-                  <span className="cert-name">{c.name}</span>
-                  {c.note && <span className="cert-note">{c.note}</span>}
+                  <div>
+                    <p className="cert-name">{c.name}</p>
+                    <p className="cert-meta">
+                      {c.issuer} · {c.kind}
+                    </p>
+                  </div>
+                  {c.note && <p className="cert-note">{c.note}</p>}
                 </li>
               ))}
             </ul>
           </div>
         </section>
 
-        <section id="education" className="section section-alt" aria-labelledby="education-title">
+        <section id="education" className="section" aria-labelledby="education-title">
           <div className="viewport-content">
             <h2 id="education-title" className="section-headline" data-reveal>
               Education

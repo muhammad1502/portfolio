@@ -1,6 +1,6 @@
-# Muhammad Abdullah — CV
+# Muhammad Abdullah: portfolio
 
-Personal portfolio for **Muhammad Abdullah**, Cybersecurity Analyst — a
+Personal portfolio for **Muhammad Abdullah**, Cybersecurity Analyst. It's a
 single-page, static site designed in the style of apple.com, with light/dark
 themes and subtle scroll animations. Live at
 **https://muhammad-abdullah-resume.vercel.app**.
@@ -19,7 +19,7 @@ themes and subtle scroll animations. Live at
 | Font     | SF Pro via the system stack on Apple devices; self-hosted Inter elsewhere (`@fontsource-variable/inter`) |
 | Hosting  | Vercel (Git-connected, auto-deploy on push to `main`)            |
 
-There is no router and no backend — it's a static SPA. All content is data-driven
+There is no router and no backend: it's a static SPA. All content is data-driven
 from a single TypeScript file.
 
 ---
@@ -70,13 +70,13 @@ from a single TypeScript file.
 ## Editing content
 
 **All resume content lives in
-[`src/app/components/resume-data.ts`](src/app/components/resume-data.ts)** —
+[`src/app/components/resume-data.ts`](src/app/components/resume-data.ts)**:
 profile, contacts, experience, skills, certifications, education. The React app
 imports and renders it; the components are generic and never hardcode copy.
 
 Edit `resume-data.ts` directly. The types (`ResumeEntry`, `Role`, `SkillGroup`,
 `Certification`, etc.) are defined at the top of the file and enforce the
-structure of each entry — TypeScript will flag a malformed entry at build time
+structure of each entry: TypeScript will flag a malformed entry at build time
 (`npm run build`).
 
 Each experience/education entry supports optional `bullets` (string list),
@@ -128,14 +128,14 @@ Requires **Node 20+** (pinned via `engines` in `package.json`).
 ## Assets & images
 
 - The profile photo (`src/imports/muhammad-abdullah.jpg`) is **EXIF-stripped**
-  (GPS/device metadata removed) and resized to 384px — it displays at 144px in a
+  (GPS/device metadata removed) and resized to 384px: it displays at 144px in a
   circular avatar. To swap it, replace that file (keep it small; Vite hashes and
   emits it into `dist/assets/`). If the image is ever missing, the avatar falls
   back to the `MA` initials monogram (see [`Hero.tsx`](src/app/components/Hero.tsx)).
-- Favicon, apple-touch-icon, and the OG image live in `public/` (NOT `dist/` —
+- Favicon, apple-touch-icon, and the OG image live in `public/` (NOT `dist/`,
   `dist/` is wiped and rebuilt on every Vercel deploy).
 - `public/resume.pdf` is the downloadable CV served by the Download button. It is
-  a hand-authored document, not generated from `/?print` — replace the file
+  a hand-authored document, not generated from `/?print`: replace the file
   directly to update the download.
 
 ---
@@ -161,13 +161,13 @@ All config is in [`vercel.json`](vercel.json):
 ## SEO & AI readability
 
 - **Meta**: title, description, Open Graph + Twitter cards, canonical, theme-color.
-- **JSON-LD `Person` schema** in `index.html` — gives search engines and AI
+- **JSON-LD `Person` schema** in `index.html`: gives search engines and AI
   crawlers structured facts (name, role, employer, education, skills, socials).
 - **`robots.txt`** explicitly allows search and AI crawlers (GPTBot, ClaudeBot,
   PerplexityBot, Google-Extended) and points to the sitemap.
-- **`llms.txt`** — a plain-text profile summary for LLM crawlers, so AI answers
+- **`llms.txt`**: a plain-text profile summary for LLM crawlers, so AI answers
   about "Muhammad Abdullah" stay accurate.
 
 To preview share cards: [opengraph.xyz](https://www.opengraph.xyz) or
-[metatags.io](https://metatags.io). Platforms cache OG data hard — use their
+[metatags.io](https://metatags.io). Platforms cache OG data hard: use their
 debuggers (LinkedIn Post Inspector, Facebook Sharing Debugger) to force a re-scrape.

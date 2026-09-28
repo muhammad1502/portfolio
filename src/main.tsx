@@ -7,7 +7,7 @@ import './styles/fonts.css';
 import siteCss from './styles/site.css?inline';
 
 // `?print` renders the decoupled print-only layout used to generate
-// public/resume.pdf — kept out of the normal user-facing flow.
+// public/resume.pdf, kept out of the normal user-facing flow.
 const isPrint =
   typeof window !== 'undefined' && new URLSearchParams(window.location.search).has('print');
 

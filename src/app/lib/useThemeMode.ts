@@ -48,7 +48,7 @@ export function useThemeMode() {
       try {
         window.localStorage.setItem(THEME_KEY, next);
       } catch {
-        /* storage blocked — the choice still applies for this visit */
+        /* storage blocked, the choice still applies for this visit */
       }
       return next;
     });

@@ -1,5 +1,5 @@
 /*
- * Site styles — modelled on apple.com's design language.
+ * Site styles, modelled on apple.com's design language.
  *
  * Values (type scale, colours, nav metrics, button geometry, breakpoints) are
  * taken from apple.com's own stylesheets so the rhythm matches:
@@ -31,7 +31,6 @@
 
   --bg: #ffffff;
   --bg-alt: #f5f5f7;
-  --bg-card: #ffffff;
   --text: #1d1d1f;
   --text-2: #6e6e73;
   --text-3: #86868b;
@@ -52,9 +51,6 @@
   --nav-menu-link: #333336;
 
   --tile-bg: #f5f5f7;
-  --tile-dark-bg: #000000;
-  --tile-dark-text: #f5f5f7;
-  --tile-dark-text-2: #86868b;
 
   --footer-bg: #f5f5f7;
   --footer-text: #6e6e73;
@@ -67,7 +63,6 @@
 :root[data-theme='dark'] {
   --bg: #000000;
   --bg-alt: #161617;
-  --bg-card: #1d1d1f;
   --text: #f5f5f7;
   --text-2: #a1a1a6;
   --text-3: #86868b;
@@ -85,9 +80,6 @@
   --nav-menu-link: #e8e8ed;
 
   --tile-bg: #161617;
-  --tile-dark-bg: #1d1d1f;
-  --tile-dark-text: #f5f5f7;
-  --tile-dark-text-2: #a1a1a6;
 
   --footer-bg: #161617;
   --footer-text: #a1a1a6;
@@ -281,16 +273,6 @@ button {
   background: var(--btn-bg-active);
   border-color: var(--btn-bg-active);
   color: #ffffff;
-}
-
-.tile-theme-dark .button-secondary {
-  color: #2997ff;
-  border-color: #2997ff;
-}
-
-.tile-theme-dark .button-secondary:hover {
-  color: #ffffff;
-  border-color: var(--btn-bg-hover);
 }
 
 .button svg {
@@ -580,8 +562,17 @@ button {
   letter-spacing: 0.007em;
 }
 
+.hero-tagline {
+  max-width: 640px;
+  margin: 16px auto 0;
+  color: var(--text-2);
+  font-size: 19px;
+  line-height: 1.4211026316;
+  letter-spacing: 0.012em;
+}
+
 .hero .button-group {
-  margin-top: 28px;
+  margin-top: 32px;
 }
 
 .hero-animate > * {
@@ -598,6 +589,10 @@ button {
 
 .hero-animate > :nth-child(4) {
   animation-delay: 240ms;
+}
+
+.hero-animate > :nth-child(5) {
+  animation-delay: 320ms;
 }
 
 @keyframes hero-in {
@@ -617,10 +612,6 @@ button {
   padding: 96px 0;
 }
 
-.section-alt {
-  background: var(--bg-alt);
-}
-
 .section-headline {
   margin-bottom: 40px;
   font-family: var(--font-display);
@@ -638,6 +629,10 @@ button {
   line-height: 1.1428571429;
   font-weight: 600;
   letter-spacing: 0.007em;
+}
+
+.about-copy p + p {
+  margin-top: 1em;
 }
 
 .about-copy .metric {
@@ -667,13 +662,6 @@ button {
   text-align: center;
   background: var(--tile-bg);
   color: var(--text);
-}
-
-.tile-theme-dark {
-  background: var(--tile-dark-bg);
-  color: var(--tile-dark-text);
-  --text: var(--tile-dark-text);
-  --text-2: var(--tile-dark-text-2);
 }
 
 .tile-inner {
@@ -778,10 +766,6 @@ button {
 .card {
   padding: 40px;
   border-radius: var(--radius-card);
-  background: var(--bg-card);
-}
-
-.section:not(.section-alt) .card {
   background: var(--bg-alt);
 }
 
@@ -827,7 +811,7 @@ button {
 
 .cert-row {
   display: flex;
-  align-items: baseline;
+  align-items: flex-start;
   justify-content: space-between;
   gap: 8px 24px;
   padding: 24px 0;
@@ -843,6 +827,14 @@ button {
   line-height: 1.4211026316;
   font-weight: 600;
   letter-spacing: 0.012em;
+}
+
+.cert-meta {
+  margin-top: 2px;
+  color: var(--text-2);
+  font-size: 14px;
+  line-height: 1.4285914286;
+  letter-spacing: -0.016em;
 }
 
 .cert-note {
@@ -1111,7 +1103,14 @@ button {
 }
 
 .footer-directory li + li {
-  margin-top: 0.8em;
+  margin-top: 2px;
+}
+
+/* 24px-tall hit area for each footer link (WCAG 2.2, 2.5.8 Target Size). */
+.footer-directory a {
+  display: inline-flex;
+  align-items: center;
+  min-height: 24px;
 }
 
 .footer a {
@@ -1250,6 +1249,12 @@ button {
     letter-spacing: 0.004em;
   }
 
+  .hero-tagline {
+    font-size: 17px;
+    line-height: 1.4705882353;
+    letter-spacing: -0.022em;
+  }
+
   .hero-subhead,
   .tile-subhead {
     font-size: 19px;
@@ -1366,6 +1371,36 @@ button {
     animation-delay: 0ms !important;
     transition-duration: 0.01ms !important;
     transition-delay: 0ms !important;
+  }
+}
+
+/* ---------- contrast preferences -----------------------------------------
+ * prefers-contrast: secondary text is promoted to full-strength text.
+ * forced-colors (Windows High Contrast): surfaces that rely on a fill colour
+ * get a real border so their edges stay visible.
+ */
+
+@media (prefers-contrast: more) {
+  :root,
+  :root[data-theme='dark'] {
+    --text-2: var(--text);
+    --footer-text: var(--footer-strong);
+    --divider: var(--text-2);
+  }
+}
+
+@media (forced-colors: active) {
+  .card,
+  .contact-card,
+  .tile,
+  .modal,
+  .modal-close,
+  .globalnav {
+    border: 1px solid CanvasText;
+  }
+
+  .menu-glyph span {
+    background: CanvasText;
   }
 }
 

@@ -10,7 +10,7 @@ import {
 } from './resume-data';
 
 /**
- * Print-only resume layout — a decoupled, US-Letter document rendered ONLY at
+ * Print-only resume layout, a decoupled, US-Letter document rendered ONLY at
  * the `?print` route (see main.tsx) and captured into public/resume.pdf via
  * Chrome's print-to-pdf. The live site (App.tsx) is untouched; both read the
  * same resume-data.ts, so content stays in one place.
@@ -30,7 +30,7 @@ const PAGE = '#ffffff';
 const SANS = '"Google Sans Flex", -apple-system, BlinkMacSystemFont, sans-serif';
 
 // Bold the **sentinel** runs in body copy, inline. Plain inline version of the
-// site's renderMetrics — no MUI dependency so the print doc stays standalone.
+// site's renderMetrics, no MUI dependency so the print doc stays standalone.
 const METRIC = /\*\*(.+?)\*\*/g;
 function emphasize(text: string): ReactNode {
   if (!text.includes('**')) return text;
@@ -52,7 +52,7 @@ function emphasize(text: string): ReactNode {
 }
 
 // ---- shared style fragments -------------------------------------------------
-// Tight vertical rhythm — keeps the doc compact (aim ~1 page) while leaving
+// Tight vertical rhythm, keeps the doc compact (aim ~1 page) while leaving
 // enough air that page breaks don't crowd.
 const ENTRY_GAP = 14; // between top-level entries within a section
 const SECTION_GAP = 28; // between sections (Experience -> Education -> Skills)
@@ -110,7 +110,7 @@ function EntryGroup({ e, label }: { e: ResumeEntry; label?: string }) {
   const printSections = e.sections?.filter((s) => s.text.includes('**'));
   // PDF sub-role rules (live site shows all): drop tall, metric-less
   // descriptive sub-roles, then collapse a pure position-history stack (roles
-  // with no description) to just the latest one — data is newest-first, so
+  // with no description) to just the latest one, data is newest-first, so
   // keep index 0.
   let printRoles = e.roles?.filter((r) => !r.description || r.description.includes('**'));
   if (printRoles && printRoles.every((r) => !r.description)) {
@@ -174,7 +174,7 @@ export function PrintResume() {
         fontFamily: SANS,
         width: '100%',
         margin: 0,
-        // Horizontal gutters only — vertical breathing room comes from the
+        // Horizontal gutters only, vertical breathing room comes from the
         // @page top/bottom margins so it applies on every page-break edge too.
         padding: '0 0.7in',
         boxSizing: 'border-box',
@@ -238,7 +238,7 @@ export function PrintResume() {
         ))}
       </section>
 
-      {/* Certifications — compact single-column list in the detail column. */}
+      {/* Certifications, compact single-column list in the detail column. */}
       <section style={{ breakInside: 'avoid', paddingBottom: SECTION_GAP }}>
         <div
           style={{
@@ -247,11 +247,12 @@ export function PrintResume() {
             columnGap: 18,
           }}
         >
-          <div style={sectionLabel}>Certifications</div>
+          <div style={sectionLabel}>Certifications &amp; training</div>
           <div style={{ display: 'flex', flexDirection: 'column', gap: 4 }}>
             {certifications.map((c) => (
               <div key={c.id} style={detail}>
                 <span style={{ color: INK }}>{c.name}</span>
+                {!c.name.includes(c.issuer) && <span style={{ color: FAINT }}> · {c.issuer}</span>}
                 {c.note && <span style={{ color: FAINT }}> · {c.note}</span>}
               </div>
             ))}
@@ -259,7 +260,7 @@ export function PrintResume() {
         </div>
       </section>
 
-      {/* Skills — compact: label inline with its value on one flowing line per
+      {/* Skills, compact: label inline with its value on one flowing line per
           group, packed into the detail column to save vertical space. */}
       <section style={{ breakInside: 'avoid' }}>
         <div

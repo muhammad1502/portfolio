@@ -1,4 +1,4 @@
-// Single source for in-page navigation — used by the global nav and the footer.
+// Single source for in-page navigation, used by the global nav and the footer.
 export const sections = [
   { id: 'about', label: 'About' },
   { id: 'experience', label: 'Experience' },

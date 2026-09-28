@@ -4,7 +4,7 @@ import { profile } from './resume-data';
 import { RESUME_FILENAME, RESUME_URL } from '../lib/sections';
 import profilePhoto from '../../imports/muhammad-abdullah.jpg';
 
-// Initials — the fallback if the photo fails to load.
+// Initials: the fallback if the photo fails to load.
 const initials = profile.name
   .split(' ')
   .map((part) => part[0])
@@ -26,7 +26,7 @@ export function Hero() {
           <img
             className="hero-photo"
             src={profilePhoto}
-            alt={profile.name}
+            alt={`Photo of ${profile.name}`}
             width={144}
             height={144}
             decoding="async"
@@ -40,6 +40,7 @@ export function Hero() {
         <p className="hero-subhead">
           {profile.title} in {profile.location}
         </p>
+        <p className="hero-tagline">{profile.tagline}</p>
         <div className="button-group">
           <a className="button" href={RESUME_URL} download={RESUME_FILENAME}>
             <ArrowDownToLine size={17} strokeWidth={2} aria-hidden="true" />
