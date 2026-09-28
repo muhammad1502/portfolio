@@ -23,6 +23,9 @@
 
   --ease: cubic-bezier(0.28, 0.11, 0.32, 1);
   --ease-nav: cubic-bezier(0.4, 0, 0.6, 1);
+  /* Theme crossfade: long and even enough to read as a fade, not a cut. */
+  --theme-fade: 0.8s;
+  --ease-fade: cubic-bezier(0.25, 0.1, 0.25, 1);
 
   --nav-height: 44px;
   --content-width: 980px;
@@ -1370,17 +1373,18 @@ main:focus {
 ::view-transition-group(root),
 ::view-transition-old(root),
 ::view-transition-new(root) {
-  animation-duration: 0.45s;
-  animation-timing-function: var(--ease-nav);
+  animation-duration: var(--theme-fade);
+  animation-timing-function: var(--ease-fade);
 }
 
 .theme-fading,
 .theme-fading *,
 .theme-fading *::before,
 .theme-fading *::after {
-  transition: background-color 0.45s var(--ease-nav), color 0.45s var(--ease-nav),
-    border-color 0.45s var(--ease-nav), fill 0.45s var(--ease-nav), stroke 0.45s var(--ease-nav),
-    box-shadow 0.45s var(--ease-nav), transform 0.5s var(--ease), opacity 0.3s var(--ease-nav) !important;
+  transition: background-color var(--theme-fade) var(--ease-fade), color var(--theme-fade) var(--ease-fade),
+    border-color var(--theme-fade) var(--ease-fade), fill var(--theme-fade) var(--ease-fade),
+    stroke var(--theme-fade) var(--ease-fade), box-shadow var(--theme-fade) var(--ease-fade),
+    transform 0.6s var(--ease), opacity 0.4s var(--ease-nav) !important;
 }
 
 /* Theme icon: sun (light) morphs into moon (dark). The rays spin away and
@@ -1390,7 +1394,7 @@ main:focus {
 .theme-icon .theme-icon-cut {
   transform-box: fill-box;
   transform-origin: center;
-  transition: transform 0.5s var(--ease), opacity 0.3s var(--ease-nav);
+  transition: transform 0.6s var(--ease), opacity 0.4s var(--ease-nav);
 }
 
 .theme-icon[data-mode='dark'] .theme-icon-core {
