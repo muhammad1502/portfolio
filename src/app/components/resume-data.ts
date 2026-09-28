@@ -45,6 +45,19 @@ export interface SkillGroup {
   value: string;
 }
 
+export interface Project {
+  id: string;
+  name: string;
+  /** What it is, e.g. "Browser extension". */
+  kind: string;
+  description: string;
+  /** One line for the CV. */
+  cvLine: string;
+  points: string[];
+  tech: string;
+  href: string;
+}
+
 export interface Certification {
   id: string;
   name: string;
@@ -74,7 +87,7 @@ export const profile = {
     "I'm a cybersecurity analyst at Ninpo Inc., working remotely as a SOC analyst for North American enterprise clients. For the past **two years** I've triaged alerts, hunted threats and helped contain incidents, including an **active, threat actor-led ransomware attack**, where I helped isolate compromised domain controllers and ESXi hosts before large-scale encryption.",
     "Each week I investigate **100+ alerts** in Elastic SIEM and Microsoft 365 Defender, and I use Python and Pandas to automate log analysis so triage stays fast. I also keep Canadian client environments running: Microsoft 365 tenant administration, firewall and VPN configuration, and endpoint provisioning.",
     'I also design and build websites. I use AI coding tools for the build and put my own time into layout, accessibility and user experience. This site is one example.',
-    "I'm finishing a B.S. in Remote Sensing & GIS and studying for CompTIA Security+.",
+    "I'm currently studying for CompTIA Security+.",
   ],
 };
 
@@ -133,7 +146,6 @@ export const experience: ResumeEntry[] = [
     period: 'Jul 2026 to Aug 2026',
     title: 'Product Growth & Strategy',
     subtitle: 'AfterDesk · Independent Product',
-    href: 'https://github.com/muhammad1502/AfterDesk',
     meta: 'Remote',
     description:
       'Built the product and growth groundwork for AfterDesk, an after-sales case manager for small online sellers that keeps the evidence with every case.',
@@ -158,7 +170,6 @@ export const experience: ResumeEntry[] = [
     period: 'Jul 2026',
     title: 'Product Growth Auditor',
     subtitle: 'FitSmart AI · Project Contribution',
-    href: 'https://github.com/SyedSaribSultan/fitsmart',
     meta: 'Remote',
     description:
       'Ran an evidence-based UX and growth review of an AI fitness and nutrition app, then turned the risks I found into a remediation plan the team could implement.',
@@ -181,6 +192,56 @@ export const experience: ResumeEntry[] = [
       { value: '37', label: 'icon controls audited' },
       { value: '18/18', label: 'Worker tests passing' },
     ],
+  },
+];
+
+// Public repos on github.com/muhammad1502. Descriptions restate each README.
+export const projects: Project[] = [
+  {
+    id: 'gitlab-triage',
+    name: 'GitLab Triage Accelerator',
+    kind: 'Browser extension',
+    description:
+      'Speeds up high-volume security triage in GitLab for L1 and L2 analysts by removing the repetitive manual work: entering common findings, assigning leads and closing issues.',
+    cvLine: 'Quick actions and hotkeys that speed up high-volume GitLab security triage for L1 and L2 analysts.',
+    points: [
+      'Custom quick actions for your own triage categories and slash commands',
+      'Alt + key hotkeys that trigger an action instantly',
+      'A floating action bar that stays in reach while you scroll',
+      "Works with GitLab's single-page app by watching for page changes",
+    ],
+    tech: 'JavaScript · Chrome, Brave, Edge and Kiwi on Android',
+    href: 'https://github.com/muhammad1502/gitlab-automator',
+  },
+  {
+    id: 'vt-extension',
+    name: 'VT Extension',
+    kind: 'Browser extension',
+    description:
+      'Right-click any selected IP address, URL, file hash or domain and check it on VirusTotal straight away.',
+    cvLine: 'Right-click a selected IP, URL, hash or domain to check it on VirusTotal (Manifest V3).',
+    points: [
+      'One right-click opens the VirusTotal result in a new tab',
+      'Manifest V3 with a lightweight background service worker',
+      'No data collection: lookups go straight to VirusTotal',
+    ],
+    tech: 'JavaScript · Manifest V3 · Chrome, Brave and Edge · MIT licence',
+    href: 'https://github.com/muhammad1502/vt-extension',
+  },
+  {
+    id: 'vt-checker',
+    name: 'VT Checker for Android',
+    kind: 'Android app',
+    description:
+      'Adds "Check on VirusTotal" to the Android text-selection menu, so an IP address, domain or URL can be checked from any app.',
+    cvLine: 'Adds "Check on VirusTotal" to the text-selection menu in any Android app.',
+    points: [
+      "Works system-wide through Android's text-selection menu",
+      'No API key needed: it opens a VirusTotal search in the browser',
+      'Runs invisibly and closes as soon as the lookup opens',
+    ],
+    tech: 'Android 6.0 or later',
+    href: 'https://github.com/muhammad1502/vt-checker-android',
   },
 ];
 
@@ -240,15 +301,5 @@ export const certifications: Certification[] = [
     issuer: 'WatchGuard',
     kind: 'Sales certification',
     note: 'Valid through Jul 2027',
-  },
-];
-
-export const education: ResumeEntry[] = [
-  {
-    id: 'comsats',
-    period: '2023 to 2027',
-    title: 'B.S., Remote Sensing & GIS',
-    subtitle: 'COMSATS University Islamabad',
-    meta: 'Islamabad, PK · Expected Jul 2027',
   },
 ];

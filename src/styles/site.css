@@ -703,7 +703,7 @@ main:focus {
   letter-spacing: -0.016em;
 }
 
-/* ---------- cards (skills / education / contact) --------------------------- */
+/* ---------- cards (skills / projects / contact) ---------------------------- */
 
 .card {
   padding: 40px;
@@ -792,22 +792,29 @@ main:focus {
   letter-spacing: -0.016em;
 }
 
-/* education */
+/* projects: buttons sit on the card's bottom edge so a row of cards lines up */
 
-.edu-card .tile-eyebrow {
-  margin-bottom: 10px;
+.project-card {
+  display: flex;
+  flex-direction: column;
 }
 
-.edu-subtitle {
-  margin-top: 6px;
-  font-size: 19px;
-  line-height: 1.4211026316;
-  letter-spacing: 0.012em;
+.project-card .skill-list {
+  margin-top: 20px;
 }
 
-.edu-meta {
-  margin-top: 4px;
+.project-tech {
+  margin-top: 20px;
   color: var(--text-2);
+  font-size: 14px;
+  line-height: 1.4285914286;
+  letter-spacing: -0.016em;
+}
+
+.project-card .button-group {
+  margin-top: auto;
+  padding-top: 28px;
+  align-self: flex-start;
 }
 
 /* contact */
@@ -940,6 +947,10 @@ main:focus {
   to {
     opacity: 0;
   }
+}
+
+.modal-scroll:focus-visible {
+  outline-offset: -4px;
 }
 
 .modal-scroll {

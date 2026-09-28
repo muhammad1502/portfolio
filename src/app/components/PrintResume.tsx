@@ -1,5 +1,5 @@
 import type { CSSProperties, ReactNode } from 'react';
-import { profile, contacts, experience, skills, certifications, education, type ResumeEntry } from './resume-data';
+import { profile, contacts, experience, projects, skills, certifications, type ResumeEntry } from './resume-data';
 
 /**
  * The downloadable CV (public/resume.pdf), rendered at `/?print` and saved to
@@ -110,6 +110,17 @@ export function PrintResume() {
         <Entry key={e.id} e={e} />
       ))}
 
+      <h2 style={heading}>Projects</h2>
+      {projects.map((p) => (
+        <div key={p.id} style={{ ...body, marginBottom: 2 }}>
+          <a href={p.href} style={{ ...link, fontWeight: 600 }}>
+            {p.name}
+          </a>
+          <span style={{ color: MUTED }}> · {p.kind}</span>
+          <span>: {p.cvLine}</span>
+        </div>
+      ))}
+
       <h2 style={heading}>Skills</h2>
       {skills.map((s) => (
         <div key={s.id} style={{ ...body, marginBottom: 2 }}>
@@ -130,10 +141,6 @@ export function PrintResume() {
         </div>
       ))}
 
-      <h2 style={heading}>Education</h2>
-      {education.map((e) => (
-        <Entry key={e.id} e={e} />
-      ))}
     </div>
   );
 }
