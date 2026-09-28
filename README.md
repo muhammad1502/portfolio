@@ -11,7 +11,7 @@ themes and subtle scroll animations. Live at
 
 | Layer    | Choice                                                            |
 | -------- | ---------------------------------------------------------------- |
-| Build    | [Vite](https://vitejs.dev) 5                                      |
+| Build    | [Vite](https://vitejs.dev) 6                                      |
 | UI       | React 18 + TypeScript                                             |
 | Styling  | One plain stylesheet, `src/styles/site.css` (CSS custom properties) |
 | Motion   | CSS transitions + IntersectionObserver (no animation library)     |
@@ -92,6 +92,9 @@ the tile). Entries with `sections`, `bullets` or `roles` get a **Learn more**
 button that opens the full detail in a modal. Text wrapped in
 `**double asterisks**` in any body string (including `profile.about`) renders
 emphasized.
+
+A project can also carry an optional `writeup` (a `ResumeEntry` with `sections`).
+Its card then gets a **Read write-up** button that opens it in the same modal.
 
 > `stats` should only restate figures that already appear in that entry's copy.
 

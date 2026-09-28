@@ -82,7 +82,7 @@ export default function App() {
           </div>
         </section>
 
-        <Projects />
+        <Projects onOpenWriteup={setOpenEntry} />
 
         <section id="skills" className="section" aria-labelledby="skills-title">
           <div className="viewport-content">
