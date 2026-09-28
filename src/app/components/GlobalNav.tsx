@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
 import type { CSSProperties, MouseEvent } from 'react';
-import { ArrowDownToLine, Moon, Sun } from 'lucide-react';
+import { ArrowDownToLine } from 'lucide-react';
+import { ThemeIcon } from './ThemeIcon';
 import { profile } from './resume-data';
 import { sections, RESUME_FILENAME, RESUME_URL } from '../lib/sections';
 import type { ThemeMode } from '../lib/useThemeMode';
@@ -8,7 +9,7 @@ import { prefersReducedMotion } from '../lib/motion';
 
 interface GlobalNavProps {
   mode: ThemeMode;
-  onToggleTheme: (origin?: { x: number; y: number }) => void;
+  onToggleTheme: () => void;
 }
 
 const MOBILE_QUERY = '(max-width: 833px)';
@@ -22,7 +23,6 @@ export function GlobalNav({ mode, onToggleTheme }: GlobalNavProps) {
   const [open, setOpen] = useState(false);
   const [active, setActive] = useState<string | null>(null);
   const [indicator, setIndicator] = useState<{ x: number; w: number } | null>(null);
-  const [spinIcon, setSpinIcon] = useState(false);
   const flyoutRef = useRef<HTMLDivElement>(null);
   const listRef = useRef<HTMLUListElement>(null);
   const progressRef = useRef<HTMLDivElement>(null);
@@ -172,20 +172,11 @@ export function GlobalNav({ mode, onToggleTheme }: GlobalNavProps) {
           <button
             type="button"
             className="globalnav-icon"
-            onClick={(e) => {
-              const r = e.currentTarget.getBoundingClientRect();
-              setSpinIcon(true);
-              onToggleTheme({ x: r.left + r.width / 2, y: r.top + r.height / 2 });
-            }}
+            onClick={onToggleTheme}
             aria-label={isDark ? 'Switch to light mode' : 'Switch to dark mode'}
             title={isDark ? 'Light mode' : 'Dark mode'}
           >
-            {/* Keyed by mode so the new icon mounts and spins in, but only after a click. */}
-            {isDark ? (
-              <Moon key="moon" className={spinIcon ? 'icon-spin-in' : undefined} size={17} strokeWidth={1.75} />
-            ) : (
-              <Sun key="sun" className={spinIcon ? 'icon-spin-in' : undefined} size={17} strokeWidth={1.75} />
-            )}
+            <ThemeIcon mode={mode} />
           </button>
           <a
             className="globalnav-icon"
@@ -219,8 +210,9 @@ export function GlobalNav({ mode, onToggleTheme }: GlobalNavProps) {
           {sections.map((s, i) => (
             <li key={s.id}>
               <a
-                className="globalnav-flyout-link"
+                className={`globalnav-flyout-link${active === s.id ? ' is-current' : ''}`}
                 href={`#${s.id}`}
+                aria-current={active === s.id ? 'location' : undefined}
                 onClick={close}
                 style={{ '--i': i } as CSSProperties}
               >

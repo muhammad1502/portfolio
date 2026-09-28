@@ -7,6 +7,9 @@ export type ThemeMode = 'light' | 'dark';
 // Must match the pre-paint script in index.html.
 export const THEME_KEY = 'theme-mode';
 
+// Matches the fallback .theme-fading transition in site.css.
+const FADE_MS = 450;
+
 function readStored(): ThemeMode | null {
   try {
     const v = window.localStorage.getItem(THEME_KEY);
@@ -45,11 +48,11 @@ export function useThemeMode() {
   }, [overridden]);
 
   /**
-   * Switch theme. Given the click position, the new theme is revealed as a
-   * circle growing from that point (View Transitions API); browsers without
-   * it, or visitors who prefer reduced motion, get an instant switch.
+   * Switch theme with a crossfade. Browsers with the View Transitions API fade
+   * a snapshot of the old page into the new one; others get a short colour
+   * transition on every element instead. Reduced motion: instant.
    */
-  const toggle = useCallback((origin?: { x: number; y: number }) => {
+  const toggle = useCallback(() => {
     const next: ThemeMode = modeRef.current === 'light' ? 'dark' : 'light';
     setOverridden(true);
     try {
@@ -63,20 +66,19 @@ export function useThemeMode() {
       applyToDocument(next); // the transition snapshots the DOM right after this
     };
 
-    const doc = document as Document & { startViewTransition?: (cb: () => void) => unknown };
-    if (!origin || !doc.startViewTransition || prefersReducedMotion()) {
+    if (prefersReducedMotion()) {
       commit();
       return;
     }
+    const doc = document as Document & { startViewTransition?: (cb: () => void) => unknown };
+    if (doc.startViewTransition) {
+      doc.startViewTransition(commit);
+      return;
+    }
     const root = document.documentElement;
-    const radius = Math.hypot(
-      Math.max(origin.x, window.innerWidth - origin.x),
-      Math.max(origin.y, window.innerHeight - origin.y),
-    );
-    root.style.setProperty('--reveal-x', `${origin.x}px`);
-    root.style.setProperty('--reveal-y', `${origin.y}px`);
-    root.style.setProperty('--reveal-r', `${radius}px`);
-    doc.startViewTransition(commit);
+    root.classList.add('theme-fading');
+    commit();
+    window.setTimeout(() => root.classList.remove('theme-fading'), FADE_MS);
   }, []);
 
   return { mode, toggle };
