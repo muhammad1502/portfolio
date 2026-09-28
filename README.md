@@ -1,6 +1,6 @@
 # Muhammad Abdullah: portfolio
 
-Personal portfolio for **Muhammad Abdullah**, Cybersecurity Analyst. It's a
+Personal portfolio for **Muhammad Abdullah**, Security Operations Analyst. It's a
 single-page, static site designed in the style of apple.com, with light/dark
 themes and subtle scroll animations. Live at
 **https://mabddullah.vercel.app**.

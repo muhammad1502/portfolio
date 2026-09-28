@@ -71,7 +71,7 @@ export interface Certification {
 
 export const profile = {
   name: 'Muhammad Abdullah',
-  title: 'Cybersecurity Analyst',
+  title: 'Security Operations Analyst',
   location: 'Islamabad, PK',
   // One-line summary under the title. Every claim here is backed by an entry below.
   tagline:
@@ -80,14 +80,13 @@ export const profile = {
   portfolioHref: 'https://mabddullah.vercel.app',
   // Third-person summary for the downloadable CV. Every claim is backed below.
   cvSummary:
-    'Cybersecurity analyst with two years of SOC, incident response and IT operations work for North American enterprise clients. Investigates 100+ alerts a week in Elastic SIEM and Microsoft 365 Defender and supported the response to an active, threat actor-led ransomware attack. Also designs and builds accessible websites using AI-assisted development.',
+    'Security operations analyst with two years of SOC, incident response and IT operations work for North American enterprise clients. Investigates 100+ alerts a week in Elastic SIEM and Microsoft 365 Defender and supported the response to an active, threat actor-led ransomware attack. Also designs and builds accessible websites using AI-assisted development.',
   site: 'linkedin.com/in/mabddullah',
   siteHref: 'https://www.linkedin.com/in/mabddullah',
   about: [
-    "I'm a cybersecurity analyst at Ninpo Inc., working remotely as a SOC analyst for North American enterprise clients. For the past **two years** I've triaged alerts, hunted threats and helped contain incidents, including an **active, threat actor-led ransomware attack**, where I helped isolate compromised domain controllers and ESXi hosts before large-scale encryption.",
+    "I'm a security operations analyst at Ninpo Inc., working remotely in the SOC for North American enterprise clients. For the past **two years** I've triaged alerts, hunted threats and helped contain incidents, including an **active, threat actor-led ransomware attack**, where I helped isolate compromised domain controllers and ESXi hosts before large-scale encryption.",
     "Each week I investigate **100+ alerts** in Elastic SIEM and Microsoft 365 Defender, and I use Python and Pandas to automate log analysis so triage stays fast. I also keep Canadian client environments running: Microsoft 365 tenant administration, firewall and VPN configuration, and endpoint provisioning.",
     'I also design and build websites. I use AI coding tools for the build and put my own time into layout, accessibility and user experience. This site is one example.',
-    "I'm currently studying for CompTIA Security+.",
   ],
 };
 
@@ -102,7 +101,7 @@ export const experience: ResumeEntry[] = [
   {
     id: 'ninpo',
     period: 'Oct 2024 to present',
-    title: 'Cybersecurity Analyst',
+    title: 'Security Operations Analyst',
     subtitle: 'Ninpo Inc.',
     href: 'https://ninpo.com',
     meta: 'Ottawa, Canada · Remote',

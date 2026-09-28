@@ -1,13 +1,13 @@
 # Muhammad Abdullah
 
-> Cybersecurity analyst based in Islamabad, Pakistan, working remotely as a SOC analyst for a Canadian cybersecurity firm that serves North American enterprise clients. Two years of alert triage, threat hunting and incident response in Elastic SIEM and Microsoft 365 Defender, including support during an active, threat actor-led ransomware attack, plus IT operations and Python/Pandas log automation. Also designs and builds accessible websites using AI-assisted development. Studying for CompTIA Security+.
+> Security operations analyst based in Islamabad, Pakistan, working remotely in the SOC of a Canadian cybersecurity firm that serves North American enterprise clients. Two years of alert triage, threat hunting and incident response in Elastic SIEM and Microsoft 365 Defender, including support during an active, threat actor-led ransomware attack, plus IT operations and Python/Pandas log automation. Also designs and builds accessible websites using AI-assisted development.
 
 ## Contact
 - Email: muhammaddabddullah@outlook.com
 - LinkedIn: https://www.linkedin.com/in/mabddullah
 - GitHub: https://github.com/muhammad1502
 
-## Current role: Cybersecurity Analyst, Ninpo Inc. (Oct 2024 to present, Ottawa, Canada, remote)
+## Current role: Security Operations Analyst, Ninpo Inc. (Oct 2024 to present, Ottawa, Canada, remote)
 SOC analyst for a Canadian cybersecurity firm, handling threat detection, incident response and IT operations across several North American enterprise client environments.
 
 - Incident response: Supported the response to an active, threat actor-led ransomware attack by isolating compromised domain controllers and ESXi hosts before large-scale encryption.
