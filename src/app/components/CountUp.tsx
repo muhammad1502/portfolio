@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from 'react';
-import { prefersReducedMotion } from '../lib/useReveal';
+import { prefersReducedMotion } from '../lib/motion';
 
 const DURATION_MS = 1400;
 

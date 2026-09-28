@@ -44,7 +44,7 @@ from a single TypeScript file.
 │   │   │   ├── sections.ts       # In-page nav items + resume PDF path (nav + footer)
 │   │   │   ├── metrics.tsx       # **metric** emphasis renderer, skills list splitter
 │   │   │   ├── useThemeMode.ts   # Light/dark: follows OS until toggled, then stored
-│   │   │   └── useReveal.ts      # Scroll-reveal for [data-reveal] elements
+│   │   │   └── motion.ts         # prefers-reduced-motion helper
 │   │   └── components/
 │   │       ├── resume-data.ts      # ⭐ ALL content + types (edit here)
 │   │       ├── GlobalNav.tsx       # Sticky translucent nav; full-screen menu ≤833px
@@ -120,8 +120,9 @@ Requires **Node 20+** (pinned via `engines` in `package.json`).
   OS `prefers-color-scheme`.
 - An inline script in `index.html` sets `data-theme` and the background **before
   React mounts**, so dark-mode users never see a light flash (FOUC).
-- Animations (hero fade-in, scroll reveals, count-up numbers, menu and modal
-  transitions) are all disabled under `prefers-reduced-motion`.
+- All content renders immediately (no fade-in or scroll-reveal). Motion is
+  limited to count-up numbers and interaction feedback (hover, menu and modal
+  transitions), all disabled under `prefers-reduced-motion`.
 
 ---
 

@@ -1,5 +1,4 @@
 import { useState } from 'react';
-import type { CSSProperties } from 'react';
 import { ArrowDownToLine, ArrowUpRight, Github, Linkedin, Mail } from 'lucide-react';
 import { GlobalNav } from './components/GlobalNav';
 import { Hero } from './components/Hero';
@@ -10,18 +9,13 @@ import { profile, contacts, experience, skills, certifications, education } from
 import type { ResumeEntry } from './components/resume-data';
 import { renderMetrics, splitList } from './lib/metrics';
 import { useThemeMode } from './lib/useThemeMode';
-import { useReveal } from './lib/useReveal';
 import { RESUME_FILENAME, RESUME_URL } from './lib/sections';
 
 const contactIcons: Record<string, typeof Mail> = { email: Mail, linkedin: Linkedin, github: Github };
 
-// Staggers sibling reveals (cards in a grid) by 80ms each.
-const delay = (i: number) => ({ '--reveal-delay': `${i * 80}ms` }) as CSSProperties;
-
 export default function App() {
   const { mode, toggle } = useThemeMode();
   const [openEntry, setOpenEntry] = useState<ResumeEntry | null>(null);
-  useReveal();
 
   return (
     <>
@@ -35,10 +29,10 @@ export default function App() {
 
         <section id="about" className="section" aria-labelledby="about-title">
           <div className="viewport-content">
-            <h2 id="about-title" className="section-headline" data-reveal>
+            <h2 id="about-title" className="section-headline">
               About
             </h2>
-            <div className="about-copy" data-reveal>
+            <div className="about-copy">
               {profile.about.map((para) => (
                 <p key={para.slice(0, 24)}>{renderMetrics(para)}</p>
               ))}
@@ -48,7 +42,7 @@ export default function App() {
 
         <section id="experience" className="section experience" aria-labelledby="experience-title">
           <div className="viewport-content">
-            <h2 id="experience-title" className="section-headline" data-reveal>
+            <h2 id="experience-title" className="section-headline">
               Experience
             </h2>
           </div>
@@ -61,12 +55,12 @@ export default function App() {
 
         <section id="skills" className="section" aria-labelledby="skills-title">
           <div className="viewport-content">
-            <h2 id="skills-title" className="section-headline" data-reveal>
+            <h2 id="skills-title" className="section-headline">
               Skills and tools
             </h2>
             <div className="card-grid">
-              {skills.map((s, i) => (
-                <article className="card" key={s.id} data-reveal style={delay(i % 2)} aria-labelledby={`${s.id}-title`}>
+              {skills.map((s) => (
+                <article className="card" key={s.id} aria-labelledby={`${s.id}-title`}>
                   <h3 id={`${s.id}-title`} className="card-title">
                     {s.label}
                   </h3>
@@ -83,10 +77,10 @@ export default function App() {
 
         <section id="certifications" className="section" aria-labelledby="certifications-title">
           <div className="viewport-content">
-            <h2 id="certifications-title" className="section-headline" data-reveal>
+            <h2 id="certifications-title" className="section-headline">
               Certifications and training
             </h2>
-            <ul className="card cert-list" data-reveal>
+            <ul className="card cert-list">
               {certifications.map((c) => (
                 <li className="cert-row" key={c.id}>
                   <div>
@@ -104,11 +98,11 @@ export default function App() {
 
         <section id="education" className="section" aria-labelledby="education-title">
           <div className="viewport-content">
-            <h2 id="education-title" className="section-headline" data-reveal>
+            <h2 id="education-title" className="section-headline">
               Education
             </h2>
             {education.map((e) => (
-              <article className="card edu-card" key={e.id} data-reveal aria-labelledby={`${e.id}-title`}>
+              <article className="card edu-card" key={e.id} aria-labelledby={`${e.id}-title`}>
                 <p className="tile-eyebrow">{e.period}</p>
                 <h3 id={`${e.id}-title`} className="card-title">
                   {e.title}
@@ -123,15 +117,15 @@ export default function App() {
 
         <section id="contact" className="section" aria-labelledby="contact-title">
           <div className="viewport-content">
-            <h2 id="contact-title" className="section-headline" data-reveal>
+            <h2 id="contact-title" className="section-headline">
               Contact
             </h2>
             <ul className="contact-grid">
-              {contacts.map((c, i) => {
+              {contacts.map((c) => {
                 const Icon = contactIcons[c.id] ?? Mail;
                 const external = !c.href?.startsWith('mailto:');
                 return (
-                  <li key={c.id} data-reveal style={delay(i)}>
+                  <li key={c.id}>
                     <a
                       className="contact-card"
                       href={c.href}
@@ -149,7 +143,7 @@ export default function App() {
                 );
               })}
             </ul>
-            <div className="contact-cta" data-reveal>
+            <div className="contact-cta">
               <a className="button" href={RESUME_URL} download={RESUME_FILENAME}>
                 <ArrowDownToLine size={17} strokeWidth={2} aria-hidden="true" />
                 Download CV
