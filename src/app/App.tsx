@@ -40,16 +40,16 @@ export default function App() {
           </div>
         </section>
 
-        <section id="experience" className="section experience" aria-labelledby="experience-title">
+        <section id="experience" className="section" aria-labelledby="experience-title">
           <div className="viewport-content">
             <h2 id="experience-title" className="section-headline">
               Experience
             </h2>
-          </div>
-          <div className="tiles">
-            {experience.map((e) => (
-              <ExperienceTile key={e.id} entry={e} onLearnMore={setOpenEntry} />
-            ))}
+            <div className="tiles">
+              {experience.map((e) => (
+                <ExperienceTile key={e.id} entry={e} onLearnMore={setOpenEntry} />
+              ))}
+            </div>
           </div>
         </section>
 
