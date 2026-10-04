@@ -23,7 +23,8 @@ npm-debug.log*
 !.env.example
 
 # Local agent config
-.claude/
+.claude/*
+!.claude/skills/
 
 # Vercel
 .vercel/
