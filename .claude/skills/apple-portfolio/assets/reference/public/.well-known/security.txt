@@ -1,0 +1,5 @@
+# Security contact for mabddullah.vercel.app (RFC 9116)
+Contact: mailto:muhammaddabddullah@outlook.com
+Expires: 2027-09-28T00:00:00.000Z
+Preferred-Languages: en
+Canonical: https://mabddullah.vercel.app/.well-known/security.txt
