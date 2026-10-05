@@ -11,11 +11,11 @@ themes and subtle scroll animations. Live at
 
 | Layer    | Choice                                                            |
 | -------- | ---------------------------------------------------------------- |
-| Build    | [Vite](https://vitejs.dev) 6                                      |
-| UI       | React 18 + TypeScript                                             |
+| Build    | [Vite](https://vitejs.dev) 8                                      |
+| UI       | React 19 + TypeScript                                             |
 | Styling  | One plain stylesheet, `src/styles/site.css` (CSS custom properties) |
 | Motion   | CSS transitions + IntersectionObserver (no animation library)     |
-| Icons    | [`lucide-react`](https://lucide.dev)                             |
+| Icons    | [`lucide-react`](https://lucide.dev) (GitHub and LinkedIn marks in `brand-icons.ts`) |
 | Font     | SF Pro via the system stack on Apple devices; self-hosted Inter elsewhere (`@fontsource-variable/inter`) |
 | Hosting  | Vercel (Git-connected, auto-deploy on push to `main`)            |
 
@@ -115,7 +115,7 @@ npm run build      # type-check, client build, server build, then scripts/preren
 npm run preview    # serve the production build locally
 ```
 
-Requires **Node 20+** (pinned via `engines` in `package.json`).
+Requires **Node 20.19+ or 22.12+** (what Vite 8 needs; pinned via `engines` in `package.json`).
 
 ---
 
