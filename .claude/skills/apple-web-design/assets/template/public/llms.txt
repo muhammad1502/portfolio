@@ -1,0 +1,6 @@
+# Fieldnote
+
+> Sample content from the apple-web-design template. Replace with a plain-text summary of the site for AI crawlers: who or what it is, key facts, and links.
+
+## Links
+- Website: https://example.com

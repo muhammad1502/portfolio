@@ -1,0 +1,30 @@
+# Dependencies
+node_modules/
+
+# Build output
+dist/
+dist-ssr/
+*.tsbuildinfo
+
+# Vite cache
+.vite/
+
+# Logs
+*.log
+npm-debug.log*
+
+# OS / editor
+.DS_Store
+*.local
+
+# Env
+.env
+.env.*
+!.env.example
+
+# Local agent config
+.claude/*
+!.claude/skills/
+
+# Vercel
+.vercel/

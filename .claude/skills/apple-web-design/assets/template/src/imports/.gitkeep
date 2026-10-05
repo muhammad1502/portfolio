@@ -1,0 +1,2 @@
+# Profile photo location. Drop an EXIF-stripped ~384px image here, then import it
+# in src/app/App.tsx and pass it to <Avatar src={...}> (see README → Assets).
