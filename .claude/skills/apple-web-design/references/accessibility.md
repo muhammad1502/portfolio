@@ -1,6 +1,6 @@
 # Accessibility (WCAG 2.2 AA)
 
-Target: WCAG 2.2 AA everywhere, axe-core zero violations in both themes, and the growth.design-style UX basics (clear hierarchy, obvious affordances, no surprises).
+Target: WCAG 2.2 AA everywhere, with zero axe-core violations in both themes. The UX psychology side (growth.design) is in `ux-principles.md`.
 
 ## Checklist for anything new
 
