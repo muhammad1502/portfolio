@@ -16,8 +16,10 @@ Each one exists because breaking it was noticed and disliked. Keep the reason in
 3. **Motion decorates, it never hides.** Everything is visible on first paint. Effects follow scroll position or interaction, never a timer on load, and switch off under `prefers-reduced-motion` (colour-only fades excepted).
 4. **WCAG 2.2 AA for real.** Contrast, visible focus never hidden by the sticky nav, 24px+ targets, keyboard paths, names that start with the visible label, "opens in a new tab" on new-tab links. axe reports zero violations.
 5. **Fast and safe by default.** Pre-rendered HTML, self-hosted fonts with metric-matched fallbacks, no third-party requests, a strict CSP with no inline scripts, real 404s.
-6. **True, human copy.** No invented facts, no em dashes, no AI-sounding filler. See `references/writing.md`.
-7. **Verify before claiming done.** Build, run the QA suite, look at screenshots, check the live site after deploy.
+6. **UX psychology from growth.design.** One primary action per area (Hick's Law), detail on request (Progressive Disclosure), short grouped sections (Chunking), big close targets (Fitts's Law), the strongest content first and a clear next step last. See `references/ux-principles.md`.
+7. **New features only if they fit.** Fun but professional, on phones and desktop alike. Add an effect or feature only when it matches the rest of the aesthetic and serves a principle; otherwise leave it out.
+8. **True, human copy.** No invented facts, no em dashes, no AI-sounding filler. See `references/writing.md`.
+9. **Research, then verify.** Look things up and cross-check them before stating them (versions, standards, product settings). Build, run the QA suite, look at screenshots and check the live site before saying anything is done.
 
 ## Starting a new site
 
@@ -52,6 +54,7 @@ Read the one that matches the task.
 - `references/motion.md`: every animation, how it's built, its reduced-motion behaviour, and bugs already hit.
 - `references/accessibility.md`: the WCAG 2.2 AA checklist and traps found in testing.
 - `references/architecture.md`: stack, pre-render and hydration, dependency upgrades, CSP and headers, SEO and AI readability, performance.
+- `references/ux-principles.md`: the growth.design principles behind the layout and interactions, and which to avoid.
 - `references/writing.md`: honesty and voice rules for the copy.
 - `references/qa-and-ship.md`: setting up and running the QA suite, Lighthouse, Playwright gotchas, the Vercel shipping routine.
 
