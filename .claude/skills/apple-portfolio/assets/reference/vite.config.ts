@@ -11,8 +11,8 @@ export default defineConfig(({ isSsrBuild }) => ({
         : {
             // Split React out so it stays cached independently of app code
             // across deploys.
-            manualChunks: {
-              react: ['react', 'react-dom'],
+            manualChunks(id: string) {
+              if (/[\\/]node_modules[\\/](react|react-dom|scheduler)[\\/]/.test(id)) return 'react';
             },
           },
     },

@@ -1,4 +1,5 @@
-import { Github, Globe } from 'lucide-react';
+import { Globe } from 'lucide-react';
+import { Github } from './brand-icons';
 
 function isGitHub(href: string): boolean {
   try {
