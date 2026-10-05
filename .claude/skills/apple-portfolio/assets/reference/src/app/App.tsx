@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
-import { ArrowDownToLine, ArrowUpRight, Github, Linkedin, Mail } from 'lucide-react';
+import { ArrowDownToLine, ArrowUpRight, Mail } from 'lucide-react';
+import { Github, Linkedin } from './components/brand-icons';
 import { GlobalNav } from './components/GlobalNav';
 import { Hero } from './components/Hero';
 import { ExperienceTile } from './components/ExperienceTile';

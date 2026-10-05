@@ -30,8 +30,7 @@ export function Hero() {
             width={144}
             height={144}
             decoding="async"
-            // React 18 only knows the lowercase HTML attribute.
-            {...{ fetchpriority: 'high' }}
+            fetchPriority="high"
             onError={() => setPhotoFailed(true)}
           />
         )}

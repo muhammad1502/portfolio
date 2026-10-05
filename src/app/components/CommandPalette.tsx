@@ -1,6 +1,7 @@
 import { useEffect, useMemo, useRef, useState } from 'react';
 import type { KeyboardEvent as ReactKeyboardEvent } from 'react';
-import { ArrowDownToLine, ArrowRight, Copy, CornerDownLeft, Github, Linkedin, Moon, Search, Sun } from 'lucide-react';
+import { ArrowDownToLine, ArrowRight, Copy, CornerDownLeft, Moon, Search, Sun } from 'lucide-react';
+import { Github, Linkedin } from './brand-icons';
 import type { LucideIcon } from 'lucide-react';
 import { contacts } from './resume-data';
 import { sections, RESUME_FILENAME, RESUME_URL } from '../lib/sections';

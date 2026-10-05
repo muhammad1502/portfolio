@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from 'react';
-import { BookOpen, Github } from 'lucide-react';
+import { BookOpen } from 'lucide-react';
+import { Github } from './brand-icons';
 import { projects } from './resume-data';
 import type { ResumeEntry } from './resume-data';
 import { haptic, prefersReducedMotion } from '../lib/motion';

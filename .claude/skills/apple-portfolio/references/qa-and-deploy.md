@@ -47,6 +47,7 @@ When you add a feature, add checks for it, and update hardcoded counts (nav sect
 ## Playwright gotchas
 
 - `locator.click()` / `tap()` on sticky or scroll-snapped elements scrolls the page first and breaks scroll-position tests; tap by coordinates (`page.mouse` / `page.touchscreen` at the element's box) instead.
+- `locator.tap()` on a card that is still settling (scroll-linked motion) can miss: it scrolls and taps in the same instant, the card moves between press and release, and the click lands on the parent. Use the suite's `tapSettled(page, locator)` helper (scroll into view, wait 400 ms, tap the centre). Real fingers never hit this: the card is at rest once the scroll stops.
 - Make selectors explicit when similar elements multiply (`#projects .button:not(.button-secondary)`, `dialog.modal`), or new elements make them ambiguous.
 - Use `reducedMotion: 'reduce'` contexts for screenshots, and a normal context for motion tests.
 - Wait for `document.fonts.ready` before PDF or OG captures.
