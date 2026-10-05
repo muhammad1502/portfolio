@@ -2,20 +2,24 @@
 
 ## Stack
 
-- Vite 6 + React 18 + TypeScript, one plain stylesheet (`src/styles/site.css`), no CSS framework, no animation library, no router, no backend.
-- Icons: `lucide-react`. Font: `@fontsource-variable/inter` (self-hosted).
-- Hosting: Vercel, Git-connected. Every push to `main` deploys production; PRs get preview deployments. Node 20+ (`engines` in package.json).
-- `vite.config.ts` is a function config; `manualChunks` vendor splitting applies to the client build only (it breaks the SSR build).
+- Vite 8 (Rolldown) + React 19 + TypeScript 7, one plain stylesheet (`src/styles/site.css`), no CSS framework, no animation library, no router, no backend.
+- Icons: `lucide-react` 1.x. Lucide 1.0 removed brand logos, so the GitHub and LinkedIn marks live in `src/app/components/brand-icons.ts` (the old lucide paths via `createLucideIcon`); import those two from there, everything else from `lucide-react`. Font: `@fontsource-variable/inter` (self-hosted).
+- Hosting: Vercel, Git-connected. Every push to `main` deploys production; PRs get preview deployments. Node 20.19+ or 22.12+ (Vite 8's requirement, set in `engines`).
+- `vite.config.ts` is a function config; `manualChunks` vendor splitting applies to the client build only (it breaks the SSR build). Vite 8 only accepts the function form of `manualChunks` (the object form fails the build).
 
 ## Build: pre-render plus hydration
 
 `npm run build` = `tsc -b && vite build && vite build --ssr src/entry-server.tsx --outDir dist-ssr && node scripts/prerender.mjs`.
 
 - `src/entry-server.tsx` renders `<App>` with `renderToString`.
-- `scripts/prerender.mjs` replaces `<div id="root"></div>` in `dist/index.html` with that HTML, adds a `<link rel="preload">` for the Latin Inter woff2, and deletes `dist-ssr`. It prints `prerender: wrote N KB`.
+- `scripts/prerender.mjs` replaces `<div id="root"></div>` in `dist/index.html` with that HTML, adds a `<link rel="preload">` for the Latin Inter woff2, moves any resource hints React 19 emits at the top of the markup (the hero photo's `<link rel="preload" as="image">`, from `fetchPriority="high"`) into `<head>`, and deletes `dist-ssr`. It prints `prerender: wrote N KB`.
 - `src/main.tsx` calls `hydrateRoot` when `#root` has content, else `createRoot` (the `/?print` route renders `PrintResume` client-side).
 - Hydration safety: the first client render must equal the server render. Anything browser-specific (theme, reduced motion, OS for ⌘/Ctrl, count-up start value) is read in `useIsomorphicLayoutEffect` after mount, before paint.
 - Benefits: content is in the HTML for link previews, search engines and AI crawlers; faster first paint; CLS 0.
+
+## Dependency updates
+
+Dependabot opens weekly grouped PRs (production and development groups). Their Vercel preview fails when a major version breaks the build. Don't merge them blind: reproduce the build on the Dependabot branch, apply the upgrade on the working branch with the code fixes, run the full QA suite and Lighthouse, ship it, then close the Dependabot PRs pointing to the PR that did it. Bumps applied in October 2026: lucide-react 0.454 → 1.49, react/react-dom 18.3 → 19.3, @vitejs/plugin-react 4.7 → 6.1, typescript 5.9 → 7.0, vite 6.4 → 8.3.
 
 ## Security
 
@@ -38,4 +42,4 @@
 
 ## Performance
 
-Last local Lighthouse run (brotli, like Vercel): mobile 99 / 100 / 100 / 100, desktop 100 / 100 / 100 / 100, CLS 0 on both. Keep it there: no new third-party scripts, images sized and lazy where below the fold, fonts preloaded, nothing render-blocking added.
+Last local Lighthouse run (brotli, like Vercel), after the React 19 / Vite 8 upgrade: mobile 100 / 100 / 100 / 100 (LCP 1.6 s, TBT 50 ms), desktop 100 across the board, CLS 0 on both. React 19 is a bigger download (React chunk ~219 KB raw vs ~142 KB) but blocks the main thread less. Keep it there: no new third-party scripts, images sized and lazy where below the fold, fonts preloaded, nothing render-blocking added.

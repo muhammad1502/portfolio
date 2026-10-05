@@ -20,6 +20,16 @@ async function open(opts = {}) {
   await page.waitForTimeout(400);
   return { ctx, page, errors };
 }
+// Tap like a finger: bring the element into view, let scroll-linked motion
+// (card settle) come to rest, then tap its centre. locator.tap() scrolls and
+// taps in the same instant, so a settling card can move between press and
+// release and the click lands on its parent instead.
+async function tapSettled(page, locator) {
+  await locator.scrollIntoViewIfNeeded();
+  await page.waitForTimeout(400);
+  const bb = await locator.boundingBox();
+  await page.touchscreen.tap(bb.x + bb.width / 2, bb.y + bb.height / 2);
+}
 async function scrollAll(page) {
   const h = await page.evaluate(() => document.body.scrollHeight);
   for (let y = 0; y <= h; y += 300) { await page.evaluate((y) => window.scrollTo({ top: y, behavior: 'instant' }), y); await page.waitForTimeout(60); }
@@ -226,7 +236,7 @@ for (const colorScheme of ['light', 'dark']) {
   check(JSON.stringify(cur) === '["#skills"]', 'phone menu marks the current section ' + JSON.stringify(cur));
   await tapMenu(); await page.waitForTimeout(400);
   // details slide up as a bottom sheet
-  await page.locator('.tile .button:not(.button-secondary)').first().tap(); await page.waitForTimeout(60);
+  await tapSettled(page, page.locator('.tile .button:not(.button-secondary)').first()); await page.waitForTimeout(60);
   const sheet = await page.evaluate(() => getComputedStyle(document.querySelector('dialog.modal')).animationName);
   check(sheet === 'sheet-in', 'phone details open as a bottom sheet (' + sheet + ')');
   await page.waitForTimeout(600); await page.locator('.modal-close').tap(); await page.waitForTimeout(60);
@@ -271,7 +281,7 @@ for (const colorScheme of ['light', 'dark']) {
     await cdp.send('Input.dispatchTouchEvent', { type: 'touchEnd', touchPoints: [] });
   };
   await page.evaluate(() => scrollTo({ top: 0, behavior: 'instant' }));
-  await page.locator('.tile .button:not(.button-secondary)').first().tap(); await page.waitForTimeout(700);
+  await tapSettled(page, page.locator('.tile .button:not(.button-secondary)').first()); await page.waitForTimeout(700);
   check(await page.evaluate(() => getComputedStyle(document.querySelector('.sheet-grabber')).display === 'block'), 'phone sheet shows a grab handle');
   await drag(120, 180); await page.waitForTimeout(500);
   const snap = await page.evaluate(() => ({ open: document.querySelector('dialog.modal').open, tf: document.querySelector('dialog.modal').style.transform }));
