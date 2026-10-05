@@ -22,12 +22,14 @@ export function Footer() {
             <ul>
               {contacts.map((c) => (
                 <li key={c.id}>
-                  <a
-                    href={c.href}
-                    {...(c.href?.startsWith('mailto:') ? {} : { target: '_blank', rel: 'noopener noreferrer' })}
-                  >
-                    {c.label}
-                  </a>
+                  {c.href?.startsWith('mailto:') ? (
+                    <a href={c.href}>{c.label}</a>
+                  ) : (
+                    <a href={c.href} target="_blank" rel="noopener noreferrer">
+                      {c.label}
+                      <span className="visually-hidden">, opens in a new tab</span>
+                    </a>
+                  )}
                 </li>
               ))}
             </ul>

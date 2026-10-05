@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="robots" content="noindex" />
+    <title>Page not found | Fieldnote</title>
+    <link rel="icon" type="image/png" href="/favicon.png" />
+    <style>
+      :root { color-scheme: light dark; --bg: #fff; --text: #1d1d1f; --text-2: #6e6e73; --btn-bg: #0071e3; --btn-hover: #0068d6; --btn-glow: rgba(0, 113, 227, 0.28); --btn-text: #fff; --focus: #0071e3; }
+      @media (prefers-color-scheme: dark) { :root { --bg: #000; --text: #f5f5f7; --text-2: #a1a1a6; --btn-bg: #f5f5f7; --btn-hover: #fff; --btn-glow: rgba(245, 245, 247, 0.28); --btn-text: #1d1d1f; --focus: #2997ff; } }
+      body {
+        margin: 0; min-height: 100vh; display: grid; place-items: center; text-align: center;
+        background: var(--bg); color: var(--text); padding: 0 24px;
+        font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Text', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+      }
+      h1 { margin: 0; font-size: 40px; font-weight: 600; letter-spacing: 0; }
+      p { margin: 12px 0 28px; color: var(--text-2); font-size: 19px; }
+      a {
+        display: inline-flex; align-items: center; justify-content: center; height: 44px; padding: 0 21px;
+        border-radius: 980px; background: var(--btn-bg); color: var(--btn-text); font-size: 17px; text-decoration: none;
+      }
+      a { transition: background-color 0.25s, box-shadow 0.3s, transform 0.3s; }
+      a:hover { background: var(--btn-hover); box-shadow: 0 0 0 4px var(--btn-glow), 0 6px 18px var(--btn-glow); transform: translateY(-1px); }
+      a:focus-visible { outline: 2px solid var(--focus); outline-offset: 2px; }
+    </style>
+  </head>
+  <body>
+    <main>
+      <h1>Page not found</h1>
+      <p>The page you're looking for doesn't exist.</p>
+      <a href="/">Go to homepage</a>
+    </main>
+  </body>
+</html>
