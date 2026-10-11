@@ -475,6 +475,6 @@ export const certifications: Certification[] = [
     name: 'Identity Security Sales Certification',
     issuer: 'WatchGuard',
     kind: 'Sales certification',
-    note: 'Valid through Sep 2027',
+    note: 'Valid through Jul 2027',
   },
 ];
