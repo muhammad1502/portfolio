@@ -38,4 +38,4 @@ SOC analyst for a Canadian cybersecurity firm, handling threat detection, incide
 - CompTIA Security+ (certification exam, in progress)
 - Blue Team Junior Analyst (BTJA) (Security Blue Team, training pathway certificate)
 - Introduction to Cybersecurity Essentials (IBM, course certificate)
-- Identity Security Sales Certification (WatchGuard, sales certification, valid through Sep 2027)
+- Identity Security Sales Certification (WatchGuard, sales certification, valid through Jul 2027)
