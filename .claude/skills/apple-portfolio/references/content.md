@@ -53,7 +53,7 @@ Certifications (exact wording matters):
 - CompTIA Security+: **In progress**, shown only on the certification card
 - Blue Team Junior Analyst (**BTJA**), Security Blue Team, training pathway certificate. It is the free pathway, **not BTL1**, even though an old resume says BTL1.
 - Introduction to Cybersecurity Essentials, IBM (course certificate)
-- Identity Security Sales Certification, WatchGuard. He renewed it: **valid through Jul 2027** (corrected from Jul 2027 in October 2026).
+- Identity Security Sales Certification, WatchGuard. He renewed it: **valid through Jul 2027**.
 
 Projects (public repos; descriptions restate each README): GitLab Triage Accelerator (`gitlab-automator`, has a write-up), VT Extension, VT Checker for Android. Other public repos not yet on the site: link-opener, FocusBlocker, lead_miner, engineering-kit, fcc-javascript, QuackWashProject. Read a repo's README before adding it, and ask whether he wants it shown.
 
@@ -66,15 +66,12 @@ Projects (public repos; descriptions restate each README): GitLab Triage Acceler
 - **Job title** is Security Operations Analyst everywhere, including the OG image, CV metadata and JSON-LD.
 - **GitHub profile bio and pins:** he said leave them as they are.
 - **Recommendations / testimonials:** he has none. Don't add a section.
-- **threat actor-led-style named-entity timelines** were skipped as fabrication risk.
+- **Named incident timelines** were skipped as fabrication risk.
 - **Analytics:** undecided. Don't add tracking without asking (it would also need CSP and privacy changes).
 
 ## 5. Open questions (ask before using)
 
-- [removed]
-- FitSmart: the site version (growth audit, Jul 2026) and an older resume version (QA & Product Quality Lead, Jan 2026 to present, 12 surfaces, ~180 defects) conflict. He was unsure, so the site version stays.
-- Some Ninpo email signatures say "[another name]". The site uses Muhammad Abdullah.
-- Languages spoken: never stated.
+Some details are still unconfirmed. They are kept out of this public repository; ask him before adding new figures, dates or credentials, and never expand an existing claim beyond what he has confirmed.
 
 ## 6. Case studies: anonymisation
 
@@ -84,9 +81,7 @@ The Case studies section holds real Ninpo investigations, published with his per
 - Tool and vendor names (Elastic, ANY.RUN, Perception Point, Zoho WorkDrive, Cloudflare Workers) are fine.
 - Exact times can become "within about three minutes".
 - Only state the outcome if it's known. If the sign-in check result isn't known, end at "I checked…".
-- The QA suite has a list of known client identifiers that must never appear on the page. Add to it when new ones come up.
-
-Known identifiers to keep off the site: a bank, [host] hostnames, [client], [client], [client], [client], [client] / [client], [client], [client], [client], [client] / [client], [person], [person], [person], [person], [person], [person].
+- The portfolio QA suite checks the page, scripts and llms.txt against fingerprints of known client and people names (stored as hashes, because this repository is public). When a new name comes up, add its fingerprint there. Never write client names into any file in this repository.
 
 ## 7. Write-up template
 
