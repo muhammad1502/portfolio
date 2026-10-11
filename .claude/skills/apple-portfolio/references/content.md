@@ -53,7 +53,7 @@ Certifications (exact wording matters):
 - CompTIA Security+: **In progress**, shown only on the certification card
 - Blue Team Junior Analyst (**BTJA**), Security Blue Team, training pathway certificate. It is the free pathway, **not BTL1**, even though an old resume says BTL1.
 - Introduction to Cybersecurity Essentials, IBM (course certificate)
-- Identity Security Sales Certification, WatchGuard. He renewed it: **valid through Jul 2027**.
+- Identity Security Sales Certification, WatchGuard. He renewed it: **valid through Jul 2027** (corrected from Jul 2027 in October 2026).
 
 Projects (public repos; descriptions restate each README): GitLab Triage Accelerator (`gitlab-automator`, has a write-up), VT Extension, VT Checker for Android. Other public repos not yet on the site: link-opener, FocusBlocker, lead_miner, engineering-kit, fcc-javascript, QuackWashProject. Read a repo's README before adding it, and ask whether he wants it shown.
 

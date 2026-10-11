@@ -28,3 +28,4 @@ Use this to predict what he'd want. His messages are short and casual; read them
 17. "**Don't name drop threat actor-led**" → "threat actor-led ransomware attack".
 18. Renamed the repo to `portfolio`.
 19. Asked for all of this to be saved as a skill.
+20. October 2026: WatchGuard expiry corrected to **Jul 2027** (site, CV, llms.txt; he updates LinkedIn himself). CV title confirmed as Security Operations Analyst.
