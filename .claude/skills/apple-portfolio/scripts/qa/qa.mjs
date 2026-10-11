@@ -455,9 +455,29 @@ for (const colorScheme of ['light', 'dark']) {
   const btns = page.locator('#cases .button');
   const n = await btns.count();
   check(n === 4, 'four case study buttons ' + n);
-  const body = await page.evaluate(() => document.body.innerText);
-  const leaks = ['RBC', 'EC2AMAZ', 'Lawson', 'rioux', 'Dean and', 'PMI', 'PlugCPA', 'Texlon', 'AVI Media', 'Feed It Forward', 'CREAAMIK', 'Seona', 'Mahsa', 'Herman'].filter((w) => body.includes(w));
-  check(leaks.length === 0, 'no client identifiers on the page ' + leaks.join(','));
+  // Client and people names that must never be published, stored only as
+  // truncated SHA-256 fingerprints so this public file doesn't reveal them.
+  // Add one: node -e "console.log(require('crypto').createHash('sha256').update('name in lowercase').digest('hex').slice(0,16))"
+  const CLIENT_FINGERPRINTS = new Set(['9c758eed31287539', '0919f46ddbf14188', '4aa59b5a3761c438', '1fda7c7785109d40', 'f0684fbb8d8b3ba4', '54235e6a8c59a289', '72be71d5b8458748', '88680483c57ba911', 'a26f54b76e7c7316', '638ed0d663c09e70', '1c4226d9e630e3c9', 'f91e7b4f7f7308a7', '5afa4da2d9445416', '5cbb80cf8115f2b0', '88a2c44bae1248ec', '3bf39bf3fe465c06', '6177321eac992341', 'd4969549921b153c', 'ba83f79d43537a52']);
+  const crypto = await import('node:crypto');
+  const fingerprintHits = (text) => {
+    const words = text.toLowerCase().split(/[^a-z0-9]+/).filter(Boolean);
+    const hits = new Set();
+    for (let i = 0; i < words.length; i++) {
+      for (let n = 1; n <= 3 && i + n <= words.length; n++) {
+        const h = crypto.createHash('sha256').update(words.slice(i, i + n).join(' ')).digest('hex').slice(0, 16);
+        if (CLIENT_FINGERPRINTS.has(h)) hits.add(h);
+      }
+    }
+    return [...hits];
+  };
+  // Everything a visitor or crawler can read: the page, the scripts (which
+  // hold the modal text), llms.txt and the CV's text.
+  const sources = [await page.evaluate(() => document.body.innerText + ' ' + document.head.innerHTML)];
+  for (const src of await page.evaluate(() => [...document.querySelectorAll('script[src]')].map((s) => s.src))) sources.push(await (await fetch(src)).text());
+  sources.push(await (await fetch(BASE + 'llms.txt')).text());
+  const leaks = fingerprintHits(sources.join(' '));
+  check(leaks.length === 0, 'no client identifiers on the page, in scripts or llms.txt ' + leaks.join(','));
   for (let i = 0; i < n; i++) {
     const b = btns.nth(i);
     const card = await b.evaluate((el) => el.closest('article').querySelector('.card-title').textContent);
